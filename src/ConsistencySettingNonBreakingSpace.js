@@ -43,7 +43,7 @@ export const ConsistencySettingNonBreakingSpace = () => {
     return(
         <ToggleControl
             label={ __( 'Non-breaking space correction', 'consistency' )	}
-			help={ __( 'Replace a non-breaking space followed by a character from this list [? ! : € $ %] with a non-breaking space', 'consistency' ) }
+			help={ __( 'Replace a breaking space followed by a character from this list [? ! : € $ %] with a non-breaking space', 'consistency' ) }
             checked={ settings?.find( x => x.slug === 'nonBreakingSpace' )?.value || false }
             onChange={ onSettingChanged }
         />
