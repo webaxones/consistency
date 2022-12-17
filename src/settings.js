@@ -19,7 +19,7 @@ export const SidebarSettings = () => {
                 title={ __( 'Consistency Settings', 'consistency' ) }
             >
 				<PanelBody
-					title={ __( 'Activation', 'consistency' ) }
+					title={ __( 'Status', 'consistency' ) }
 					initialOpen={ true }
 				>
 					<PanelRow>
@@ -29,7 +29,7 @@ export const SidebarSettings = () => {
 				{ isAdmin && 
 					<PanelBody
 						title={ __( 'Global Settings', 'consistency' ) }
-						initialOpen={ false }
+						initialOpen={ true }
 					>
 						<PanelRow>
 							<ConsistencySettingQuote />
