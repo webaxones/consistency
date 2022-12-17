@@ -8,28 +8,28 @@ Requires PHP: 8.0
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Corrects the input of textual content in the block editor according to the configured typographical rules.
+Corrects the input of text content in the Block Editor according to the configured typographical rules.
 
 == Description ==
 
-The purpose of this plugin is to provide a tool allowing administrators to define typographical rules in order to maintain typographical consistency in the textual contents entered on the editor.
+The purpose of this plugin is to provide a tool allowing administrators to define typographical rules in order to maintain typographical consistency in the text contents entered on the editor.
 The corrections are automatic and are made during the entry as well as on a copy paste.
-Autocorrect can always be disabled by the user.
-Autocorrect is available on pages and posts (and custom posts depending on args)
+Autocorrect rules can be enabled/disabled by any user.
+Autocorrect is available on pages, posts and custom post types (if their configuration allows Rest API usage)
 
 Currently, the AutoCorrects offered are as follows:
-- Replace straight quote (') with curly quote (’)
-- Replaces 3 successive dots (...) with ellipsis (…)
+- Replace straight quote with curly quote
+- Replaces 3 successive dots with ellipsis
 - Replace a breaking space followed by a character from this list [? ! : € $ %] with a non-breaking space
 
-Technically, rules parameters are saved in settings, while activation parameter is saved in user meta.
+Technically, rules are saved in the wp_options table, while active/inactive states are saved as user meta data.
 This data is deleted when the plugin is uninstalled.
 
-All the settings are directly in a plugin sidebar under the block editor: no more searching for an options page, always available and discreet.
+Settings are directly in a plugin sidebar under the Block Editor: no more searching for an options page, always available and discreet.
 
 == Screenshots ==
 
-1. Plugin settings sidebar in the block editor.
+1. Plugin settings sidebar in the Block Editor.
 
 == Installation ==
 

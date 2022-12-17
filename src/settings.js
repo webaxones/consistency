@@ -28,7 +28,7 @@ export const SidebarSettings = () => {
 				</PanelBody>
 				{ isAdmin && 
 					<PanelBody
-						title={ __( 'Global settings', 'consistency' ) }
+						title={ __( 'Global Settings', 'consistency' ) }
 						initialOpen={ false }
 					>
 						<PanelRow>
