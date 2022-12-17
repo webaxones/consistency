@@ -16,7 +16,7 @@ export const regs = [
 	{
 		// Replace a non-breaking space followed by a character from this list [? ! : € $ %] with a non-breaking space
 		name: 'nonBreakingSpace',
-		mask: / (?=[\?|\!|\:|\€|\$|\%])/g,
+		mask: / (?=[\?|\!|\:|\;|\»|\€|\$|\£|\¥|\₽|\元|\%])/g,
 		replace: ' ',
 		nbMoved: 0
 	}

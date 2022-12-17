@@ -20,7 +20,7 @@ Autocorrect is available on pages, posts and custom post types (if their configu
 Currently, the AutoCorrects offered are as follows:
 - Replace straight quote with curly quote
 - Replaces 3 successive dots with ellipsis
-- Replace a breaking space followed by a character from this list [? ! : € $ %] with a non-breaking space
+- Replace a breaking space followed by a character from this list [? ! : ; » € $ £ ¥ ₽ 元 %] with a non-breaking space
 
 Technically, rules are saved in the wp_options table, while active/inactive states are saved as user meta data.
 This data is deleted when the plugin is uninstalled.
