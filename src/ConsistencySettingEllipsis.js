@@ -43,7 +43,7 @@ export const ConsistencySettingEllipsis = () => {
     return(
         <ToggleControl
             label={ __( 'Ellipsis correction', 'consistency' )	}
-			help={ __( 'Replaces 3 successive dots (...) with ellipsis (…)', 'consistency' ) }
+			help={ __( 'Replaces 3 successive dots with ellipsis', 'consistency' ) }
             checked={ settings?.find( x => x.slug === 'ellipsis' )?.value || false }
             onChange={ onSettingChanged }
         />
