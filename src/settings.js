@@ -4,7 +4,7 @@ import { PanelBody, PanelRow } from '@wordpress/components'
 import { ConsistencySettingState } from './ConsistencySettingState'
 import { ConsistencySettingQuote } from './ConsistencySettingQuote'
 import { ConsistencySettingEllipsis } from './ConsistencySettingEllipsis'
-import { ConsistencySettingNonBreakingSpace } from './ConsistencySettingNonBreakingSpace'
+import { ConsistencySettingBreakingSpace } from './ConsistencySettingBreakingSpace'
 import { select } from '@wordpress/data'
 
 
@@ -38,7 +38,7 @@ export const SidebarSettings = () => {
 							<ConsistencySettingEllipsis />
 						</PanelRow>
 						<PanelRow>
-							<ConsistencySettingNonBreakingSpace />
+							<ConsistencySettingBreakingSpace />
 						</PanelRow>
 					</PanelBody>
 				}

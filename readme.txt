@@ -3,7 +3,7 @@ Contributors: webaxones
 Tags: block editor, typography
 Requires at least: 5.9
 Tested up to: 6.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires PHP: 7.3 or higher
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -37,6 +37,13 @@ Settings are directly in a plugin sidebar under the Block Editor: no more search
 2. Configure the rules in the editor.
 
 == Changelog ==
+
+= 1.0.1 =
+* Implementation of the preparation for the management of the different locales
+* Added more currencies to regex
+* Changed PHP min requirements for PHP 7.3 or higher and open by default both settings panels
+* Improved texts with the help of Vlad Timotei, aka @vlad-timotei aka aka Baby Yoda
+* Improved the banner and fix bad help message for non breaking/breaking spaces toggle control
 
 = 1.0.0 =
 

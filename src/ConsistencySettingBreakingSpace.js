@@ -4,7 +4,7 @@ import { ToggleControl } from '@wordpress/components'
 import { store as coreStore, useEntityProp } from '@wordpress/core-data'
 import { store as noticesStore } from '@wordpress/notices'
 
-export const ConsistencySettingNonBreakingSpace = () => {
+export const ConsistencySettingBreakingSpace = () => {
 	const [ settings, setSettings ] = useEntityProp(
 		'root',
 		'site',
@@ -18,14 +18,14 @@ export const ConsistencySettingNonBreakingSpace = () => {
 	const onSettingChanged = value => {
 
 		let newSettings = settings.map( obj => {
-			if ( 'nonBreakingSpace' === obj.slug ) {
+			if ( 'breakingSpace' === obj.slug ) {
 			  return { ...obj, value: value }
 			}
 			return obj
 		} )
 
-		if ( ! newSettings?.find( x => x.slug === 'nonBreakingSpace' ) ) {
-			newSettings.push( { slug: 'nonBreakingSpace', value: value } )
+		if ( ! newSettings?.find( x => x.slug === 'breakingSpace' ) ) {
+			newSettings.push( { slug: 'breakingSpace', value: value } )
 		}
 		
 		setSettings( newSettings )
@@ -34,17 +34,24 @@ export const ConsistencySettingNonBreakingSpace = () => {
 		createNotice(
 			__( 'info', 'consistency' ), // Can be one of: success, info, warning, error.
 			value
-				? __( 'Non-breaking space correction is enabled', 'consistency' )
-				: __( 'Non-breaking space correction is disabled', 'consistency' ),
+				? __( 'Breaking space correction is enabled', 'consistency' )
+				: __( 'Breaking space correction is disabled', 'consistency' ),
 			{ isDismissible: true }
 		)
 	}
 
     return(
         <ToggleControl
-            label={ __( 'Non-breaking space correction', 'consistency' )	}
-			help={ __( 'Replaces a breaking space followed by a character from this list [? ! : € $ %] with a non-breaking space', 'consistency' ) }
-            checked={ settings?.find( x => x.slug === 'nonBreakingSpace' )?.value || false }
+            label={ __( 'Breaking space correction', 'consistency' )	}
+			help={ (
+				<>
+				{ __( 'Replaces a breaking space followed by a character from this list:', 'consistency' ) }
+				<br /><code>? ! : ; » € $ £ ¥ ₽ 元 %</code>
+				{ __( ' with a non-breaking space', 'consistency' ) }
+				</>
+				)
+			}
+			checked={ settings?.find( x => x.slug === 'breakingSpace' )?.value || false }
             onChange={ onSettingChanged }
         />
     )

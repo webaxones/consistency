@@ -43,7 +43,15 @@ export const ConsistencySettingQuote = () => {
     return(
         <ToggleControl
             label={ __( 'Quote correction', 'consistency' )	}
-			help={ __( 'Replaces straight quotes (\') with curved quotes (’)', 'consistency' ) }
+			help={ (
+				<>
+				{ __( 'Replaces straight quotes ', 'consistency' ) }
+				<code>'</code>
+				{ __( ' with curved quotes ', 'consistency' ) }
+				<code>’</code>
+				</>
+				)
+			}
             checked={ settings?.find( x => x.slug === 'quote' )?.value || false }
             onChange={ onSettingChanged }
         />
