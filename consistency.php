@@ -30,6 +30,7 @@ function enqueue_script(): void {
 		$info['version'],
 		true
 	);
+	wp_set_script_translations( 'consistency-script', 'consistency' );
 }
 add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_script' );
 
