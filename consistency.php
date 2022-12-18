@@ -3,14 +3,13 @@
  * Plugin Name:       Consistency
  * Plugin URI:        https://www.webaxones.com
  * Description:       Fixes typographical consistency
- * Version:           1.0.1
+ * Version:           1.0.2
  * Requires at least: 6.0
  * Requires PHP:      7.3 or higher
  * Author:            Loïc Antignac
  * License:           GPL-3.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       consistency
- * Domain Path:  /languages
  */
 
 namespace Consistency;
@@ -92,7 +91,7 @@ function is_multilingual(): bool {
  * @return string $locale locale used in contents
  */
 function get_language_probably_used_in_contents(): string {
-	$locale = get_locale();
+	$locale = get_bloginfo('language');
 	return $locale;
 }
 
@@ -118,7 +117,7 @@ function set_default_settings( string $locale ): array {
 			'value' => false,
 		],
 	];
-	if ( in_array( $locale, [ 'fr_FR', 'fr_BE' ], true ) ) {
+	if ( in_array( $locale, [ 'fr-FR', 'fr-BE' ], true ) ) {
 		return [
 			[
 				'slug'  => 'quote',
@@ -135,7 +134,7 @@ function set_default_settings( string $locale ): array {
 		];
 	}
 
-	if ( in_array( $locale, [ 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB' ], true ) ) {
+	if ( in_array( $locale, [ 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ], true ) ) {
 		return [
 			[
 				'slug'  => 'quote',
