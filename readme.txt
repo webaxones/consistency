@@ -3,7 +3,7 @@ Contributors: webaxones
 Tags: block editor, typography
 Requires at least: 5.9
 Tested up to: 6.1
-Stable tag: 1.0.2
+Stable tag: 1.0.4
 Requires PHP: 7.3 or higher
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -37,6 +37,12 @@ Settings are directly in a plugin sidebar under the Block Editor: no more search
 2. Configure the rules in the editor.
 
 == Changelog ==
+
+= 1.0.4 =
+* Finally fixed the translation bug: it was an extra slash to plugin_dir_path
+
+= 1.0.3 =
+* Next try to fix translations by adding wp_set_script_translations
 
 = 1.0.2 =
 * Fixed translation problem and replace get_locale with current active locale

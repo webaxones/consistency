@@ -3,7 +3,7 @@
  * Plugin Name:       Consistency
  * Plugin URI:        https://www.webaxones.com
  * Description:       Fixes typographical consistency
- * Version:           1.0.2
+ * Version:           1.0.4
  * Requires at least: 6.0
  * Requires PHP:      7.3 or higher
  * Author:            Loïc Antignac
@@ -22,10 +22,10 @@ defined( 'ABSPATH' ) || exit;
  * @return void
  */
 function enqueue_script(): void {
-	$info = include plugin_dir_path( __FILE__ ) . '/build/index.asset.php';
+	$info = include plugin_dir_path( __FILE__ ) . 'build/index.asset.php';
 	wp_enqueue_script(
 		'consistency-script',
-		plugin_dir_url( __FILE__ ) . '/build/index.js',
+		plugin_dir_url( __FILE__ ) . 'build/index.js',
 		$info['dependencies'],
 		$info['version'],
 		true
