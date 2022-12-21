@@ -3,7 +3,7 @@ Contributors: webaxones
 Tags: block editor, typography
 Requires at least: 5.9
 Tested up to: 6.1
-Stable tag: 1.0.4
+Stable tag: 1.1.0
 Requires PHP: 7.3 or higher
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -18,9 +18,22 @@ Autocorrect rules can be enabled/disabled by any user.
 Autocorrect is available on pages, posts and custom post types (if their configuration allows Rest API usage)
 
 Currently, the AutoCorrects offered are as follows:
-- Replace straight quote with curly quote
-- Replaces 3 successive dots with ellipsis
-- Replace a breaking space followed by a character from this list [? ! : ; » € $ £ ¥ ₽ 元 %] with a non-breaking space
+
+For the English language (based on the language set on the site)
+
+- Quote Correction: Replaces straight quotes with curved quotes ' → ’
+- Ellipsis Correction: Replaces 3 dots with ellipsis ... → …
+- Regular quotes Correction: Replaces regular quotes with curly quotes " " → “ ”
+- Space before Correction: Remove any space preceding a character from this list (? ! : ; %)
+
+For the French language (based on the language set on the site)
+
+- Quote Correction: Replaces straight quotes with curved quotes ' → ’
+- Ellipsis Correction: Replaces 3 dots with ellipsis ... → …
+- Regular quotes Correction: Replaces regular quotes with French quotes " " → « »
+- Breaking space Correction: Replaces a breaking space followed by a character from this list (? ! : ; » € $ £ ¥ ₽ 元 %) with a non-breaking space
+- No space before Correction: Adds a non-breaking space before a character from this list (? ! : ; » € $ £ ¥ ₽ 元 %) having no space before
+
 
 Technically, rules are saved in the wp_options table, while active/inactive states are saved as user meta data.
 This data is deleted when the plugin is uninstalled.
@@ -29,7 +42,8 @@ Settings are directly in a plugin sidebar under the Block Editor: no more search
 
 == Screenshots ==
 
-1. Plugin settings sidebar in the Block Editor.
+1. Rules specific to the English language and correction of a copy-pasted text.
+1. Rules specific to the French language and correction on the fly.
 
 == Installation ==
 
@@ -37,6 +51,12 @@ Settings are directly in a plugin sidebar under the Block Editor: no more search
 2. Configure the rules in the editor.
 
 == Changelog ==
+
+= 1.1.0 =
+* Locales management: English and French for now. Rules are automatically selected but can be modified by an admin
+* Replacement of notices with self-hiding snackbars
+* Code improvements
+* Replacement of screenshots with animated gifs to show the process even if it is discreet.
 
 = 1.0.4 =
 * Finally fixed the translation bug: it was an extra slash to plugin_dir_path

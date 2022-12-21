@@ -20,7 +20,7 @@ export const ConsistencySettingState = () => {
 
 	const { saveEditedEntityRecord } = useDispatch( coreStore )
 	const { createNotice } = useDispatch( noticesStore )
-		
+	
 	const onSettingChanged = value => {
 		setSettings( 
 			{ consistency_plugin_setting_state: [ value ] }
@@ -32,15 +32,15 @@ export const ConsistencySettingState = () => {
 		createNotice(
 			__( 'info', 'consistency' ), // Can be one of: success, info, warning, error.
 			value
-				? __( 'Consistency correction is enabled', 'consistency' )
-				: __( 'Consistency correction is disabled', 'consistency' ),
-			{ isDismissible: true }
+				? __( 'Consistency Correction is enabled', 'consistency' )
+				: __( 'Consistency Correction is disabled', 'consistency' ),
+			{ isDismissible: true, type: 'snackbar', speak: true, explicitDismiss: true }
 		)
 	}
 
     return(
         <ToggleControl
-            label={ __( 'Consistency correction', 'consistency' ) }
+            label={ __( 'Consistency Correction', 'consistency' ) }
 			help={ __( 'Turn on/off autocorrect for my account', 'consistency' ) }
             checked={ settings?.consistency_plugin_setting_state[ 0 ] || false }
             onChange={ onSettingChanged }

@@ -1,22 +1,23 @@
 import { __ } from '@wordpress/i18n'
 import { PluginSidebarMoreMenuItem, PluginSidebar } from '@wordpress/edit-post'
 import { PanelBody, PanelRow } from '@wordpress/components'
-import { ConsistencySettingState } from './ConsistencySettingState'
-import { ConsistencySettingQuote } from './ConsistencySettingQuote'
-import { ConsistencySettingEllipsis } from './ConsistencySettingEllipsis'
-import { ConsistencySettingBreakingSpace } from './ConsistencySettingBreakingSpace'
+import { ConsistencyIcon, ConsistencySettingState, ConsistencySettingQuote, ConsistencySettingEllipsis,
+		ConsistencySettingBreakingSpace, ConsistencySettingRegularToCurlyQuotes,
+		ConsistencySettingRegularToFrenchQuotes, ConsistencySettingNoSpaceBefore,
+		ConsistencySettingSpaceBefore } from './components'
 import { select } from '@wordpress/data'
-
 
 const { canUser } = select( 'core' )
 
 export const SidebarSettings = () => {
 	const isAdmin = canUser( 'create', 'users' )
+
     return(
         <>
             <PluginSidebar
                 name="consistency-custom-sidebar"
                 title={ __( 'Consistency Settings', 'consistency' ) }
+				icon={ ConsistencyIcon }
             >
 				<PanelBody
 					title={ __( 'Status', 'consistency' ) }
@@ -31,15 +32,13 @@ export const SidebarSettings = () => {
 						title={ __( 'Global Settings', 'consistency' ) }
 						initialOpen={ true }
 					>
-						<PanelRow>
-							<ConsistencySettingQuote />
-						</PanelRow>
-						<PanelRow>
-							<ConsistencySettingEllipsis />
-						</PanelRow>
-						<PanelRow>
-							<ConsistencySettingBreakingSpace />
-						</PanelRow>
+						<ConsistencySettingQuote />
+						<ConsistencySettingEllipsis />
+						<ConsistencySettingRegularToCurlyQuotes />
+						<ConsistencySettingRegularToFrenchQuotes />
+						<ConsistencySettingBreakingSpace />
+						<ConsistencySettingNoSpaceBefore />
+						<ConsistencySettingSpaceBefore />
 					</PanelBody>
 				}
             </PluginSidebar>

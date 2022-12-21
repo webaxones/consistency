@@ -2,16 +2,11 @@ import { registerPlugin } from '@wordpress/plugins'
 import { subscribe, select, dispatch } from '@wordpress/data'
 import { store as coreStore } from '@wordpress/core-data'
 import domReady from '@wordpress/dom-ready'
-import { regs } from './regex'
+import { regs, processedBlocks } from './rules'
 import { SidebarSettings } from './settings'
-import { ConsistencyIcon } from './icon'
 import { fixIt } from './fix'
+import { isUsedByLocale } from './app/helpers'
 
-const processedBlocks = [
-	'core/paragraph',
-	'core/heading',
-	'core/post-title',
-]
 let contentPasted = false
 
 let theRegs = []
@@ -21,7 +16,6 @@ const { getEntityRecord } = select( 'core' )
 const { updateBlockAttributes } = dispatch( 'core/block-editor' )
 
 registerPlugin( 'consistency-custom-sidebar', {
-    icon: ConsistencyIcon,
     render: SidebarSettings,
 } )
 
@@ -36,7 +30,9 @@ domReady( () => {
 
 			Object.entries( theRegs ).forEach( ( [ _, reg ] ) => {
 
-				if ( processedBlocks.includes( block.name ) && 'undefined' !== typeof( newContent ) ) {
+				if ( processedBlocks.includes( block.name ) 
+					&& 'undefined' !== typeof( newContent )
+					&& isUsedByLocale( reg.name ) ) {
 					newContent = newContent.replaceAll( reg.mask, reg.replace )
 				}
 
@@ -68,13 +64,13 @@ domReady( () => {
 		if ( ! currentUserEntity?.meta?.consistency_plugin_setting_state[0] ) return
 
 		// Get Global settings from site entity
-		const siteEntity = getEntityRecord('root', 'site')
+		const siteEntity = getEntityRecord( 'root', 'site' )
 		const settings = siteEntity?.consistency_plugin_settings
 		if ( undefined === settings ) return
 	
 		theRegs = regs.filter( reg => true === settings?.find( s => s.slug === reg.name )?.value )
 
-		// Manage clipboard and fix all pasted blocks
+		// Manage clipboard and fix all pasted blocks (in fact, all blocks but others must have already been fixed)
 		if ( contentPasted ) {
 			fixAll()
 			return
@@ -84,7 +80,7 @@ domReady( () => {
 		if ( null === currentBlockId ) return
 
 		// Fixes the typography of current selected block
-		fixIt( { currentBlockId, theRegs } )
+		theRegs && fixIt( { currentBlockId, theRegs } )
 		
 	} )
 } )

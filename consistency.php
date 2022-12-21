@@ -3,8 +3,8 @@
  * Plugin Name:       Consistency
  * Plugin URI:        https://www.webaxones.com
  * Description:       Fixes typographical consistency
- * Version:           1.0.4
- * Requires at least: 6.0
+ * Version:           1.1.0
+ * Requires at least: 6.1
  * Requires PHP:      7.3 or higher
  * Author:            Loïc Antignac
  * License:           GPL-3.0-or-later
@@ -76,10 +76,10 @@ add_action( 'rest_api_init', __NAMESPACE__ . '\register_settings' );
  * @return bool is it multilingual?
  */
 function is_multilingual(): bool {
+	$installed_plugins = array_column( get_plugins(), 'Name' );
 
-	$declaredClasses = get_declared_classes();
-	// Polylang - WPML - TranslatePress
-	if ( in_array( $declaredClasses, ['Polylang', 'SitePress', 'TRP_Translate_Press'], true ) ) {
+	// Polylang - WPML - TranslatePress - WeGlot
+	if ( in_array( $installed_plugins, ['Polylang', 'WPML', 'TranslatePress', 'Weglot Translate'], true ) ) {
 		return true;
 	}
 
@@ -92,7 +92,7 @@ function is_multilingual(): bool {
  * @return string $locale locale used in contents
  */
 function get_language_probably_used_in_contents(): string {
-	$locale = get_bloginfo('language');
+	$locale = get_bloginfo( 'language' );
 	return $locale;
 }
 
@@ -117,9 +117,26 @@ function set_default_settings( string $locale ): array {
 			'slug'  => 'breakingSpace',
 			'value' => false,
 		],
+		[
+			'slug'  => 'regularToCurlyQuotes',
+			'value' => false,
+		],
+		[
+			'slug'  => 'regularToFrenchQuotes',
+			'value' => false,
+		],
+		[
+			'slug'  => 'noSpaceBefore',
+			'value' => false,
+		],
+		[
+			'slug'  => 'spaceBefore',
+			'value' => false,
+		],
 	];
+
 	if ( in_array( $locale, [ 'fr-FR', 'fr-BE' ], true ) ) {
-		return [
+		$default_settings = [
 			[
 				'slug'  => 'quote',
 				'value' => true,
@@ -132,11 +149,27 @@ function set_default_settings( string $locale ): array {
 				'slug'  => 'breakingSpace',
 				'value' => true,
 			],
+			[
+				'slug'  => 'regularToCurlyQuotes',
+				'value' => false,
+			],
+			[
+				'slug'  => 'regularToFrenchQuotes',
+				'value' => true,
+			],
+			[
+				'slug'  => 'noSpaceBefore',
+				'value' => true,
+			],
+			[
+				'slug'  => 'spaceBefore',
+				'value' => false,
+			],
 		];
 	}
 
 	if ( in_array( $locale, [ 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ], true ) ) {
-		return [
+		$default_settings = [
 			[
 				'slug'  => 'quote',
 				'value' => true,
@@ -149,11 +182,32 @@ function set_default_settings( string $locale ): array {
 				'slug'  => 'breakingSpace',
 				'value' => false,
 			],
+			[
+				'slug'  => 'regularToCurlyQuotes',
+				'value' => true,
+			],
+			[
+				'slug'  => 'regularToFrenchQuotes',
+				'value' => false,
+			],
+			[
+				'slug'  => 'noSpaceBefore',
+				'value' => false,
+			],
+			[
+				'slug'  => 'spaceBefore',
+				'value' => true,
+			],
 		];
 	}
 
 	return $default_settings;
 }
+
+function compare_objects($obj_a, $obj_b) {
+	return $obj_a->id - $obj_b->id;
+}
+  
 
 /**
  * Add Default Settings in wp_options
@@ -163,16 +217,36 @@ function set_default_settings( string $locale ): array {
 function add_default_settings(): void {
 	$contents_locale  = get_language_probably_used_in_contents();
 	$default_settings = set_default_settings( $contents_locale );
+	$actual_settings  = get_option( 'consistency_plugin_settings', 'not-exists' );
 
-	if ( 'not-exists' === get_option( 'consistency_plugin_settings', 'not-exists' ) ) {
-
+	if ( 'not-exists' === $actual_settings ) {
 		add_option(
 			'consistency_plugin_settings',
 			$default_settings
 		);
+		return;
+	}
+
+	if ( 'not-exists' !== $actual_settings && is_array( $actual_settings ) && is_array( $default_settings ) ) {
+		$diff = array_udiff(
+			$default_settings,
+			$actual_settings,
+			function( $a, $b ) {
+				return strcmp( $a['slug'], $b['slug'] );
+			}
+		);
+
+		if ( empty( $diff ) ) {
+			return;
+		}
+		update_option(
+			'consistency_plugin_settings',
+			$diff
+		);
+
 	}
 }
-register_activation_hook( __FILE__, __NAMESPACE__ . '\add_default_settings' );
+add_action( 'admin_init', __NAMESPACE__ . '\add_default_settings' );
 
 /**
  * Register consistency user settings
