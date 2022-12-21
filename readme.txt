@@ -3,7 +3,7 @@ Contributors: webaxones
 Tags: block editor, typography
 Requires at least: 5.9
 Tested up to: 6.1
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 Requires PHP: 7.3 or higher
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -51,6 +51,9 @@ Settings are directly in a plugin sidebar under the Block Editor: no more search
 2. Configure the rules in the editor.
 
 == Changelog ==
+
+= 1.1.1 =
+* Remove special characters from readme since they are transformed on wp org
 
 = 1.1.0 =
 * Locales management: English and French for now. Rules are automatically selected but can be modified by an admin
