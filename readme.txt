@@ -21,16 +21,16 @@ Currently, the AutoCorrects offered are as follows:
 
 For the English language (based on the language set on the site)
 
-- Quote Correction: Replaces straight quotes with curved quotes ' → ’
-- Ellipsis Correction: Replaces 3 dots with ellipsis ... → …
-- Regular quotes Correction: Replaces regular quotes with curly quotes " " → “ ”
+- Quote Correction: Replaces straight quotes with curved quotes
+- Ellipsis Correction: Replaces 3 dots with ellipsis
+- Regular quotes Correction: Replaces regular quotes with curly quotes
 - Space before Correction: Remove any space preceding a character from this list (? ! : ; %)
 
 For the French language (based on the language set on the site)
 
-- Quote Correction: Replaces straight quotes with curved quotes ' → ’
-- Ellipsis Correction: Replaces 3 dots with ellipsis ... → …
-- Regular quotes Correction: Replaces regular quotes with French quotes " " → « »
+- Quote Correction: Replaces straight quotes with curved quotes
+- Ellipsis Correction: Replaces 3 dots with ellipsis
+- Regular quotes Correction: Replaces regular quotes with French quotes
 - Breaking space Correction: Replaces a breaking space followed by a character from this list (? ! : ; » € $ £ ¥ ₽ 元 %) with a non-breaking space
 - No space before Correction: Adds a non-breaking space before a character from this list (? ! : ; » € $ £ ¥ ₽ 元 %) having no space before
 
