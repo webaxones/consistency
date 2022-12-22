@@ -40,8 +40,8 @@ export const ConsistencySettingQuote = () => {
 		createNotice(
 			__( 'info', 'consistency' ), // Can be one of: success, info, warning, error.
 			value
-				? __( 'Quote Correction is enabled', 'consistency' )
-				: __( 'Quote Correction is disabled', 'consistency' ),
+				? __( '"Straight quote" Correction is enabled', 'consistency' )
+				: __( '"Straight quote" Correction is disabled', 'consistency' ),
 			{ isDismissible: true, type: 'snackbar', speak: true, explicitDismiss: true }
 		)
 	}
@@ -49,7 +49,7 @@ export const ConsistencySettingQuote = () => {
     return(
 		<PanelRow>
 			<ToggleControl
-				label={ __( 'Quote Correction', 'consistency' )	}
+				label={ __( 'Straight quote Correction', 'consistency' )	}
 				help={ (
 					<>
 					{ __( 'Replaces straight quotes with curved quotes:', 'consistency' ) }

@@ -3,7 +3,7 @@
  * Plugin Name:       Consistency
  * Plugin URI:        https://www.webaxones.com
  * Description:       Fixes typographical consistency
- * Version:           1.1.1
+ * Version:           1.2.0
  * Requires at least: 6.1
  * Requires PHP:      7.3 or higher
  * Author:            Loïc Antignac
@@ -133,6 +133,22 @@ function set_default_settings( string $locale ): array {
 			'slug'  => 'spaceBefore',
 			'value' => false,
 		],
+		[
+			'slug'  => '2hyphens',
+			'value' => false,
+		],
+		[
+			'slug'  => 'ordinalNumberSuffix',
+			'value' => false,
+		],
+		[
+			'slug'  => 'noBreakingSpaceAfter',
+			'value' => false,
+		],
+		[
+			'slug'  => 'noNonBreakingSpaceAfter',
+			'value' => false,
+		],
 	];
 
 	if ( in_array( $locale, [ 'fr-FR', 'fr-BE' ], true ) ) {
@@ -164,6 +180,22 @@ function set_default_settings( string $locale ): array {
 			[
 				'slug'  => 'spaceBefore',
 				'value' => false,
+			],
+			[
+				'slug'  => '2hyphens',
+				'value' => true,
+			],
+			[
+				'slug'  => 'ordinalNumberSuffix',
+				'value' => true,
+			],
+			[
+				'slug'  => 'noBreakingSpaceAfter',
+				'value' => true,
+			],
+			[
+				'slug'  => 'noNonBreakingSpaceAfter',
+				'value' => true,
 			],
 		];
 	}
@@ -198,16 +230,27 @@ function set_default_settings( string $locale ): array {
 				'slug'  => 'spaceBefore',
 				'value' => true,
 			],
+			[
+				'slug'  => '2hyphens',
+				'value' => true,
+			],
+			[
+				'slug'  => 'ordinalNumberSuffix',
+				'value' => true,
+			],
+			[
+				'slug'  => 'noBreakingSpaceAfter',
+				'value' => true,
+			],
+			[
+				'slug'  => 'noNonBreakingSpaceAfter',
+				'value' => false,
+			],
 		];
 	}
 
 	return $default_settings;
 }
-
-function compare_objects($obj_a, $obj_b) {
-	return $obj_a->id - $obj_b->id;
-}
-  
 
 /**
  * Add Default Settings in wp_options

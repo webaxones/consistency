@@ -5,9 +5,9 @@ import { store as coreStore, useEntityProp } from '@wordpress/core-data'
 import { store as noticesStore } from '@wordpress/notices'
 import { isUsedByLocale } from '../app/helpers'
 
-export const ConsistencySettingSpaceBefore = () => {
+export const ConsistencySettingNoBreakingSpaceAfter = () => {
 
-	const settingSlug = 'spaceBefore'
+	const settingSlug = 'noBreakingSpaceAfter'
 
 	if ( ! isUsedByLocale( settingSlug ) ) return ''
 
@@ -40,8 +40,8 @@ export const ConsistencySettingSpaceBefore = () => {
 		createNotice(
 			__( 'info', 'consistency' ), // Can be one of: success, info, warning, error.
 			value
-				? __( '"Space before" Correction is enabled', 'consistency' )
-				: __( '"Space before" Correction is disabled', 'consistency' ),
+				? __( '"No breaking space after" Correction is enabled', 'consistency' )
+				: __( '"No breaking space after" Correction is disabled', 'consistency' ),
 			{ isDismissible: true, type: 'snackbar', speak: true, explicitDismiss: true }
 		)
 	}
@@ -49,13 +49,17 @@ export const ConsistencySettingSpaceBefore = () => {
     return(
 		<PanelRow>
 			<ToggleControl
-				label={ __( 'Space before', 'consistency' )	}
-				help={ (
-					<>
-					{ __( 'Remove any space preceding a character from this list:', 'consistency' ) }
-					<span style={ { display: 'block' } }><code>? ! : ; %</code></span>
-					</>
-					) }
+				label={ __( 'No breaking space after', 'consistency' )	}
+				help={
+					(
+					<span dangerouslySetInnerHTML={
+						{ __html: sprintf(
+							__( 'Adds a breaking space after a character from this list:%1$s when followed with another character', 'consistency' )
+							, `<br /><code>, … ) ]</code><br />`
+							)
+						} } />
+					)
+				}
 				checked={ settings?.find( x => x.slug === settingSlug )?.value || false }
 				onChange={ onSettingChanged }
 			/>

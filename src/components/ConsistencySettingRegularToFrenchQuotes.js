@@ -40,8 +40,8 @@ export const ConsistencySettingRegularToFrenchQuotes = () => {
 		createNotice(
 			__( 'info', 'consistency' ), // Can be one of: success, info, warning, error.
 			value
-				? __( 'Regular quotes to french quotes Correction is enabled', 'consistency' )
-				: __( 'Regular quotes to french quotes Correction is disabled', 'consistency' ),
+				? __( '"Regular quotes to french quotes" Correction is enabled', 'consistency' )
+				: __( '"Regular quotes to french quotes" Correction is disabled', 'consistency' ),
 			{ isDismissible: true, type: 'snackbar', speak: true, explicitDismiss: true }
 		)
 	}
@@ -49,7 +49,7 @@ export const ConsistencySettingRegularToFrenchQuotes = () => {
     return(
 		<PanelRow>
 			<ToggleControl
-				label={ __( 'Regular quotes Correction', 'consistency' ) }
+				label={ __( 'Regular quotes to french', 'consistency' ) }
 				help={ (
 					<>
 					{ __( 'Replaces regular quotes with french quotes:', 'consistency' ) }

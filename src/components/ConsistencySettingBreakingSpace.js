@@ -40,8 +40,8 @@ export const ConsistencySettingBreakingSpace = () => {
 		createNotice(
 			__( 'info', 'consistency' ), // Can be one of: success, info, warning, error.
 			value
-				? __( 'Breaking space Correction is enabled', 'consistency' )
-				: __( 'Breaking space Correction is disabled', 'consistency' ),
+				? __( '"Breaking space" Correction is enabled', 'consistency' )
+				: __( '"Breaking space" Correction is disabled', 'consistency' ),
 			{ isDismissible: true, type: 'snackbar', speak: true, explicitDismiss: true }
 		)
 	}
@@ -49,7 +49,7 @@ export const ConsistencySettingBreakingSpace = () => {
     return(
 		<PanelRow>
 			<ToggleControl
-				label={ __( 'Breaking space Correction', 'consistency' )	}
+				label={ __( 'Breaking space', 'consistency' )	}
 				help={
 					(
 					<span dangerouslySetInnerHTML={ 

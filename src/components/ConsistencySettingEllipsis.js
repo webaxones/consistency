@@ -40,8 +40,8 @@ export const ConsistencySettingEllipsis = () => {
 		createNotice(
 			__( 'info', 'consistency' ), // Can be one of: success, info, warning, error.
 			value
-				? __( 'Ellipsis Correction is enabled', 'consistency' )
-				: __( 'Ellipsis Correction is disabled', 'consistency' ),
+				? __( '"Ellipsis" Correction is enabled', 'consistency' )
+				: __( '"Ellipsis" Correction is disabled', 'consistency' ),
 			{ isDismissible: true, type: 'snackbar', speak: true, explicitDismiss: true }
 		)
 	}
@@ -49,7 +49,7 @@ export const ConsistencySettingEllipsis = () => {
     return(
 		<PanelRow>
 			<ToggleControl
-				label={ __( 'Ellipsis Correction', 'consistency' )	}
+				label={ __( 'Ellipsis', 'consistency' )	}
 				help={ (
 					<>
 					{ __( 'Replaces 3 dots with ellipsis:', 'consistency' ) }

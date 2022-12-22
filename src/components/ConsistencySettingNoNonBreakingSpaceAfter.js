@@ -5,9 +5,9 @@ import { store as coreStore, useEntityProp } from '@wordpress/core-data'
 import { store as noticesStore } from '@wordpress/notices'
 import { isUsedByLocale } from '../app/helpers'
 
-export const ConsistencySettingSpaceBefore = () => {
+export const ConsistencySettingNoNonBreakingSpaceAfter = () => {
 
-	const settingSlug = 'spaceBefore'
+	const settingSlug = 'noNonBreakingSpaceAfter'
 
 	if ( ! isUsedByLocale( settingSlug ) ) return ''
 
@@ -40,8 +40,8 @@ export const ConsistencySettingSpaceBefore = () => {
 		createNotice(
 			__( 'info', 'consistency' ), // Can be one of: success, info, warning, error.
 			value
-				? __( '"Space before" Correction is enabled', 'consistency' )
-				: __( '"Space before" Correction is disabled', 'consistency' ),
+				? __( '"No non breaking space after" Correction is enabled', 'consistency' )
+				: __( '"No non breaking space after" Correction is disabled', 'consistency' ),
 			{ isDismissible: true, type: 'snackbar', speak: true, explicitDismiss: true }
 		)
 	}
@@ -49,13 +49,8 @@ export const ConsistencySettingSpaceBefore = () => {
     return(
 		<PanelRow>
 			<ToggleControl
-				label={ __( 'Space before', 'consistency' )	}
-				help={ (
-					<>
-					{ __( 'Remove any space preceding a character from this list:', 'consistency' ) }
-					<span style={ { display: 'block' } }><code>? ! : ; %</code></span>
-					</>
-					) }
+				label={ __( 'No non breaking space after', 'consistency' )	}
+				help={ __( 'Adds a non-breaking space after open french quote having no space after', 'consistency' ) }
 				checked={ settings?.find( x => x.slug === settingSlug )?.value || false }
 				onChange={ onSettingChanged }
 			/>

@@ -1,5 +1,5 @@
 import { select } from '@wordpress/data'
-import { regs } from '../rules'
+import { regs } from './rules'
 
 /**
  * Check if setting is used by current active locale
@@ -27,3 +27,11 @@ const getCurrentLocale = () => {
 	const currentLocale = siteEntity?.language || 'en_US'
 	return currentLocale
 }
+
+
+export const getAllInnersFromParents = arr => arr.flatMap( ( { innerBlocks, ...rest } ) => 
+innerBlocks.map( b => ( {
+	...rest,
+	...b
+} ) )
+).concat( arr )

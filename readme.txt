@@ -1,9 +1,9 @@
 === Consistency ===
 Contributors: webaxones
 Tags: block editor, typography
-Requires at least: 5.9
-Tested up to: 6.1
-Stable tag: 1.1.1
+Requires at least: 6.1
+Tested up to: 6.1.1
+Stable tag: 1.2.0
 Requires PHP: 7.3 or higher
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -21,18 +21,26 @@ Currently, the AutoCorrects offered are as follows:
 
 For the English language (based on the language set on the site)
 
-- Quote Correction: Replaces straight quotes with curved quotes
-- Ellipsis Correction: Replaces 3 dots with ellipsis
-- Regular quotes Correction: Replaces regular quotes with curly quotes
-- Space before Correction: Remove any space preceding a character from this list (? ! : ; %)
+- "Quote" Correction: Replaces straight quotes with curved quotes
+- "Ellipsis" Correction: Replaces 3 dots with ellipsis
+- "Two hyphens" Correction: Replaces 2 hyphens with em dash
+- "Ordinal number suffix" Correction: Add HTML tag sup to ordinal number suffix
+- "Regular quotes" Correction: Replaces regular quotes with curly quotes
+- "Space before" Correction: Remove any space preceding a character from this list (? ! : ; %)
+- "No breaking space after" Correction: Adds a breaking space after a character from this list (, … ) ]) when followed with another character
+- "Space before" Correction: Remove any space preceding a character from this list (? ! : ; %)
 
 For the French language (based on the language set on the site)
 
-- Quote Correction: Replaces straight quotes with curved quotes
-- Ellipsis Correction: Replaces 3 dots with ellipsis
-- Regular quotes Correction: Replaces regular quotes with French quotes
-- Breaking space Correction: Replaces a breaking space followed by a character from this list (? ! : ; » € $ £ ¥ ₽ 元 %) with a non-breaking space
-- No space before Correction: Adds a non-breaking space before a character from this list (? ! : ; » € $ £ ¥ ₽ 元 %) having no space before
+- "Quote" Correction: Replaces straight quotes with curved quotes
+- "Ellipsis" Correction: Replaces 3 dots with ellipsis
+- "Two hyphens" Correction: Replaces 2 hyphens with em dash
+- "Ordinal number suffix" Correction: Add HTML tag sup to ordinal number suffix
+- "Regular quotes" Correction: Replaces regular quotes with French quotes
+- "Breaking space" Correction: Replaces a breaking space followed by a character from this list (? ! : ; » € $ £ ¥ ₽ 元 %) with a non-breaking space
+- "No space before" Correction: Adds a non-breaking space before a character from this list (? ! : ; » € $ £ ¥ ₽ 元 %) having no space before
+- "No non-breaking space after" Correction: Adds a non-breaking space after open french quote having no space after
+- "No breaking space after" Correction: Adds a breaking space after a character from this list (, … ) ]) when followed with another character
 
 
 Technically, rules are saved in the wp_options table, while active/inactive states are saved as user meta data.
@@ -51,6 +59,10 @@ Settings are directly in a plugin sidebar under the Block Editor: no more search
 2. Configure the rules in the editor.
 
 == Changelog ==
+
+= 1.2.0 =
+* New corrections added: "Two hyphens", "Ordinal number suffix", "No breaking space after", "No non-breaking space after", "No breaking space after"
+* Autocorrect is now also done on innerBlocks like list items, on the fly as well as copy-paste 
 
 = 1.1.1 =
 * Remove special characters from readme since they are transformed on wp org

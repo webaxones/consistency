@@ -40,8 +40,8 @@ export const ConsistencySettingNoSpaceBefore = () => {
 		createNotice(
 			__( 'info', 'consistency' ), // Can be one of: success, info, warning, error.
 			value
-				? __( 'No space before Correction is enabled', 'consistency' )
-				: __( 'No space before Correction is disabled', 'consistency' ),
+				? __( '"No space before" Correction is enabled', 'consistency' )
+				: __( '"No space before" Correction is disabled', 'consistency' ),
 			{ isDismissible: true, type: 'snackbar', speak: true, explicitDismiss: true }
 		)
 	}
@@ -49,7 +49,7 @@ export const ConsistencySettingNoSpaceBefore = () => {
     return(
 		<PanelRow>
 			<ToggleControl
-				label={ __( 'No space before Correction', 'consistency' )	}
+				label={ __( 'No space before', 'consistency' )	}
 				help={
 					(
 					<span dangerouslySetInnerHTML={

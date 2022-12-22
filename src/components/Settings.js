@@ -2,9 +2,9 @@ import { __ } from '@wordpress/i18n'
 import { PluginSidebarMoreMenuItem, PluginSidebar } from '@wordpress/edit-post'
 import { PanelBody, PanelRow } from '@wordpress/components'
 import { ConsistencyIcon, ConsistencySettingState, ConsistencySettingQuote, ConsistencySettingEllipsis,
-		ConsistencySettingBreakingSpace, ConsistencySettingRegularToCurlyQuotes,
+		ConsistencySettingEmDash, ConsistencySettingOrdinalNumberSuffix, ConsistencySettingBreakingSpace, ConsistencySettingRegularToCurlyQuotes,
 		ConsistencySettingRegularToFrenchQuotes, ConsistencySettingNoSpaceBefore,
-		ConsistencySettingSpaceBefore } from './components'
+		ConsistencySettingNoBreakingSpaceAfter, ConsistencySettingSpaceBefore, ConsistencySettingNoNonBreakingSpaceAfter } from '.'
 import { select } from '@wordpress/data'
 
 const { canUser } = select( 'core' )
@@ -29,15 +29,19 @@ export const SidebarSettings = () => {
 				</PanelBody>
 				{ isAdmin && 
 					<PanelBody
-						title={ __( 'Global Settings', 'consistency' ) }
+						title={ __( 'Global Corrections', 'consistency' ) }
 						initialOpen={ true }
 					>
 						<ConsistencySettingQuote />
 						<ConsistencySettingEllipsis />
+						<ConsistencySettingEmDash />
+						<ConsistencySettingOrdinalNumberSuffix />
 						<ConsistencySettingRegularToCurlyQuotes />
 						<ConsistencySettingRegularToFrenchQuotes />
 						<ConsistencySettingBreakingSpace />
 						<ConsistencySettingNoSpaceBefore />
+						<ConsistencySettingNoBreakingSpaceAfter />
+						<ConsistencySettingNoNonBreakingSpaceAfter />
 						<ConsistencySettingSpaceBefore />
 					</PanelBody>
 				}

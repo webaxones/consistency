@@ -1,5 +1,5 @@
 import { select, dispatch } from '@wordpress/data'
-import { isUsedByLocale } from './app/helpers'
+import { isUsedByLocale } from './helpers'
 import { processedBlocks } from './rules'
 const { getBlockName, getBlockAttributes, getSelectionStart } = select( 'core/block-editor' )
 const { updateBlock, selectionChange } = dispatch( 'core/block-editor' )

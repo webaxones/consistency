@@ -5,9 +5,9 @@ import { store as coreStore, useEntityProp } from '@wordpress/core-data'
 import { store as noticesStore } from '@wordpress/notices'
 import { isUsedByLocale } from '../app/helpers'
 
-export const ConsistencySettingSpaceBefore = () => {
+export const ConsistencySettingEmDash = () => {
 
-	const settingSlug = 'spaceBefore'
+	const settingSlug = '2hyphens'
 
 	if ( ! isUsedByLocale( settingSlug ) ) return ''
 
@@ -25,7 +25,7 @@ export const ConsistencySettingSpaceBefore = () => {
 
 		let newSettings = settings.map( obj => {
 			if ( settingSlug === obj.slug ) {
-			  return { ...obj, value: value }
+				return { ...obj, value: value }
 			}
 			return obj
 		} )
@@ -40,8 +40,8 @@ export const ConsistencySettingSpaceBefore = () => {
 		createNotice(
 			__( 'info', 'consistency' ), // Can be one of: success, info, warning, error.
 			value
-				? __( '"Space before" Correction is enabled', 'consistency' )
-				: __( '"Space before" Correction is disabled', 'consistency' ),
+				? __( '"Two hyphens" Correction is enabled', 'consistency' )
+				: __( '"Two hyphens" Correction is disabled', 'consistency' ),
 			{ isDismissible: true, type: 'snackbar', speak: true, explicitDismiss: true }
 		)
 	}
@@ -49,13 +49,14 @@ export const ConsistencySettingSpaceBefore = () => {
     return(
 		<PanelRow>
 			<ToggleControl
-				label={ __( 'Space before', 'consistency' )	}
+				label={ __( 'Two hyphens', 'consistency' )	}
 				help={ (
 					<>
-					{ __( 'Remove any space preceding a character from this list:', 'consistency' ) }
-					<span style={ { display: 'block' } }><code>? ! : ; %</code></span>
+					{ __( 'Replaces 2 hyphens with em dash:', 'consistency' ) }
+					<span aria-hidden='true' style={ { display: 'block' } }><code>--</code> <span style={ { fontSize: '20px' } }>→</span> <code>—</code></span>
 					</>
-					) }
+					)
+				}
 				checked={ settings?.find( x => x.slug === settingSlug )?.value || false }
 				onChange={ onSettingChanged }
 			/>
