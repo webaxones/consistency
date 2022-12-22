@@ -49,7 +49,7 @@ export const ConsistencySettingQuote = () => {
     return(
 		<PanelRow>
 			<ToggleControl
-				label={ __( 'Straight quote Correction', 'consistency' )	}
+				label={ __( 'Straight quote', 'consistency' )	}
 				help={ (
 					<>
 					{ __( 'Replaces straight quotes with curved quotes:', 'consistency' ) }
