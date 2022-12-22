@@ -28,10 +28,14 @@ const getCurrentLocale = () => {
 	return currentLocale
 }
 
-
+/**
+ * Get all innerBlocks from an array of parents
+ *
+ * @param {*} arr
+ */
 export const getAllInnersFromParents = arr => arr.flatMap( ( { innerBlocks, ...rest } ) => 
-innerBlocks.map( b => ( {
-	...rest,
-	...b
-} ) )
-).concat( arr )
+	innerBlocks.map( b => ( {
+		...rest,
+		...b
+	} ) )
+)

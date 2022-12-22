@@ -3,7 +3,7 @@ Contributors: webaxones
 Tags: block editor, typography
 Requires at least: 6.1
 Tested up to: 6.1.1
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 Requires PHP: 7.3 or higher
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -59,6 +59,9 @@ Settings are directly in a plugin sidebar under the Block Editor: no more search
 2. Configure the rules in the editor.
 
 == Changelog ==
+
+= 1.2.1 =
+* Fix: remove concat from getAllInnersFromParents
 
 = 1.2.0 =
 * New corrections added: "Two hyphens", "Ordinal number suffix", "No breaking space after", "No non-breaking space after", "No breaking space after"

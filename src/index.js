@@ -67,6 +67,7 @@ domReady( () => {
 
 		// Select all innerBlocks to trigger their correction, then deselect all by selecting the first block
 		allInners.forEach( block => { 
+			if ( processedBlocksForCopyPaste.includes( block.name ) ) return
 			block?.clientId && selectBlock( block.clientId )
 		} )
 		allInners && allInners[0] && resetSelection( allInners[0]?.clientId, allInners[0]?.clientId )
