@@ -28,7 +28,6 @@ For the English language (based on the language set on the site)
 - "Regular quotes" Correction: Replaces regular quotes with curly quotes
 - "Space before" Correction: Remove any space preceding a character from this list (? ! : ; %)
 - "No breaking space after" Correction: Adds a breaking space after a character from this list (, … ) ]) when followed with another character
-- "Space before" Correction: Remove any space preceding a character from this list (? ! : ; %)
 
 For the French language (based on the language set on the site)
 
