@@ -5,9 +5,9 @@ import { store as coreStore, useEntityProp } from '@wordpress/core-data'
 import { store as noticesStore } from '@wordpress/notices'
 import { isUsedByLocale } from '../app/helpers'
 
-export const ConsistencySettingNoBreakingSpaceAfter = () => {
+export const ConsistencySettingCorrectionToggle = props => {
 
-	const settingSlug = 'noBreakingSpaceAfter'
+	const { settingSlug, settingName, settingDescription } = props
 
 	if ( ! isUsedByLocale( settingSlug ) ) return ''
 
@@ -40,26 +40,17 @@ export const ConsistencySettingNoBreakingSpaceAfter = () => {
 		createNotice(
 			__( 'info', 'consistency' ), // Can be one of: success, info, warning, error.
 			value
-				? __( '"No breaking space after" Correction is enabled', 'consistency' )
-				: __( '"No breaking space after" Correction is disabled', 'consistency' ),
-			{ isDismissible: true, type: 'snackbar', speak: true, explicitDismiss: true }
+				? sprintf( __( '"%1$s" Correction is enabled', 'consistency' ), settingName	)
+				: sprintf( __( '"%1$s" Correction is disabled', 'consistency' ), settingName ),
+			{ isDismissible: true, type: 'snackbar', speak: true }
 		)
 	}
 
     return(
 		<PanelRow>
 			<ToggleControl
-				label={ __( 'No breaking space after', 'consistency' )	}
-				help={
-					(
-					<span dangerouslySetInnerHTML={
-						{ __html: sprintf(
-							__( 'Adds a breaking space after a character from this list:%1$s when followed with another character', 'consistency' )
-							, `<br /><code>, … ) ]</code><br />`
-							)
-						} } />
-					)
-				}
+				label={ settingName }
+				help={ ( <span dangerouslySetInnerHTML={ settingDescription } /> ) }
 				checked={ settings?.find( x => x.slug === settingSlug )?.value || false }
 				onChange={ onSettingChanged }
 			/>

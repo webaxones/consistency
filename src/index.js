@@ -3,7 +3,7 @@ import { subscribe, select, dispatch } from '@wordpress/data'
 import { store as coreStore } from '@wordpress/core-data'
 import domReady from '@wordpress/dom-ready'
 import { regs } from './app/rules'
-import { SidebarSettings } from './components'
+import { SidebarSettings } from './components/Settings'
 import { fixIt } from './app/fix'
 import { isUsedByLocale, getAllInnersFromParents } from './app/helpers'
 
