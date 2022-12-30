@@ -1,41 +1,125 @@
-import { select } from '@wordpress/data'
-import { regs } from './rules'
-
 /**
- * Check if setting is used by current active locale
- *
- * @param {string} settingSlug Slug of setting, same as regex
- * @return {boolean} 
+ * WordPress dependencies
  */
-export const isUsedByLocale = settingSlug => {
-	const currentLocale = getCurrentLocale()
-	const theRegex = regs?.find( x => x.name === settingSlug )
-	if ( undefined !== theRegex && theRegex?.locales?.includes( currentLocale ) ) {
-		return true
-	}
-	return false
-}
+import { select, dispatch } from '@wordpress/data'
 
-/**
- * Get current active site locale
- *
- * @return {string} currentLocale Current active site locale
- */
-const getCurrentLocale = () => {
-	const { getEntityRecord } = select( 'core' )
-	const siteEntity = getEntityRecord( 'root', 'site' )
-	const currentLocale = siteEntity?.language || 'en_US'
-	return currentLocale
-}
+const { getBlock } = select( 'core/block-editor' )
+const { updateBlock } = dispatch( 'core/block-editor' )
 
 /**
  * Get all innerBlocks from an array of parents
+ * The main use is to retrieve the child core/list-item blocks of the core/list block
  *
  * @param {*} arr
  */
 export const getAllInnersFromParents = arr => arr.flatMap( ( { innerBlocks, ...rest } ) => 
+
 	innerBlocks.map( b => ( {
 		...rest,
 		...b
 	} ) )
+
 )
+
+/**
+ * Get specific replacement string for pairing characters by checking if we are on opening one or closing one
+ *
+ * Character pairs have between 3 and 5 parts to be cut in the "replace" part:
+ * opening character pair + left separator + string between the pair + right separator + closing character pair
+ * french quotes eg: « +   + $1 +   + »
+ * left and right separators are optionals
+ * 
+ * @param {object} reg Replacement parameters
+ * @param {string} fullBlockContent Full block string
+ * @param {string} replaceWithThis Replacement string
+ * @return {string} replaceWithThis Replacement string
+ */
+export const getReplacementStringForPairs = ( reg, fullBlockContent, replaceWithThis ) => {
+
+	// Get the opening and closing characters of the pair
+	const openPairChar = reg.replace.charAt( 0 )
+	const closPairChar = reg.replace.charAt( reg.replace.length - 1 )
+
+	// Get left separator and right separators
+	const leftSep = reg.replace.substring( 1, reg.replace.indexOf( '$' ) ) || ''
+
+	let rightSep = ''
+	if ( 0 !== [ ...reg.replace.matchAll( /[0-9]/g ) ].length ) {
+		// Right separator begins after last number from last capturing group
+		rightSep = reg.replace.substring( [ ...reg.replace.matchAll( /[0-9]/g ) ].pop()['index'] + 1, reg.replace.length -1 )
+	}
+
+	// Check if the character should be opening or closing by testing the odd or even number
+	const getOpenPairRegex = new RegExp( `${ openPairChar }`, 'g' )
+	const getClosPairRegex = new RegExp( `${ closPairChar }`, 'g' )
+	const nbOpenPair = ( fullBlockContent.match( getOpenPairRegex ) || [] ).length
+	const nbClosPair = ( fullBlockContent.match( getClosPairRegex ) || [] ).length
+		
+	replaceWithThis = nbOpenPair === nbClosPair ? openPairChar + leftSep : rightSep + closPairChar
+	return replaceWithThis
+
+}
+
+/**
+ * Stop the process in the regex loop if a code error generates an infinite loop
+ * by removing last 2 characters and adding a message in the console
+ *
+ * @param {string} currentBlockId currentBlockId current active block ID
+ */
+export const aMemoryLeakHasOccured = currentBlockId => {
+
+	const block = getBlock( currentBlockId )
+
+	updateBlock( currentBlockId, {
+		...block,
+		attributes: { ...block.attributes, content: block.attributes.content.slice( -2 ) }
+	} )
+
+	global.consistency_loop = 0
+	console.log( 'Consistency - a memory leak has occured' )
+
+}
+
+/**
+ * Get current cursor position in HTML content
+ *
+ * @param {string} currentBlockId Active current block ID
+ * @return {integer} cursor position in HTML content
+ */
+export const getCursorPositionInInnerHTML = currentBlockId => {
+	
+	// Get current block DOM Node
+	const currentActiveBlock = document.querySelector( `#block-${ currentBlockId }` )
+	if ( null === currentActiveBlock ) return undefined
+
+	// Get current selection
+	const selection = document.getSelection()
+	const _range = selection?.getRangeAt( 0 )
+
+	// Return if user is selecting text instead of typing
+	if ( ! _range.collapsed ) return
+
+	// Clone range to work on
+	const range = _range.cloneRange()
+
+	// Create a temporary node to target
+	const tempNode = document.createTextNode( '\0' )
+
+	// Insert temporary node as target into cloned range
+	range.insertNode( tempNode )
+
+	// Get position of target inside active block HTML
+	let cursorPositionInsideHTML = currentActiveBlock?.innerHTML?.indexOf( '\0' )
+
+	// Remove temporary node and normalize cut node - important!
+	tempNode.parentNode.removeChild( tempNode )
+	currentActiveBlock.normalize()
+
+	// Remove non-breaking spaces in &nbsp; format from the count
+	const nbNbsp = (currentActiveBlock?.innerHTML.match(/&nbsp;/g) || []).length
+	if ( nbNbsp > 0 ) {
+		cursorPositionInsideHTML = cursorPositionInsideHTML - ( nbNbsp * 6 ) + nbNbsp
+	}
+
+	return cursorPositionInsideHTML
+}

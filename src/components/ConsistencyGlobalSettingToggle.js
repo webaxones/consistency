@@ -1,11 +1,18 @@
+/**
+ * WordPress dependencies
+ */
 import { __ } from '@wordpress/i18n'
 import { useDispatch } from '@wordpress/data'
 import { PanelRow, ToggleControl } from '@wordpress/components'
 import { store as coreStore, useEntityProp } from '@wordpress/core-data'
 import { store as noticesStore } from '@wordpress/notices'
-import { isUsedByLocale } from '../app/helpers'
 
-export const ConsistencySettingCorrectionToggle = props => {
+/**
+ * External dependencies
+ */
+import { isUsedByLocale } from '../app/controls'
+
+export const ConsistencyGlobalSettingToggle = props => {
 
 	const { settingSlug, settingName, settingDescription } = props
 

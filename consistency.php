@@ -149,6 +149,10 @@ function set_default_settings( string $locale ): array {
 			'slug'  => 'noNonBreakingSpaceAfter',
 			'value' => false,
 		],
+		[
+			'slug'  => 'capitalizeFirstSentenceLetter',
+			'value' => false,
+		],
 	];
 
 	if ( in_array( $locale, [ 'fr-FR', 'fr-BE' ], true ) ) {
@@ -195,6 +199,10 @@ function set_default_settings( string $locale ): array {
 			],
 			[
 				'slug'  => 'noNonBreakingSpaceAfter',
+				'value' => true,
+			],
+			[
+				'slug'  => 'capitalizeFirstSentenceLetter',
 				'value' => true,
 			],
 		];
@@ -245,6 +253,10 @@ function set_default_settings( string $locale ): array {
 			[
 				'slug'  => 'noNonBreakingSpaceAfter',
 				'value' => false,
+			],
+			[
+				'slug'  => 'capitalizeFirstSentenceLetter',
+				'value' => true,
 			],
 		];
 	}
@@ -299,15 +311,28 @@ add_action( 'admin_init', __NAMESPACE__ . '\add_default_settings' );
 function register_user_meta_settings(): void {
 	register_meta(
 		'user',
-		'consistency_plugin_setting_state',
+		'consistency_plugin_user_settings',
 		[
-            'type'              => 'boolean',
-            'show_in_rest'      => true,
-			'default'           => true,
-			'auth_callback'     => function () {
+			'type'          => 'array',
+			'single'        => true,
+			'show_in_rest'  => [
+				'schema' => [
+					'items' => [
+						'type'       => 'object',
+						'properties' => [
+							'slug'  => [
+								'type' => 'string',
+							],
+							'value' => [
+								'type' => ['string', 'number', 'integer', 'boolean', 'array', 'object', 'null'],
+							],
+						],
+					],
+				],
+			],
+			'auth_callback' => function () {
 				return current_user_can( 'edit_posts' );
 			},
-			'sanitize_callback' => 'rest_sanitize_boolean',
 		]
 	);
 }
@@ -320,8 +345,25 @@ add_action( 'rest_api_init', __NAMESPACE__ . '\register_user_meta_settings' );
  */
 function add_current_user_meta_settings(): void {
 	$current_user = wp_get_current_user();
-	if ( ! metadata_exists( 'user', $current_user->ID, 'consistency_plugin_setting_state' ) && current_user_can( 'edit_posts' ) ) {
-		add_user_meta( $current_user->ID, 'consistency_plugin_setting_state', true );
+
+	if ( ! metadata_exists( 'user', $current_user->ID, 'consistency_plugin_user_settings' ) && current_user_can( 'edit_posts' ) ) {
+
+		$consistency_plugin_user_settings = [
+			[
+				'slug'  => 'on_the_fly',
+				'value' => true,
+			],
+			[
+				'slug'  => 'on_paste',
+				'value' => true,
+			],
+			[
+				'slug'  => 'on_selection',
+				'value' => false,
+			],
+		];
+
+		add_user_meta( $current_user->ID, 'consistency_plugin_user_settings', $consistency_plugin_user_settings );
 	}
 }
 add_action( 'admin_init', __NAMESPACE__ . '\add_current_user_meta_settings' );
@@ -344,5 +386,6 @@ register_activation_hook( __FILE__, __NAMESPACE__ . '\activate' );
 function uninstall(): void {
     delete_option( 'consistency_plugin_settings' );
 	delete_metadata( 'user', 0, 'consistency_plugin_setting_state', '', true );
+	delete_metadata( 'user', 0, 'consistency_plugin_user_settings', '', true );
 }
 register_uninstall_hook( __FILE__, __NAMESPACE__ . '\uninstall' );

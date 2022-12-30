@@ -1,10 +1,17 @@
+/**
+ * WordPress dependencies
+ */
 import { __ } from '@wordpress/i18n'
 import { PluginSidebarMoreMenuItem, PluginSidebar } from '@wordpress/edit-post'
 import { PanelBody, PanelRow } from '@wordpress/components'
-import { ConsistencyIcon } from './Icon'
-import { ConsistencySettingState } from './ConsistencySettingState'
-import { ConsistencySettingCorrectionToggle } from './ConsistencySettingCorrectionToggle'
 import { select } from '@wordpress/data'
+
+/**
+ * External dependencies
+ */
+import { ConsistencyIcon } from './Icon'
+import { ConsistencyUserSettingToggle } from './ConsistencyUserSettingToggle'
+import { ConsistencyGlobalSettingToggle } from './ConsistencyGlobalSettingToggle'
 
 const { canUser } = select( 'core' )
 
@@ -14,24 +21,39 @@ export const SidebarSettings = () => {
     return(
         <>
             <PluginSidebar
-                name="consistency-custom-sidebar"
-                title={ __( 'Consistency Settings', 'consistency' ) }
+                name='consistency-custom-sidebar'
+                title={ __( 'Consistency', 'consistency' ) }
 				icon={ ConsistencyIcon }
             >
 				<PanelBody
-					title={ __( 'Status', 'consistency' ) }
+					title={ __( 'Settings for my account', 'consistency' ) }
 					initialOpen={ true }
 				>
 					<PanelRow>
-						<ConsistencySettingState />
+						<ConsistencyUserSettingToggle
+							settingSlug='on_the_fly' 
+							settingName={ __( 'On-the-fly autocorrect', 'consistency' ) }
+							settingDescription={ {
+								__html: __( 'Enable/disable on-the-fly autocorrect for my account', 'consistency' )
+								} }
+						/>
+					</PanelRow>
+					<PanelRow>
+						<ConsistencyUserSettingToggle
+							settingSlug='on_paste' 
+							settingName={ __( 'On paste autocorrect', 'consistency' ) }
+							settingDescription={ {
+								__html: __( 'Enable/disable autocorrect on paste for my account', 'consistency' )
+								} }
+						/>
 					</PanelRow>
 				</PanelBody>
 				{ isAdmin && 
 					<PanelBody
-						title={ __( 'Global Corrections', 'consistency' ) }
-						initialOpen={ true }
+						title={ __( 'Global correction rules', 'consistency' ) }
+						initialOpen={ false }
 					>
-						<ConsistencySettingCorrectionToggle
+						<ConsistencyGlobalSettingToggle
 							settingSlug='quote' 
 							settingName={ __( 'Straight quote', 'consistency' ) }
 							settingDescription={ {
@@ -39,7 +61,7 @@ export const SidebarSettings = () => {
 									+ `<span aria-hidden='true' style='display:block;'><code>'</code> <span style='font-size:20px'>→</span> <code>’</code></span>`
 								} }
 						/>
-						<ConsistencySettingCorrectionToggle
+						<ConsistencyGlobalSettingToggle
 							settingSlug='ellipsis' 
 							settingName={ __( 'Ellipsis', 'consistency' ) }
 							settingDescription={ {
@@ -47,7 +69,7 @@ export const SidebarSettings = () => {
 									+ `<span aria-hidden='true' style={ { display: 'block' } }><code>...</code> <span style={ { fontSize: '20px' } }>→</span> <code>…</code></span>`
 								} }
 						/>
-						<ConsistencySettingCorrectionToggle
+						<ConsistencyGlobalSettingToggle
 							settingSlug='2hyphens' 
 							settingName={ __( 'Two hyphens', 'consistency' ) }
 							settingDescription={ {
@@ -55,14 +77,14 @@ export const SidebarSettings = () => {
 									+ `<span aria-hidden='true' style={ { display: 'block' } }><code>--</code> <span style={ { fontSize: '20px' } }>→</span> <code>—</code></span>`
 								} }
 						/>
-						<ConsistencySettingCorrectionToggle
+						<ConsistencyGlobalSettingToggle
 							settingSlug='ordinalNumberSuffix' 
 							settingName={ __( 'Ordinal number suffix', 'consistency' ) }
 							settingDescription={ {
 								__html: __( 'Add HTML tag sup to ordinal number suffix', 'consistency' )
 								} }
 						/>
-						<ConsistencySettingCorrectionToggle
+						<ConsistencyGlobalSettingToggle
 							settingSlug='regularToCurlyQuotes' 
 							settingName={ __( 'Regular quotes to curly', 'consistency' ) }
 							settingDescription={ {
@@ -70,7 +92,7 @@ export const SidebarSettings = () => {
 									+ `<span aria-hidden='true' style={ { display: 'block' } }><code>" "</code> <span style={ { fontSize: '20px' } }>→</span> <code>“ ”</code></span>`
 								} }
 						/>
-						<ConsistencySettingCorrectionToggle
+						<ConsistencyGlobalSettingToggle
 							settingSlug='regularToFrenchQuotes' 
 							settingName={ __( 'Regular quotes to french', 'consistency' ) }
 							settingDescription={ {
@@ -78,7 +100,7 @@ export const SidebarSettings = () => {
 									+ `<span aria-hidden='true' style={ { display: 'block' } }><code>" "</code> <span style={ { fontSize: '20px' } }>→</span> <code>« »</code></span>`
 								} }
 						/>
-						<ConsistencySettingCorrectionToggle 
+						<ConsistencyGlobalSettingToggle 
 							settingSlug='breakingSpace' 
 							settingName={ __( 'Breaking space', 'consistency' ) }
 							settingDescription={ {
@@ -86,7 +108,7 @@ export const SidebarSettings = () => {
 									, `<br /><code>? ! : ; » € $ £ ¥ ₽ 元 %</code><br />` )
 								} }
 						/>
-						<ConsistencySettingCorrectionToggle 
+						<ConsistencyGlobalSettingToggle 
 							settingSlug='noSpaceBefore' 
 							settingName={ __( 'No space before', 'consistency' ) }
 							settingDescription={ {
@@ -94,7 +116,7 @@ export const SidebarSettings = () => {
 									, `<br /><code>? ! : ; » € $ £ ¥ ₽ 元 %</code><br />` )
 								} }
 						/>
-						<ConsistencySettingCorrectionToggle 
+						<ConsistencyGlobalSettingToggle 
 							settingSlug='noBreakingSpaceAfter' 
 							settingName={ __( 'No breaking space after', 'consistency' ) }
 							settingDescription={ {
@@ -102,19 +124,26 @@ export const SidebarSettings = () => {
 									, `<br /><code>, … ) ]</code><br />` )
 								} }
 						/>
-						<ConsistencySettingCorrectionToggle
+						<ConsistencyGlobalSettingToggle
 							settingSlug='noNonBreakingSpaceAfter' 
 							settingName={ __( 'No non breaking space after', 'consistency' ) }
 							settingDescription={ {
 								__html: __( 'Adds a non-breaking space after open french quote having no space after', 'consistency' )
 								} }
 						/>
-						<ConsistencySettingCorrectionToggle
+						<ConsistencyGlobalSettingToggle
 							settingSlug='spaceBefore' 
 							settingName={ __( 'Space before', 'consistency' ) }
 							settingDescription={ {
 								__html: __( 'Remove any space preceding a character from this list:', 'consistency' )
 									+ `<span style={ { display: 'block' } }><code>? ! : ; %</code></span>`
+								} }
+						/>
+						<ConsistencyGlobalSettingToggle
+							settingSlug='capitalizeFirstSentenceLetter' 
+							settingName={ __( 'First sentence letter not capitalized', 'consistency' ) }
+							settingDescription={ {
+								__html: __( 'Capitalize the first letter of a sentence', 'consistency' )
 								} }
 						/>
 					</PanelBody>

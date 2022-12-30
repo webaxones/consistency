@@ -1,3 +1,6 @@
+/**
+ * WordPress dependencies
+ */
 import { Icon } from '@wordpress/components'
 
 export const ConsistencyIcon = () => {
