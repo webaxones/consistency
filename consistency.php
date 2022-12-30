@@ -3,7 +3,7 @@
  * Plugin Name:       Consistency
  * Plugin URI:        https://www.webaxones.com
  * Description:       Fixes typographical consistency
- * Version:           1.2.2
+ * Version:           1.3.0
  * Requires at least: 6.1
  * Requires PHP:      7.3 or higher
  * Author:            Loïc Antignac

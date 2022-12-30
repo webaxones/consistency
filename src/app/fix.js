@@ -61,15 +61,14 @@ export const fixIt = props => {
 			// Get cursor position in HTML (with tags): needed to cut at the right position
 			const cursorPositionInsideHTML = getCursorPositionInInnerHTML( currentBlockId ) || cursorPosition
 
-			// Get length to go back:
-			// If the rule depends on previous characters, we need to separate the string taking those characters into account.
+			// If the rule depends on previous characters, we need to separate the string taking those characters into account
 			const captureGroups = blockContent.match( reg.mask )
 			if( null === captureGroups || 0 === captureGroups.length ) return
 			const lengthToGoBack = captureGroups[0].length || 1			
 
 			// Split the string to process only the part from the cursor position to the end
-			firstPart = blockContent.substring( 0, cursorPositionInsideHTML - lengthToGoBack - 1 )
-			lastPart = blockContent.substring( cursorPositionInsideHTML - lengthToGoBack - 1, blockContent.length )
+			firstPart = blockContent.substring( 0, cursorPositionInsideHTML - lengthToGoBack )
+			lastPart = blockContent.substring( cursorPositionInsideHTML - lengthToGoBack, blockContent.length )
 
 			// If first part of the string matches but not the lastPart, it means that a character has been typed uncorrected voluntarily before, so it should not be taken into account
 			isConcerned = reg.mask.test( blockContent ) && reg.mask.test( lastPart )
@@ -94,11 +93,20 @@ export const fixIt = props => {
 			blockContent = blockContent.replace( reg.mask, reg.replace )
 		}
 
+		// If CTRL Z was used just before, then we do not correct this time
+		if ( true === global.consistencyHistory ) {
+			global.consistencyHistory = false
+			return
+		}
+
 		// Update block
-		updateBlock( currentBlockId, {
-			...block,
-			attributes: { ...block.attributes, content: blockContent }
-		} )
+		if ( false === global.consistencyHistory ) {
+			updateBlock( currentBlockId, {
+				...block,
+				attributes: { ...block.attributes, content: blockContent }
+			} )
+		}
+
 
 		// Cursor repositioning:
 		if ( 0 === reg.nbMoved || 0 === cursorPosition || isPasting ) return

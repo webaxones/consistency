@@ -31,9 +31,8 @@ domReady( () => {
 
 	// This global makes it possible to count the loops on the regex in order to trigger a cut on a possible infinite loop
 	global.consistencyLoop = 0
-
+	global.consistencyHistoryContent = ''
 	global.consistencyHistory = false
-	global.consistencyHistoryLastChar = ''
 
 	// Fix all blocks in post: only used in content copy/paste
 	const fixAll = () => {
@@ -98,9 +97,10 @@ domReady( () => {
 		e.preventDefault()
 	} )
 
+	// Intercept CTRL Z to cancel next fix
 	document.querySelector( '#editor' )?.addEventListener( 'keydown', e => {
 		if ( 90 === e.keyCode && ( e.ctrlKey || e.metaKey ) ) {
-			console.log('CTRL Z');
+			global.consistencyHistory = true
 			e.preventDefault()
 		}
 	} )
@@ -134,13 +134,13 @@ domReady( () => {
 		// Stop here if everything is disabled
 		if ( null === currentBlockId || contentPasted || ! onTheFly ) return
 
-		// Don't try to fix block content if nothing has changed in content
+		// Don't try to fix block content if nothing has changed
 		const blockAttributes = getBlockAttributes( currentBlockId )
-		if ( blockAttributes.hasOwnProperty( 'content' ) && global.consistencyHistoryLastChar === blockAttributes.content.charAt( blockAttributes.content.length - 1 ) ) {
+		if ( blockAttributes.hasOwnProperty( 'content' ) && global.consistencyHistoryContent === blockAttributes.content ) {
 			return
 		}
-		global.consistencyHistoryLastChar = blockAttributes.content.charAt( blockAttributes.content.length - 1 )
-		
+		global.consistencyHistoryContent = blockAttributes.content
+
 		// Fixes the typography of current selected block
 		const isPasting = false
 		theRegs && isTyping() && fixIt( { currentBlockId, theRegs, isPasting } )

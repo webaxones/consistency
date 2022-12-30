@@ -28,7 +28,7 @@ export const regs = [
 	{
 		// Replaces two hyphens with em dash
 		name: '2hyphens',
-		mask: /\-{2}/,
+		mask: /(?:\-)\-/,
 		replace: '—',
 		nbMoved: -1,
 		locales: [ 'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB' ]
