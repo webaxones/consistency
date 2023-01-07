@@ -13,6 +13,7 @@ use Webaxones\Consistency\Setting\Setting;
 use Webaxones\Consistency\User\CurrentUser;
 use Webaxones\Consistency\Meta\Meta;
 use Webaxones\Consistency\MetaData\MetaData;
+use Webaxones\Consistency\Setup\Setup;
 
 /**
  * Plugin Class that run all processes
@@ -72,6 +73,10 @@ class Plugin
 			$currentUser
 		);
 		$hooks->register( $meta );
+
+		register_activation_hook( __FILE__, [ 'Setup', 'onActivation' ] );
+		register_uninstall_hook( __FILE__, [ 'Setup', 'onUnstallation' ] );
+
 	}
 
 	protected static function setConstants(): void
