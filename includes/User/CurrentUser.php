@@ -3,14 +3,14 @@ namespace Webaxones\Consistency\User;
 
 defined( 'ABSPATH' ) || exit;
 
-use Webaxones\Consistency\Utils\Contracts\CurrentUserInterface;
+use Webaxones\Consistency\Utils\Contracts\UserInterface;
 
 /**
  * This class manages functions about User
  *
  * @throws
  */
-class CurrentUser implements CurrentUserInterface
+class CurrentUser implements UserInterface
 {
 	/**
 	 * {@inheritdoc}

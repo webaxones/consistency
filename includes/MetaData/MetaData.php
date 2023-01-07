@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
 use Webaxones\Consistency\Utils\Contracts\MetaDataInterface;
 use Webaxones\Consistency\Utils\Contracts\ActionInterface;
 use Webaxones\Consistency\Utils\Contracts\DataValueInterface;
-use Webaxones\Consistency\Utils\Contracts\CurrentUserInterface;
+use Webaxones\Consistency\Utils\Contracts\UserInterface;
 
 
 /**
@@ -22,11 +22,11 @@ class MetaData implements MetaDataInterface, ActionInterface
 	protected string $metaType;
 
 	/**
-	 * Object ID
+	 * Object
 	 *
-	 * @var int $objectId ID of the object metadata is for
+	 * @var object $object object metadata is fo
 	 */
-	protected int $objectId;
+	protected object $object;
 
 	/**
 	 * Meta Key
@@ -56,10 +56,10 @@ class MetaData implements MetaDataInterface, ActionInterface
 	 */
 	protected bool $deleteAll;
 
-	public function __construct( string $metaType, CurrentUserInterface $currentUser, string $metaKey, DataValueInterface $value, bool $unique = false, bool $deleteAll = false )
+	public function __construct( string $metaType, UserInterface $currentUser, string $metaKey, DataValueInterface $value, bool $unique = false, bool $deleteAll = false )
 	{
 		$this->metaType  = $metaType;
-		$this->objectId  = $currentUser->getID();
+		$this->object    = $currentUser;
 		$this->metaKey   = $metaKey;
 		$this->value     = $value->setDataValue();
 		$this->unique    = $unique;
@@ -71,7 +71,7 @@ class MetaData implements MetaDataInterface, ActionInterface
 	 */
 	public function getActions(): array
 	{
-		return [ 'admin_init' => [ 'add' ] ];
+		return [ 'current_screen' => [ 'add' ] ];
 	}
 
 	/**
@@ -79,7 +79,8 @@ class MetaData implements MetaDataInterface, ActionInterface
 	 */
 	public function add(): void
 	{
-		add_metadata( $this->metaType, $this->objectId, $this->metaKey, $this->value, $this->unique );
+		$objectId = $this->object->getID();
+		add_metadata( $this->metaType, $objectId, $this->metaKey, $this->value, $this->unique );
 	}
 
 	/**
@@ -87,6 +88,7 @@ class MetaData implements MetaDataInterface, ActionInterface
 	 */
 	public function delete(): void
 	{
-		delete_metadata( $this->metaType, $this->objectId, $this->metaKey, $this->value, $this->deleteAll );
+		$objectId = $this->object->getID();
+		delete_metadata( $this->metaType, $objectId, $this->metaKey, $this->value, $this->deleteAll );
 	}
 }

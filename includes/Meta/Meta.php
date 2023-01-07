@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) || exit;
 
 use Webaxones\Consistency\Utils\Contracts\DataInterface;
 use Webaxones\Consistency\Utils\Contracts\ActionInterface;
-use Webaxones\Consistency\Utils\Contracts\CurrentUserInterface;
+use Webaxones\Consistency\Utils\Contracts\UserInterface;
 
 /**
  * This class manages Metas
@@ -88,9 +88,9 @@ class Meta implements DataInterface, ActionInterface
 	 * @param  bool                                                        $single Whether the meta key has one value per object, or an array of values per object
 	 * @param  array                                                       $restSchema REST API Schema associated with this meta key
 	 * @param  string                                                      $capability User capability for auth_callback
-	 * @param  \Webaxones\Consistency\Utils\Contracts\CurrentUserInterface $currentUser Current User
+	 * @param  \Webaxones\Consistency\Utils\Contracts\UserInterface $currentUser Current User
 	 */
-	public function __construct( string $objectType, string $metaKey, string $objectSubType, string $type, bool $single, array $restSchema, string $capability, CurrentUserInterface $currentUser )
+	public function __construct( string $objectType, string $metaKey, string $objectSubType, string $type, bool $single, array $restSchema, string $capability, UserInterface $currentUser )
 	{
 		$this->objectType    = $objectType;
 		$this->metaKey       = $metaKey;
