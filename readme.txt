@@ -1,9 +1,9 @@
-=== Consistency ===
+=== Consistency – Typographical Corrector for Gutenberg ===
 Contributors: webaxones
-Tags: block editor, typography
+Tags: block editor, typography, gutenberg
 Requires at least: 6.1
 Tested up to: 6.1.1
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 Requires PHP: 7.3 or higher
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -61,6 +61,9 @@ Settings are directly in a plugin sidebar under the Block Editor: no more search
 2. Configure the rules in the editor.
 
 == Changelog ==
+
+= 1.3.1 =
+* Spelling corrections
 
 = 1.3.0 =
 * New correction added: "First sentence letter not capitalized"

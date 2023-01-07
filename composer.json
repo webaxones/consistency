@@ -1,0 +1,30 @@
+{
+	"name": "webaxones/consistency",
+	"description": "Typographical corrector for Gutenberg",
+	"type": "wordpress-plugin",
+	"license": "GPL-3.0-or-later",
+	"autoload": {
+		"psr-4": {
+			"Webaxones\\Consistency\\": "includes/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Loïc Antignac",
+			"email": "contact@webaxones.com"
+		}
+	],
+	"require": {
+		"php": "^7.3 || ^8"
+	},
+	"require-dev": {
+		"squizlabs/php_codesniffer": "^3.7.1",
+		"roave/security-advisories": "dev-latest",
+		"wp-cli/wp-cli": "^2.6"
+	},
+	"config": {
+		"optimize-autoloader": true,
+		"preferred-install": "dist",
+		"sort-packages": true
+	}
+}
