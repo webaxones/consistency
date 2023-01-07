@@ -71,7 +71,7 @@ class MetaData implements MetaDataInterface, ActionInterface
 	 */
 	public function getActions(): array
 	{
-		return [ 'current_screen' => [ 'add' ] ];
+		return [ 'admin_init' => [ 'add' ] ];
 	}
 
 	/**
