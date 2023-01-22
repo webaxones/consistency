@@ -76,7 +76,7 @@ class Setting implements DataInterface, ActionInterface
 			'show_in_rest'      => [
 				'schema' => $this->restSchema,
 			],
-			'sanitize_callback' => 'Webaxones\Consistency\Setting\sanitizeCallback',
+			'sanitize_callback' => [ $this, 'sanitizeCallback' ],
 		];
 		register_setting( $this->optionGroup, $this->optionName, $args );
 	}
@@ -84,8 +84,8 @@ class Setting implements DataInterface, ActionInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function sanitizeCallback( mixed $value ): bool
+	public function sanitizeCallback( mixed $value ): mixed
 	{
-		return rest_validate_array_value_from_schema( $value, $this->restSchema, $this->optionName );
+		return rest_sanitize_array( $value );
 	}
 }

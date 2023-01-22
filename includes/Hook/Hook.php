@@ -41,7 +41,7 @@ class Hook
 	{
 		$actions = $object->getActions();
 
-		foreach ($actions as $actionName => $actionSettings) {
+		foreach ( $actions as $actionName => $actionSettings ) {
 			$method   = $actionSettings[0] ?? '';
 			$priority = $actionSettings[1] ?? 10;
 			$args     = $actionSettings[2] ?? 1;

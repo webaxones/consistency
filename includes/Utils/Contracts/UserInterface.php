@@ -7,13 +7,6 @@ defined( 'ABSPATH' ) || exit;
 interface UserInterface
 {
 	/**
-	 * Get User ID
-	 *
-	 * @return int
-	 */
-	public function getID(): int;
-
-	/**
 	 * Check if user has capability
 	 *
 	 * @param  string $capability capability to check

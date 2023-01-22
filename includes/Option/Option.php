@@ -4,14 +4,16 @@ namespace Webaxones\Consistency\Option;
 defined( 'ABSPATH' ) || exit;
 
 use Webaxones\Consistency\Utils\Contracts\ActionInterface;
-use Webaxones\Consistency\Utils\Contracts\OptionInterface;
-use Webaxones\Consistency\Utils\Contracts\DataValueInterface;
+use Webaxones\Consistency\Utils\Contracts\ValueInterface;
+use Webaxones\Consistency\Utils\Concerns\ObjectArrayTrait;
 
 /**
  * This class manages Options (CRUD)
  */
-class Option implements OptionInterface, ActionInterface
+class Option implements ActionInterface
 {
+	use ObjectArrayTrait;
+
 	/**
 	 * Option Name
 	 *
@@ -27,23 +29,15 @@ class Option implements OptionInterface, ActionInterface
 	protected mixed $value;
 
 	/**
-	 * Option current value
-	 *
-	 * @var mixed $currentValue Current option value
-	 */
-	protected mixed $currentValue;
-
-	/**
 	 * Option constructor
 	 *
-	 * @param  string                                                    $option
-	 * @param  \Webaxones\Consistency\Utils\Contracts\DataValueInterface $value
+	 * @param  string                                                $option
+	 * @param  \Webaxones\Consistency\Utils\Contracts\ValueInterface $value
 	 */
-	public function __construct( string $option, DataValueInterface $value )
+	public function __construct( string $option, ValueInterface $value )
 	{
-		$this->option       = $option;
-		$this->value        = $value->setDataValue();
-		$this->currentValue = $this->get();
+		$this->option = $option;
+		$this->value  = $value->build();
 	}
 
 	/**
@@ -59,7 +53,7 @@ class Option implements OptionInterface, ActionInterface
 	 */
 	public function get(): mixed
 	{
-		return get_option( $this->option, 'not-exists' );
+		return get_option( $this->option );
 	}
 
 	/**
@@ -67,11 +61,11 @@ class Option implements OptionInterface, ActionInterface
 	 */
 	public function add(): void
 	{
-		if ( 'not-exists' !== $this->currentValue ) {
-			$this->update( $this->option, $this->currentValue, $this->value );
+		if ( false !== $this->get() ) {
+			$this->update( $this->option, $this->get(), $this->value );
 		}
 
-		if ( 'not-exists' === $this->currentValue ) {
+		if ( false === $this->get() ) {
 			add_option( $this->option, $this->value );
 		}
 	}
@@ -89,17 +83,12 @@ class Option implements OptionInterface, ActionInterface
 	 */
 	public function update(): void
 	{
-		$difference = array_udiff(
-			(array) $this->value,
-			(array) $this->currentValue,
-			function( $a, $b ) {
-				return strcmp( $a['slug'], $b['slug'] );
-			}
-		);
+		$difference = $this->getDifferenceBetweenTwoObjectArray( (array) $this->get(), (array) $this->value );
 
 		if ( empty( $difference ) ) {
 			return;
 		}
+
 		update_option( $this->option, $difference );
 	}
 }

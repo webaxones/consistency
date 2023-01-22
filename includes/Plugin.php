@@ -13,7 +13,6 @@ use Webaxones\Consistency\Setting\Setting;
 use Webaxones\Consistency\User\CurrentUser;
 use Webaxones\Consistency\Meta\Meta;
 use Webaxones\Consistency\MetaData\MetaData;
-use Webaxones\Consistency\Setup\Setup;
 
 /**
  * Plugin Class that run all processes
@@ -35,13 +34,19 @@ class Plugin
 
 		$hooks = new Hook();
 
+		// Add main script
 		$assets = new Asset();
 		$hooks->register( $assets );
 
+		// Add global rules in options
 		$rules  = new Rules();
-		$option = new Option( 'consistency_plugin_settings', $rules );
+		$option = new Option(
+			'consistency_plugin_settings',
+			$rules
+		);
 		$hooks->register( $option );
 
+		// Declare REST Schema for global settings
 		$setting = new Setting(
 			self::PREFIX,
 			self::PREFIX . '_settings',
@@ -50,7 +55,11 @@ class Plugin
 		);
 		$hooks->register( $setting );
 
-		$currentUser  = new CurrentUser();
+		// Get current user informations
+		$currentUser = new CurrentUser();
+		$hooks->register( $currentUser );
+
+		// Add current user custom choices in metadata
 		$userSettings = new UserSettings();
 		$metadata     = new MetaData(
 			'user',
@@ -62,6 +71,7 @@ class Plugin
 		);
 		$hooks->register( $metadata );
 
+		// Declare REST Schema for user custom settings
 		$meta = new Meta(
 			'user',
 			self::PREFIX . '_user_settings',
@@ -79,6 +89,11 @@ class Plugin
 
 	}
 
+	/**
+	 * Set Global Consistency Constants
+	 *
+	 * @return void
+	 */
 	protected static function setConstants(): void
 	{
 		if ( ! defined( __NAMESPACE__ . '\PLUGIN_URL' ) ) {

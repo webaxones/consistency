@@ -4,12 +4,12 @@ namespace Webaxones\Consistency\Config;
 
 defined( 'ABSPATH' ) || exit;
 
-use Webaxones\Consistency\Utils\Contracts\DataValueInterface;
+use Webaxones\Consistency\Utils\Contracts\ValueInterface;
 
 /**
  * Rules used in Consistency correction
  */
-class Rules implements DataValueInterface
+class Rules implements ValueInterface
 {
 	/**
 	 * Languages used in WordPress
@@ -95,7 +95,7 @@ class Rules implements DataValueInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setDataValue(): array
+	public function build(): array
 	{
 		return $this->rules ?? $this->setRules();
 	}

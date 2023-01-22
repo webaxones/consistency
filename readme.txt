@@ -62,6 +62,9 @@ Settings are directly in a plugin sidebar under the Block Editor: no more search
 
 == Changelog ==
 
+= 1.4.0 =
+* Code goes to OOP
+
 = 1.3.1 =
 * Spelling corrections
 
@@ -108,3 +111,4 @@ Settings are directly in a plugin sidebar under the Block Editor: no more search
 = 1.0.0 =
 
 * Plugin initial commit. Let's write =^.^=
+

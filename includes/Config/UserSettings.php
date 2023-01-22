@@ -4,12 +4,12 @@ namespace Webaxones\Consistency\Config;
 
 defined( 'ABSPATH' ) || exit;
 
-use Webaxones\Consistency\Utils\Contracts\DataValueInterface;
+use Webaxones\Consistency\Utils\Contracts\ValueInterface;
 
 /**
  * Default Settings current user
  */
-class UserSettings implements DataValueInterface
+class UserSettings implements ValueInterface
 {
 	/**
 	 * Default settings for current user
@@ -34,7 +34,7 @@ class UserSettings implements DataValueInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function setDataValue(): array
+	public function build(): array
 	{
 		return $this->default;
 	}

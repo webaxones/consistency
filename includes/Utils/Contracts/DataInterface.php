@@ -18,7 +18,7 @@ interface DataInterface
 	 *
 	 * @param  mixed $value value to sanitize
 	 *
-	 * @return bool
+	 * @return mixed
 	 */
-	public function sanitizeCallback( mixed $value ): bool;
+	public function sanitizeCallback( mixed $value ): mixed;
 }

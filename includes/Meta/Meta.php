@@ -81,13 +81,13 @@ class Meta implements DataInterface, ActionInterface
 	/**
 	 * Setting constructor
 	 *
-	 * @param  string                                                      $objectType Type of object metadata is for
-	 * @param  string                                                      $metaKey Meta key to register
-	 * @param  string                                                      $objectSubType Subtype of object type
-	 * @param  string                                                      $type Type of data associated with this meta key
-	 * @param  bool                                                        $single Whether the meta key has one value per object, or an array of values per object
-	 * @param  array                                                       $restSchema REST API Schema associated with this meta key
-	 * @param  string                                                      $capability User capability for auth_callback
+	 * @param  string                                               $objectType Type of object metadata is for
+	 * @param  string                                               $metaKey Meta key to register
+	 * @param  string                                               $objectSubType Subtype of object type
+	 * @param  string                                               $type Type of data associated with this meta key
+	 * @param  bool                                                 $single Whether the meta key has one value per object, or an array of values per object
+	 * @param  array                                                $restSchema REST API Schema associated with this meta key
+	 * @param  string                                               $capability User capability for auth_callback
 	 * @param  \Webaxones\Consistency\Utils\Contracts\UserInterface $currentUser Current User
 	 */
 	public function __construct( string $objectType, string $metaKey, string $objectSubType, string $type, bool $single, array $restSchema, string $capability, UserInterface $currentUser )
@@ -121,8 +121,8 @@ class Meta implements DataInterface, ActionInterface
 			'show_in_rest'      => [
 				'schema' => $this->restSchema,
 			],
-			'sanitize_callback' => 'Webaxones\Consistency\Meta\sanitizeCallback',
-			'auth_callback'     => 'Webaxones\Consistency\Meta\sanitizeCallback',
+			'sanitize_callback' => [ $this, 'sanitizeCallback' ],
+			'auth_callback'     => [ $this, 'authCallback' ],
 		];
 		register_meta( $this->objectType, $this->metaKey, $args );
 	}
@@ -130,11 +130,18 @@ class Meta implements DataInterface, ActionInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function sanitizeCallback( mixed $value ): bool
+	public function sanitizeCallback( mixed $value ): mixed
 	{
-		return rest_validate_array_value_from_schema( $value, $this->restSchema, $this->metaKey );
+		return rest_sanitize_array( $value );
 	}
 
+	/**
+	 * Authentication callback for register_meta
+	 *
+	 * @param  bool $capability
+	 *
+	 * @return bool Can user register meta
+	 */
 	public function authCallback( bool $capability ): bool
 	{
 		return $this->currentUser->can( $capability );
