@@ -8,7 +8,7 @@ use Webaxones\Consistency\Utils\Contracts\ValueInterface;
 use Webaxones\Consistency\Utils\Concerns\ObjectArrayTrait;
 
 /**
- * This class manages Options (CRUD)
+ * This class manages Options
  */
 class Option implements ActionInterface
 {
@@ -17,9 +17,9 @@ class Option implements ActionInterface
 	/**
 	 * Option Name
 	 *
-	 * @var string $option Name of the option to add
+	 * @var string $optionName Name of the option to add
 	 */
-	protected string $option;
+	protected string $optionName;
 
 	/**
 	 * New data value
@@ -31,13 +31,13 @@ class Option implements ActionInterface
 	/**
 	 * Option constructor
 	 *
-	 * @param  string                                                $option
+	 * @param  string                                                $optionName
 	 * @param  \Webaxones\Consistency\Utils\Contracts\ValueInterface $value
 	 */
-	public function __construct( string $option, ValueInterface $value )
+	public function __construct( string $optionName, ValueInterface $value )
 	{
-		$this->option = $option;
-		$this->value  = $value->build();
+		$this->optionName = $optionName;
+		$this->value      = $value->build();
 	}
 
 	/**
@@ -53,7 +53,7 @@ class Option implements ActionInterface
 	 */
 	public function get(): mixed
 	{
-		return get_option( $this->option );
+		return get_option( $this->optionName );
 	}
 
 	/**
@@ -62,11 +62,11 @@ class Option implements ActionInterface
 	public function add(): void
 	{
 		if ( false !== $this->get() ) {
-			$this->update( $this->option, $this->get(), $this->value );
+			$this->update( $this->optionName, $this->get(), $this->value );
 		}
 
 		if ( false === $this->get() ) {
-			add_option( $this->option, $this->value );
+			add_option( $this->optionName, $this->value );
 		}
 	}
 
@@ -75,7 +75,7 @@ class Option implements ActionInterface
 	 */
 	public function delete(): void
 	{
-		delete_option( $this->option );
+		delete_option( $this->optionName );
 	}
 
 	/**
@@ -83,12 +83,17 @@ class Option implements ActionInterface
 	 */
 	public function update(): void
 	{
+		if ( ! is_array( $this->value ) ) {
+			update_option( $this->optionName, $this->value );
+			return;
+		}
+
 		$difference = $this->getDifferenceBetweenTwoObjectArray( (array) $this->get(), (array) $this->value );
 
 		if ( empty( $difference ) ) {
 			return;
 		}
 
-		update_option( $this->option, $difference );
+		update_option( $this->optionName, $difference );
 	}
 }

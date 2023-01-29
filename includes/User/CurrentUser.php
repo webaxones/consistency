@@ -33,12 +33,7 @@ class CurrentUser implements ObjectInterface, UserInterface, ActionInterface
 	 */
 	public function getActions(): array
 	{
-		return [
-			'admin_init'            => [ 'setId' ],
-			'wp'                    => [ 'setCurrentUser' ],
-			'admin_enqueue_scripts' => [ 'getId' ],
-		];
-
+		return [ 'admin_init' => [ 'setCurrentUserData', 10 ] ];
 	}
 
 	/**
@@ -57,9 +52,23 @@ class CurrentUser implements ObjectInterface, UserInterface, ActionInterface
 		return $this->userId;
 	}
 
-	public function setCurrentUser(): void
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getType(): string
+	{
+		return 'user';
+	}
+
+	/**
+	 * Set Current User Data
+	 *
+	 * @return void
+	 */
+	public function setCurrentUserData(): void
 	{
 		$this->currentUser = wp_get_current_user();
+		$this->setId();
 	}
 
 	/**
@@ -67,6 +76,6 @@ class CurrentUser implements ObjectInterface, UserInterface, ActionInterface
 	 */
 	public function can( string $capability ): bool
 	{
-		return in_array( $capability, $this->currentUser->capabilities, true );
+		return in_array( $capability, (array) $this->currentUser->capabilities, true );
 	}
 }

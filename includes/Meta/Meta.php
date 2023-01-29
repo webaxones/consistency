@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) || exit;
 
 use Webaxones\Consistency\Utils\Contracts\DataInterface;
 use Webaxones\Consistency\Utils\Contracts\ActionInterface;
-use Webaxones\Consistency\Utils\Contracts\UserInterface;
+use Webaxones\Consistency\Utils\Contracts\ObjectInterface;
 
 /**
  * This class manages Metas
@@ -13,28 +13,11 @@ use Webaxones\Consistency\Utils\Contracts\UserInterface;
 class Meta implements DataInterface, ActionInterface
 {
 	/**
-	 * Type of object metadata is for
-	 *
-	 * @var string
-	 */
-	protected string $objectType;
-
-	/**
 	 * Meta key to register
 	 *
 	 * @var string
 	 */
 	protected string $metaKey;
-
-	/**
-	 *  Subtype of object type
-	 *  eg. post type if object type is post
-	 *
-	 * @see https://developer.wordpress.org/reference/functions/register_meta/
-	 *
-	 * @var string
-	 */
-	protected string $objectSubType;
 
 	/**
 	 * Type of data associated with this meta key
@@ -44,18 +27,12 @@ class Meta implements DataInterface, ActionInterface
 	protected string $type;
 
 	/**
-	 * Whether the meta key has one value per object, or an array of values per object
+	 * Whether data associated with this meta should be included in the REST API
+	 * When registering complex metas, this argument may optionally be an array with a 'schema' key
 	 *
-	 * @var bool
+	 * @var mixed
 	 */
-	protected bool $single;
-
-	/**
-	 * REST API Schema associated with this meta key
-	 *
-	 * @var array
-	 */
-	protected array $restSchema;
+	protected mixed $showInRest;
 
 	/**
 	 * User capability name for auth_callback
@@ -72,34 +49,49 @@ class Meta implements DataInterface, ActionInterface
 	protected bool $currentUserCan;
 
 	/**
-	 * Current user
+	 * Object
 	 *
 	 * @var object
 	 */
-	protected object $currentUser;
+	protected object $object;
+
+	/**
+	 *  Subtype of object type
+	 *  eg. post type if object type is post
+	 *
+	 * @see https://developer.wordpress.org/reference/functions/register_meta/
+	 *
+	 * @var string
+	 */
+	protected string $objectSubType;
+
+	/**
+	 * Whether the meta key has one value per object, or an array of values per object
+	 *
+	 * @var bool
+	 */
+	protected bool $single;
 
 	/**
 	 * Setting constructor
 	 *
-	 * @param  string                                               $objectType Type of object metadata is for
-	 * @param  string                                               $metaKey Meta key to register
-	 * @param  string                                               $objectSubType Subtype of object type
-	 * @param  string                                               $type Type of data associated with this meta key
-	 * @param  bool                                                 $single Whether the meta key has one value per object, or an array of values per object
-	 * @param  array                                                $restSchema REST API Schema associated with this meta key
-	 * @param  string                                               $capability User capability for auth_callback
-	 * @param  \Webaxones\Consistency\Utils\Contracts\UserInterface $currentUser Current User
+	 * @param  string                                                 $metaKey Meta key to register
+	 * @param  string                                                 $type Type of data associated with this meta key
+	 * @param  mixed                                                  $showInRest True False OR REST Schema associated with this meta
+	 * @param  string                                                 $capability User capability for auth_callback
+	 * @param  \Webaxones\Consistency\Utils\Contracts\ObjectInterface $object Object metadata is for
+	 * @param  string                                                 $objectSubType Subtype of object type
+	 * @param  bool                                                   $single Whether the meta key has one value per object, or an array of values per object
 	 */
-	public function __construct( string $objectType, string $metaKey, string $objectSubType, string $type, bool $single, array $restSchema, string $capability, UserInterface $currentUser )
+	public function __construct( string $metaKey, string $type, mixed $showInRest, string $capability, ObjectInterface $object, string $objectSubType = '', bool $single = true )
 	{
-		$this->objectType    = $objectType;
 		$this->metaKey       = $metaKey;
-		$this->objectSubType = $objectSubType;
 		$this->type          = $type;
-		$this->single        = $single;
-		$this->restSchema    = $restSchema;
+		$this->showInRest    = $showInRest;
 		$this->capability    = $capability;
-		$this->currentUser   = $currentUser;
+		$this->object        = $object;
+		$this->objectSubType = $objectSubType;
+		$this->single        = $single;
 	}
 
 	/**
@@ -107,7 +99,10 @@ class Meta implements DataInterface, ActionInterface
 	 */
 	public function getActions(): array
 	{
-		return [ 'rest_api_init' => [ 'register' ] ];
+		return [
+			'rest_api_init' => [ 'register' ],
+			'admin_init'    => [ 'authCallback', 20 ],
+		];
 	}
 
 	/**
@@ -115,16 +110,15 @@ class Meta implements DataInterface, ActionInterface
 	 */
 	public function register(): void
 	{
-		$args = [
+		$showInRestArgs = is_array( $this->showInRest ) ? [ 'schema' => $this->showInRest ] : (bool) $this->showInRest;
+		$args           = [
 			'type'              => $this->type,
 			'single'            => $this->single,
-			'show_in_rest'      => [
-				'schema' => $this->restSchema,
-			],
+			'show_in_rest'      => $showInRestArgs,
 			'sanitize_callback' => [ $this, 'sanitizeCallback' ],
 			'auth_callback'     => [ $this, 'authCallback' ],
 		];
-		register_meta( $this->objectType, $this->metaKey, $args );
+		register_meta( $this->object->getType(), $this->metaKey, $args );
 	}
 
 	/**
@@ -132,7 +126,26 @@ class Meta implements DataInterface, ActionInterface
 	 */
 	public function sanitizeCallback( mixed $value ): mixed
 	{
-		return rest_sanitize_array( $value );
+		switch ( $this->type ) {
+			case 'string':
+				return (string) $value;
+
+			case 'boolean':
+				return (bool) $value;
+
+			case 'integer':
+				return (int) $value;
+
+			case 'number':
+				return $value;
+
+			case 'array':
+			case 'object':
+				return rest_sanitize_array( $value );
+
+			default:
+				return $value;
+		}
 	}
 
 	/**
@@ -144,6 +157,6 @@ class Meta implements DataInterface, ActionInterface
 	 */
 	public function authCallback( bool $capability ): bool
 	{
-		return $this->currentUser->can( $capability );
+		return $this->object->can( $capability );
 	}
 }

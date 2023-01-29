@@ -5,6 +5,7 @@ defined( 'ABSPATH' ) || exit;
 
 use Webaxones\Consistency\Utils\Contracts\ActionInterface;
 use Webaxones\Consistency\Utils\Contracts\DataInterface;
+use const Webaxones\Consistency\OPTION_GROUP;
 
 /**
  * This class manages Settings
@@ -33,26 +34,28 @@ class Setting implements DataInterface, ActionInterface
 	protected string $type;
 
 	/**
-	 * REST API Schema associated with this setting
+	 * Whether data associated with this setting should be included in the REST API
+	 * When registering complex settings, this argument may optionally be an array with a 'schema' key
 	 *
-	 * @var array
+	 * @var mixed
 	 */
-	protected array $restSchema;
+	protected mixed $showInRest;
 
 	/**
 	 * Setting constructor
 	 *
-	 * @param  string $optionGroup Settings group name
 	 * @param  string $optionName Name of an option to sanitize and save
 	 * @param  string $type Type of data associated with this setting
-	 * @param  array  $restSchema REST API Schema associated with this setting
+	 * @param  mixed  $showInRest True False OR REST Schema associated with this setting
+	 * @param  string $optionGroup Settings group name
 	 */
-	public function __construct( string $optionGroup, string $optionName, string $type, array $restSchema )
+
+	public function __construct( string $optionName, string $type, mixed $showInRest, string $optionGroup = OPTION_GROUP )
 	{
-		$this->optionGroup = $optionGroup;
 		$this->optionName  = $optionName;
 		$this->type        = $type;
-		$this->restSchema  = $restSchema;
+		$this->showInRest  = $showInRest;
+		$this->optionGroup = $optionGroup;
 	}
 
 	/**
@@ -71,11 +74,10 @@ class Setting implements DataInterface, ActionInterface
 	 */
 	public function register(): void
 	{
-		$args = [
+		$showInRestArgs = is_array( $this->showInRest ) ? [ 'schema' => $this->showInRest ] : (bool) $this->showInRest;
+		$args           = [
 			'type'              => $this->type,
-			'show_in_rest'      => [
-				'schema' => $this->restSchema,
-			],
+			'show_in_rest'      => $showInRestArgs,
 			'sanitize_callback' => [ $this, 'sanitizeCallback' ],
 		];
 		register_setting( $this->optionGroup, $this->optionName, $args );
@@ -86,6 +88,25 @@ class Setting implements DataInterface, ActionInterface
 	 */
 	public function sanitizeCallback( mixed $value ): mixed
 	{
-		return rest_sanitize_array( $value );
+		switch ( $this->type ) {
+			case 'string':
+				return (string) $value;
+
+			case 'boolean':
+				return (bool) $value;
+
+			case 'integer':
+				return (int) $value;
+
+			case 'number':
+				return $value;
+
+			case 'array':
+			case 'object':
+				return rest_sanitize_array( $value );
+
+			default:
+				return $value;
+		}
 	}
 }

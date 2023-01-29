@@ -11,18 +11,11 @@ use Webaxones\Consistency\Utils\Concerns\ObjectArrayTrait;
 
 
 /**
- * This class manages MetaData (CRUD)
+ * This class manages MetaData
  */
 class MetaData implements ActionInterface, DataValueInterface
 {
 	use ObjectArrayTrait;
-
-	/**
-	 * Meta Type
-	 *
-	 * @var string $metaType Type of object metadata is for
-	 */
-	protected string $metaType;
 
 	/**
 	 * Object
@@ -69,18 +62,16 @@ class MetaData implements ActionInterface, DataValueInterface
 	/**
 	 * MetaData constructor
 	 *
-	 * @param  string                                                 $metaType  Type of object metadata is for
-	 * @param  \Webaxones\Consistency\Utils\Contracts\ObjectInterface $currentUser Object metadata is for
 	 * @param  string                                                 $metaKey Metadata key
+	 * @param  \Webaxones\Consistency\Utils\Contracts\ObjectInterface $object Object metadata is for
 	 * @param  \Webaxones\Consistency\Utils\Contracts\ValueInterface  $value New Data value
 	 * @param  bool                                                   $unique Whether the specified metadata key should be unique for the object
-	 * @param  bool                                                   $deleteAll
+	 * @param  bool                                                   $deleteAll  If true, delete matching metadata entries for all objects, ignoring the specified object_id
 	 */
-	public function __construct( string $metaType, ObjectInterface $currentUser, string $metaKey, ValueInterface $value, bool $unique = false, bool $deleteAll = false )
+	public function __construct( string $metaKey, ObjectInterface $object, ValueInterface $value, bool $unique = false, bool $deleteAll = false )
 	{
-		$this->metaType  = $metaType;
-		$this->object    = $currentUser;
 		$this->metaKey   = $metaKey;
+		$this->object    = $object;
 		$this->value     = $value->build();
 		$this->unique    = $unique;
 		$this->deleteAll = $deleteAll;
@@ -92,7 +83,7 @@ class MetaData implements ActionInterface, DataValueInterface
 	public function getActions(): array
 	{
 		// Dependencies need to fire before
-		return [ 'admin_init' => [ 'add', 20, 1 ] ];
+		return [ 'admin_init' => [ 'add', 20 ] ];
 	}
 
 	/**
@@ -110,7 +101,7 @@ class MetaData implements ActionInterface, DataValueInterface
 	 */
 	public function get(): mixed
 	{
-		return get_metadata( $this->metaType, $this->object->getId(), $this->metaKey, true );
+		return get_metadata( $this->object->getType(), $this->object->getId(), $this->metaKey, true );
 	}
 
 	/**
@@ -125,7 +116,7 @@ class MetaData implements ActionInterface, DataValueInterface
 		}
 
 		if ( empty( $this->currentValue ) ) {
-			add_metadata( $this->metaType, $this->object->getId(), $this->metaKey, $this->value, $this->unique );
+			add_metadata( $this->object->getType(), $this->object->getId(), $this->metaKey, $this->value, $this->unique );
 		}
 	}
 
@@ -134,7 +125,7 @@ class MetaData implements ActionInterface, DataValueInterface
 	 */
 	public function delete(): void
 	{
-		delete_metadata( $this->metaType, $this->object->getId(), $this->metaKey, $this->value, $this->deleteAll );
+		delete_metadata( $this->object->getType(), $this->object->getId(), $this->metaKey, $this->value, $this->deleteAll );
 	}
 
 	/**
@@ -148,6 +139,6 @@ class MetaData implements ActionInterface, DataValueInterface
 			return;
 		}
 
-		update_metadata( $this->metaType, $this->object->getId(), $this->metaKey, $difference, '' );
+		update_metadata( $this->object->getType(), $this->object->getId(), $this->metaKey, $difference, '' );
 	}
 }

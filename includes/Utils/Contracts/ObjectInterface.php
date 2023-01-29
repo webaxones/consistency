@@ -19,4 +19,11 @@ interface ObjectInterface
 	 * @return void
 	 */
 	public function setId(): void;
+
+	/**
+	 * Get Object Type
+	 *
+	 * @return string
+	 */
+	public function getType(): string;
 }
