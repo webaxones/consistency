@@ -3,7 +3,7 @@ Contributors: webaxones
 Tags: block editor, typography, gutenberg
 Requires at least: 6.1
 Tested up to: 6.1.1
-Stable tag: 1.3.1
+Stable tag: 1.4.0
 Requires PHP: 7.3 or higher
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -19,7 +19,7 @@ Autocorrect is available on pages, posts and custom post types (if their configu
 
 Currently, the AutoCorrects offered are as follows:
 
-For the English language (based on the language set on the site)
+For the English language
 
 - "Straight quote" Correction: Replaces straight quotes with curved quotes
 - "Ellipsis" Correction: Replaces 3 dots with ellipsis
@@ -30,7 +30,7 @@ For the English language (based on the language set on the site)
 - "Space before" Correction: Remove any space preceding a character from this list (? ! : ; %)
 - "First sentence letter not capitalized" Correction: Capitalize the first letter of a sentence
 
-For the French language (based on the language set on the site)
+For the French language
 
 - "Straight quote" Correction: Replaces straight quotes with curved quotes
 - "Ellipsis" Correction: Replaces 3 dots with ellipsis
