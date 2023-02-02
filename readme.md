@@ -1,6 +1,6 @@
 # Consistency
 
-[![release](https://badgen.net/github/tag/webaxones/consistency)](https://wordpress.org/plugins/consistency/) [![wordpress](https://badgen.net/badge/wordpress/6.1+/green)](https://wordpress.org/plugins/consistency/) [![php](https://badgen.net/badge/php/7.3+/green)](https://wordpress.org/plugins/consistency/)
+[![release](https://badgen.net/github/tag/webaxones/consistency)](https://wordpress.org/plugins/consistency/) [![wordpress](https://badgen.net/badge/wordpress/6.1+/green)](https://wordpress.org/plugins/consistency/) [![php](https://badgen.net/badge/php/8.0+/green)](https://wordpress.org/plugins/consistency/)
 
 Fixes typographical errors when typing in the WordPress editor.  
   
