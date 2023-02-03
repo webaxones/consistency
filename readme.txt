@@ -3,7 +3,7 @@ Contributors: webaxones
 Tags: block editor, typography, gutenberg
 Requires at least: 6.1
 Tested up to: 6.1.1
-Stable tag: 1.4.2
+Stable tag: 1.4.4
 Requires PHP: 7.4 or higher
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -61,6 +61,12 @@ Settings are directly in a plugin sidebar under the Block Editor: no more search
 2. Configure the rules in the editor.
 
 == Changelog ==
+
+= 1.4.4 =
+* Fix composer package check
+
+= 1.4.3 =
+* Fix version number
 
 = 1.4.2 =
 * Plugin requires PHP: 7.4 or higher
