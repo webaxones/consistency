@@ -20,5 +20,5 @@ interface DataInterface
 	 *
 	 * @return mixed
 	 */
-	public function sanitizeCallback( mixed $value ): mixed;
+	public function sanitizeCallback( $value );
 }

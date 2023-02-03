@@ -15,16 +15,11 @@
 		}
 	],
 	"require": {
-		"php": "^8"
+		"php": "^7.4"
 	},
 	"require-dev": {
 		"squizlabs/php_codesniffer": "^3.7.1",
-		"roave/security-advisories": "dev-latest",
-		"phpcompatibility/php-compatibility": "*"
-	},
-	"scripts": {
-		"post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
-		"post-update-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility"
+		"roave/security-advisories": "dev-latest"
 	},
 	"config": {
 		"optimize-autoloader": true,

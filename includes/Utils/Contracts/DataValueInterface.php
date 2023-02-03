@@ -31,7 +31,7 @@ interface DataValueInterface
 	/**
 	 * Get value from table based on data kind
 	 *
-	 * @return mixed $currentValue current value of the option
+	 * @return $currentValue current value of the option
 	 */
-	public function get(): mixed;
+	public function get();
 }

@@ -39,7 +39,7 @@ class Setting implements DataInterface, ActionInterface
 	 *
 	 * @var mixed
 	 */
-	protected mixed $showInRest;
+	protected $showInRest;
 
 	/**
 	 * Setting constructor
@@ -50,7 +50,7 @@ class Setting implements DataInterface, ActionInterface
 	 * @param  string $optionGroup Settings group name
 	 */
 
-	public function __construct( string $optionName, string $type, mixed $showInRest, string $optionGroup = OPTION_GROUP )
+	public function __construct( string $optionName, string $type, $showInRest, string $optionGroup = OPTION_GROUP )
 	{
 		$this->optionName  = $optionName;
 		$this->type        = $type;
@@ -86,7 +86,7 @@ class Setting implements DataInterface, ActionInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function sanitizeCallback( mixed $value ): mixed
+	public function sanitizeCallback( $value )
 	{
 		switch ( $this->type ) {
 			case 'string':

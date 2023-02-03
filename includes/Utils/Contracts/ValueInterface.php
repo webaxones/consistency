@@ -9,7 +9,7 @@ interface ValueInterface
 	/**
 	 * Build data value
 	 *
-	 * @return mixed $dataValue data value
+	 * @return $dataValue data value
 	 */
-	public function build(): mixed;
+	public function build();
 }

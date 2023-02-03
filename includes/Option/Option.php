@@ -24,9 +24,9 @@ class Option implements ActionInterface
 	/**
 	 * New data value
 	 *
-	 * @var mixed $value New Data value
+	 * @var mixed $value New data value, can be all types
 	 */
-	protected mixed $value;
+	protected $value;
 
 	/**
 	 * Option constructor
@@ -51,7 +51,7 @@ class Option implements ActionInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get(): mixed
+	public function get()
 	{
 		return get_option( $this->optionName );
 	}

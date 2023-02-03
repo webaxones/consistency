@@ -30,9 +30,9 @@ class Meta implements DataInterface, ActionInterface
 	 * Whether data associated with this meta should be included in the REST API
 	 * When registering complex metas, this argument may optionally be an array with a 'schema' key
 	 *
-	 * @var mixed
+	 * @var mixed $showInRest boolean or array
 	 */
-	protected mixed $showInRest;
+	protected $showInRest;
 
 	/**
 	 * User capability name for auth_callback
@@ -77,13 +77,13 @@ class Meta implements DataInterface, ActionInterface
 	 *
 	 * @param  string                                                 $metaKey Meta key to register
 	 * @param  string                                                 $type Type of data associated with this meta key
-	 * @param  mixed                                                  $showInRest True False OR REST Schema associated with this meta
+	 * @param                                                         $showInRest True False OR REST Schema associated with this meta
 	 * @param  string                                                 $capability User capability for auth_callback
 	 * @param  \Webaxones\Consistency\Utils\Contracts\ObjectInterface $object Object metadata is for
 	 * @param  string                                                 $objectSubType Subtype of object type
 	 * @param  bool                                                   $single Whether the meta key has one value per object, or an array of values per object
 	 */
-	public function __construct( string $metaKey, string $type, mixed $showInRest, string $capability, ObjectInterface $object, string $objectSubType = '', bool $single = true )
+	public function __construct( string $metaKey, string $type, $showInRest, string $capability, ObjectInterface $object, string $objectSubType = '', bool $single = true )
 	{
 		$this->metaKey       = $metaKey;
 		$this->type          = $type;
@@ -124,7 +124,7 @@ class Meta implements DataInterface, ActionInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function sanitizeCallback( mixed $value ): mixed
+	public function sanitizeCallback( $value )
 	{
 		switch ( $this->type ) {
 			case 'string':

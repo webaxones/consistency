@@ -34,16 +34,16 @@ class MetaData implements ActionInterface, DataValueInterface
 	/**
 	 * Current data value
 	 *
-	 * @var mixed $currentValue Current data value
+	 * @var $currentValue Current data value
 	 */
-	protected mixed $currentValue;
+	protected $currentValue;
 
 	/**
 	 * New data value
 	 *
-	 * @var mixed $value New Data value
+	 * @var $value New data value
 	 */
-	protected mixed $value;
+	protected $value;
 
 	/**
 	 * Unique
@@ -99,7 +99,7 @@ class MetaData implements ActionInterface, DataValueInterface
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get(): mixed
+	public function get()
 	{
 		return get_metadata( $this->object->getType(), $this->object->getId(), $this->metaKey, true );
 	}
