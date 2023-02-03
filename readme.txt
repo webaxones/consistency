@@ -62,6 +62,9 @@ Settings are directly in a plugin sidebar under the Block Editor: no more search
 
 == Changelog ==
 
+= 1.4.2 =
+* Plugin requires PHP: 7.4 or higher
+
 = 1.4.1 =
 * Plugin stops supporting an End of life version of PHP: Requires PHP: 8.0 or higher
 
