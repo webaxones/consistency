@@ -2,8 +2,8 @@
 Contributors: webaxones
 Tags: block editor, typography, gutenberg
 Requires at least: 6.1
-Tested up to: 6.1.1
-Stable tag: 1.4.4
+Tested up to: 6.2
+Stable tag: 1.4.5
 Requires PHP: 7.4 or higher
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -21,27 +21,27 @@ Currently, the AutoCorrects offered are as follows:
 
 For the English language
 
-- "Straight quote" Correction: Replaces straight quotes with curved quotes
-- "Ellipsis" Correction: Replaces 3 dots with ellipsis
-- "Two hyphens" Correction: Replaces 2 hyphens with em dash
-- "Ordinal number suffix" Correction: Add HTML tag sup to ordinal number suffix
-- "Regular quotes to curly" Correction: Replaces regular quotes with curly quotes
-- "No breaking space after" Correction: Adds a breaking space after a character from this list (, … ) ]) when followed with another character
-- "Space before" Correction: Remove any space preceding a character from this list (? ! : ; %)
-- "First sentence letter not capitalized" Correction: Capitalize the first letter of a sentence
+- "Straight quote": Replaces straight quotes with curved quotes
+- "Ellipsis": Replaces 3 dots with ellipsis
+- "Two hyphens": Replaces 2 hyphens with em dash
+- "Ordinal number suffix": Add HTML tag sup to ordinal number suffix
+- "Regular quotes to curly": Replaces regular quotes with curly quotes
+- "No breaking space after": Adds a breaking space after a character from this list (, … ) ]) when followed with another character
+- "Space before": Remove any space preceding a character from this list (? ! : ; %)
+- "First sentence letter not capitalized": Capitalize the first letter of a sentence
 
 For the French language
 
-- "Straight quote" Correction: Replaces straight quotes with curved quotes
-- "Ellipsis" Correction: Replaces 3 dots with ellipsis
-- "Two hyphens" Correction: Replaces 2 hyphens with em dash
-- "Ordinal number suffix" Correction: Add HTML tag sup to ordinal number suffix
-- "Regular quotes to French" Correction: Replaces regular quotes with French quotes
-- "Breaking space" Correction: Replaces a breaking space followed by a character from this list (? ! : ; » € $ £ ¥ ₽ 元 %) with a non-breaking space
-- "No space before" Correction: Adds a non-breaking space before a character from this list (? ! : ; » € $ £ ¥ ₽ 元 %) having no space before
-- "No breaking space after" Correction: Adds a breaking space after a character from this list (, … ) ]) when followed with another character
-- "No non-breaking space after" Correction: Adds a non-breaking space after open french quote having no space after
-- "First sentence letter not capitalized" Correction: Capitalize the first letter of a sentence
+- "Straight quote": Replaces straight quotes with curved quotes
+- "Ellipsis": Replaces 3 dots with ellipsis
+- "Two hyphens": Replaces 2 hyphens with em dash
+- "Ordinal number suffix": Add HTML tag sup to ordinal number suffix
+- "Regular quotes to French": Replaces regular quotes with French quotes
+- "Breaking space": Replaces a breaking space followed by a character from this list (? ! : ; » € $ £ ¥ ₽ 元 %) with a non-breaking space
+- "No space before": Adds a non-breaking space before a character from this list (? ! : ; » € $ £ ¥ ₽ 元 %) having no space before
+- "No breaking space after": Adds a breaking space after a character from this list (, … ) ]) when followed with another character
+- "No non-breaking space after": Adds a non-breaking space after open french quote having no space after
+- "First sentence letter not capitalized": Capitalize the first letter of a sentence
 
 Ctrl+Z or Cmd+Z right after a correction disables the correction for the next keystroke
 
@@ -61,6 +61,11 @@ Settings are directly in a plugin sidebar under the Block Editor: no more search
 2. Configure the rules in the editor.
 
 == Changelog ==
+
+= 1.4.5 =
+* Fix a regex parsing bug on link insertion because the fetched content had changed and contained the HTML tags
+* Fix the processing of capital letters at the beginning of a sentence which did not take into account question marks, exclamation marks and ellipsis
+* Removes CODE, PRE, KBD tags and their content from scanned content
 
 = 1.4.4 =
 * Fix composer package check

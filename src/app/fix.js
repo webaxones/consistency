@@ -32,7 +32,7 @@ export const fixIt = props => {
 	Object.entries( theRegs ).forEach( ( [ _, reg ] ) => {
 
 		global.consistencyLoop ++
-
+	
 		if ( global.consistencyLoop > 150 ) {
 			aMemoryLeakHasOccured( currentBlockId )
 		}
@@ -43,11 +43,17 @@ export const fixIt = props => {
 		let cursorPosition = 0
 		let blockContent = blockAttributes.content
 		let selectionStart
-		
+
+		// Remove 'code' 'pre' and 'kbd' tags from block content
+		let textContentWithoutCode = blockContent.replace(/<\b(code|pre|kbd)\b>.*?<\/\b(code|pre|kbd)\b>/gi, '')
+
+		// Remove HTML tags from block content
+		let textContent = textContentWithoutCode.replace(/(<([^>]+)>)/gi, '')
+
 		// Check if block content is concerned by the regex
 		let isConcerned = false
 		if ( ! isTyping() ) {
-			isConcerned = reg.mask.test( blockContent )
+			isConcerned = reg.mask.test( textContent )
 		}
 
 		// Content splitting in case of typing on the fly to allow the user to undo a correction
@@ -62,16 +68,16 @@ export const fixIt = props => {
 			const cursorPositionInsideHTML = getCursorPositionInInnerHTML( currentBlockId ) || cursorPosition
 
 			// If the rule depends on previous characters, we need to separate the string taking those characters into account
-			const captureGroups = blockContent.match( reg.mask )
+			const captureGroups = textContent.match( reg.mask )
 			if( null === captureGroups || 0 === captureGroups.length ) return
 			const lengthToGoBack = captureGroups[0].length || 1			
 
 			// Split the string to process only the part from the cursor position to the end
 			firstPart = blockContent.substring( 0, cursorPositionInsideHTML - lengthToGoBack )
 			lastPart = blockContent.substring( cursorPositionInsideHTML - lengthToGoBack, blockContent.length )
-
+			
 			// If first part of the string matches but not the lastPart, it means that a character has been typed uncorrected voluntarily before, so it should not be taken into account
-			isConcerned = reg.mask.test( blockContent ) && reg.mask.test( lastPart )
+			isConcerned = reg.mask.test( textContent ) && reg.mask.test( lastPart )
 
 		}
 		

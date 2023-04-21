@@ -92,7 +92,7 @@ export const regs = [
 	{
 		// Capitalize the first letter of a sentence
 		name: 'capitalizeFirstSentenceLetter',
-		mask: /(^[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]$)|(\. [a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ])/,
+		mask: /(^[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ])|(?<=[\.|\?|\!|\…] )[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]/,
 		replace: matched => matched.toUpperCase(),
 		nbMoved: 0,
 		locales: [ 'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB' ]
