@@ -2,8 +2,8 @@
 Contributors: webaxones
 Tags: block editor, typography, gutenberg
 Requires at least: 6.1
-Tested up to: 6.2
-Stable tag: 1.4.5
+Tested up to: 6.5.2
+Stable tag: 1.4.7
 Requires PHP: 7.4 or higher
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -11,6 +11,8 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Corrects the input of text content in the Block Editor according to the configured typographical rules.
 
 == Description ==
+
+Do you see the typographic corrector in your word processor that formats what you type in real time? Well, it's the same idea but with Gutenberg.
 
 The purpose of this plugin is to provide a tool allowing administrators to define typographical rules in order to maintain typographical consistency in the text contents entered on the editor.
 The corrections are automatic and are made during the entry as well as on a copy paste.
@@ -61,6 +63,13 @@ Settings are directly in a plugin sidebar under the Block Editor: no more search
 2. Configure the rules in the editor.
 
 == Changelog ==
+
+= 1.4.7 =
+* Fix a regex parsing bug for quotes on pasted text (no need to use / character with template lierals)
+* Fix a compatibility problem with Otter block by removing the e.preventDefault from the paste event detection (blocked copy/paste content within blocks like embed, HTML...)
+* Fix PHP bug with currentUser authCallBack that prevented to save User Settings
+* Upgrade @wordpress/scripts to 27.8.0 and @wordpress/compose to 6.34.0
+* Updated for WordPress 6.5.2
 
 = 1.4.5 =
 * Fix a regex parsing bug on link insertion because the fetched content had changed and contained the HTML tags

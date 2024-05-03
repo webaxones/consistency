@@ -33,7 +33,7 @@ class CurrentUser implements ObjectInterface, UserInterface, ActionInterface
 	 */
 	public function getActions(): array
 	{
-		return [ 'admin_init' => [ 'setCurrentUserData', 10 ] ];
+		return [ 'rest_api_init' => [ 'setCurrentUserData', 10 ] ];
 	}
 
 	/**
@@ -76,6 +76,6 @@ class CurrentUser implements ObjectInterface, UserInterface, ActionInterface
 	 */
 	public function can( string $capability ): bool
 	{
-		return in_array( $capability, (array) $this->currentUser->capabilities, true );
+		return in_array( $capability, (array) $this->currentUser->allcaps, true );
 	}
 }

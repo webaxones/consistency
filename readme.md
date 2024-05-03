@@ -3,6 +3,8 @@
 [![release](https://badgen.net/github/tag/webaxones/consistency)](https://wordpress.org/plugins/consistency/) [![wordpress](https://badgen.net/badge/wordpress/6.1+/green)](https://wordpress.org/plugins/consistency/) [![php](https://badgen.net/badge/php/7.4+/green)](https://wordpress.org/plugins/consistency/)
 
 Fixes typographical errors when typing in the WordPress editor.  
+
+Do you see the typographic corrector in your word processor that formats what you type in real time? Well, it's the same idea but with Gutenberg.
   
 See [WordPress directory page](https://wordpress.org/plugins/consistency/).
 

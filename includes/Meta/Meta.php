@@ -100,8 +100,7 @@ class Meta implements DataInterface, ActionInterface
 	public function getActions(): array
 	{
 		return [
-			'rest_api_init' => [ 'register' ],
-			'admin_init'    => [ 'authCallback', 20 ],
+			'rest_api_init' => [ 'register', 20 ],
 		];
 	}
 
@@ -116,7 +115,7 @@ class Meta implements DataInterface, ActionInterface
 			'single'            => $this->single,
 			'show_in_rest'      => $showInRestArgs,
 			'sanitize_callback' => [ $this, 'sanitizeCallback' ],
-			'auth_callback'     => [ $this, 'authCallback' ],
+			'auth_callback'     => [ $this, 'authCallback', $this->capability ],
 		];
 		register_meta( $this->object->getType(), $this->metaKey, $args );
 	}
@@ -151,11 +150,11 @@ class Meta implements DataInterface, ActionInterface
 	/**
 	 * Authentication callback for register_meta
 	 *
-	 * @param  bool $capability
+	 * @param  string $capability
 	 *
 	 * @return bool Can user register meta
 	 */
-	public function authCallback( bool $capability ): bool
+	public function authCallback( string $capability ): bool
 	{
 		return $this->object->can( $capability );
 	}

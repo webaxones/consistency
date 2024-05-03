@@ -30,3 +30,7 @@ vendor/
 # dotenv environment variables file
 .env
 .vscode/*
+.wp-env.json
+
+# Mac files
+.DS_Store

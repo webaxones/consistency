@@ -1,6 +1,6 @@
 {
 	"name": "consistency",
-	"version": "1.4.5",
+	"version": "1.4.7",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
@@ -12,7 +12,7 @@
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
-		"@wordpress/compose": "^5.20.0",
-		"@wordpress/scripts": "^24.6.0"
+		"@wordpress/compose": "6.34.0",
+		"@wordpress/scripts": "27.8.0"
 	}
 }

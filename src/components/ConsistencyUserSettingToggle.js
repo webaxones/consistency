@@ -12,7 +12,7 @@ export const ConsistencyUserSettingToggle = props => {
 	const { settingSlug, settingName, settingDescription } = props
 
 	const { currentUser } = useSelect( select => {		
-		return { currentUser: select( coreStore ).getCurrentUser()	}
+		return { currentUser: select( coreStore ).getCurrentUser() }
 	}, [] )
 	const idUser = currentUser && currentUser.id
 
@@ -38,7 +38,6 @@ export const ConsistencyUserSettingToggle = props => {
 		if ( ! newSettings?.find( x => x.slug === settingSlug ) ) {
 			newSettings.push( { slug: settingSlug, value: value } )
 		}
-		
 		setSettings( { ...settings, consistency_plugin_user_settings: newSettings } )
 
 		saveEditedEntityRecord( 'root', 'user', idUser, { ...settings, meta: newSettings } )
