@@ -5,7 +5,7 @@
  * Description:       Fixes typographical consistency
  * Version:           1.4.7
  * Requires at least: 6.1
- * Requires PHP:      7.4 or higher
+ * Requires PHP:      7.4
  * Author:            Loïc Antignac
  * License:           GPL-3.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
