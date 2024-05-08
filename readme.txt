@@ -52,6 +52,9 @@ This data is deleted when the plugin is uninstalled.
 
 Settings are directly in a plugin sidebar under the Block Editor: no more searching for an options page, always available and discreet.
 
+The locales supported by this plugin are:
+'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB', 'de_DE', 'de_AT', 'de_CH', 'ro_RO'
+
 == Screenshots ==
 
 1. Rules specific to the English language and correction of a copy-pasted text.
@@ -64,8 +67,12 @@ Settings are directly in a plugin sidebar under the Block Editor: no more search
 
 == Changelog ==
 
+= 1.4.8 =
+* Code refactoring
+* Adds first level of support for German and Romanian locales
+
 = 1.4.7 =
-* Fix a regex parsing bug for quotes on pasted text (no need to use / character with template lierals)
+* Fix a regex parsing bug for quotes on pasted text (no need to use / character with template literals)
 * Fix a compatibility problem with Otter block by removing the e.preventDefault from the paste event detection (blocked copy/paste content within blocks like embed, HTML...)
 * Fix PHP bug with currentUser authCallBack that prevented to save User Settings
 * Upgrade @wordpress/scripts to 27.8.0 and @wordpress/compose to 6.34.0

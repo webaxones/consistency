@@ -74,6 +74,9 @@ This data is deleted when the plugin is uninstalled.
 
 Settings are directly in a plugin sidebar under the Block Editor: no more searching for an options page, always available and discreet.
 
+The locales supported by this plugin are:
+'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB', 'de_DE', 'de_AT', 'de_CH', 'ro_RO'
+
 ## Smoke tests
 
 [![WP compatibility](https://plugintests.com/plugins/wporg/consistency/wp-badge.svg)](https://plugintests.com/plugins/wporg/consistency/latest) [![PHP compatibility](https://plugintests.com/plugins/wporg/consistency/php-badge.svg)](https://plugintests.com/plugins/wporg/consistency/latest)
