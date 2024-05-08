@@ -67,6 +67,9 @@ The locales supported by this plugin are:
 
 == Changelog ==
 
+= 1.5.0 =
+* Fix SVN problem
+
 = 1.4.9 =
 * Fix requires PHP tag
 
