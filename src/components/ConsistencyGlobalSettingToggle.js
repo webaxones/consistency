@@ -1,4 +1,11 @@
 /**
+ * Summary: ConsistencyGlobalSettingToggle component.
+ * 
+ * @description This file contains the ConsistencyGlobalSettingToggle component used to display the plugin's global settings in sidebar.
+ * @author Loïc Antignac.
+ */
+
+/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n'
@@ -10,7 +17,7 @@ import { store as noticesStore } from '@wordpress/notices'
 /**
  * External dependencies
  */
-import { isUsedByLocale } from '../app/controls'
+import { isUsedByLocale } from '../app/checks'
 
 export const ConsistencyGlobalSettingToggle = props => {
 

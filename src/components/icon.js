@@ -1,4 +1,11 @@
 /**
+ * Summary: Consistency Logo.
+ * 
+ * @description This file contains the Consistency Logo component used to display the plugin's settings sidebar in editor.
+ * @author Loïc Antignac.
+ */
+
+/**
  * WordPress dependencies
  */
 import { Icon } from '@wordpress/components'

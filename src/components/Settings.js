@@ -1,4 +1,11 @@
 /**
+ * Summary: SidebarSettings component.
+ * 
+ * @description This file contains the SidebarSettings component used to display the plugin's settings sidebar in editor.
+ * @author Loïc Antignac.
+ */
+
+/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n'

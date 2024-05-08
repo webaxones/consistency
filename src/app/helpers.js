@@ -1,25 +1,9 @@
 /**
- * WordPress dependencies
+ * Summary: Specific functions varied and correlated to the application.
+ * 
+ * @description This file contains specific functions that depends on other parts of the application.
+ * @author Loïc Antignac.
  */
-import { select, dispatch } from '@wordpress/data'
-
-const { getBlock } = select( 'core/block-editor' )
-const { updateBlock } = dispatch( 'core/block-editor' )
-
-/**
- * Get all innerBlocks from an array of parents
- * The main use is to retrieve the child core/list-item blocks of the core/list block
- *
- * @param {*} arr
- */
-export const getAllInnersFromParents = arr => arr.flatMap( ( { innerBlocks, ...rest } ) => 
-
-	innerBlocks.map( b => ( {
-		...rest,
-		...b
-	} ) )
-
-)
 
 /**
  * Get specific replacement string for pairing characters by checking if we are on opening one or closing one
@@ -76,50 +60,6 @@ export const aMemoryLeakHasOccured = currentBlockId => {
 	} )
 
 	global.consistency_loop = 0
-	console.log( 'Consistency - a memory leak has occured' )
+	console.log( 'Consistency - a memory leak has occured during the fix of the following block:', block )
 
-}
-
-/**
- * Get current cursor position in HTML content
- *
- * @param {string} currentBlockId Active current block ID
- * @return {integer} cursor position in HTML content
- */
-export const getCursorPositionInInnerHTML = currentBlockId => {
-	
-	// Get current block DOM Node
-	const currentActiveBlock = document.querySelector( `#block-${ currentBlockId }` )
-	if ( null === currentActiveBlock ) return undefined
-
-	// Get current selection
-	const selection = document.getSelection()
-	const _range = selection?.getRangeAt( 0 )
-
-	// Return if user is selecting text instead of typing
-	if ( ! _range.collapsed ) return
-
-	// Clone range to work on
-	const range = _range.cloneRange()
-
-	// Create a temporary node to target
-	const tempNode = document.createTextNode( '\0' )
-
-	// Insert temporary node as target into cloned range
-	range.insertNode( tempNode )
-
-	// Get position of target inside active block HTML
-	let cursorPositionInsideHTML = currentActiveBlock?.innerHTML?.indexOf( '\0' )
-
-	// Remove temporary node and normalize cut node - important!
-	tempNode.parentNode.removeChild( tempNode )
-	currentActiveBlock.normalize()
-
-	// Remove non-breaking spaces in &nbsp; format from the count
-	const nbNbsp = (currentActiveBlock?.innerHTML.match(/&nbsp;/g) || []).length
-	if ( nbNbsp > 0 ) {
-		cursorPositionInsideHTML = cursorPositionInsideHTML - ( nbNbsp * 6 ) + nbNbsp
-	}
-
-	return cursorPositionInsideHTML
 }

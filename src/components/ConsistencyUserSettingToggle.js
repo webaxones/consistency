@@ -1,4 +1,11 @@
 /**
+ * Summary: ConsistencyUserSettingToggle component.
+ * 
+ * @description This file contains the ConsistencyUserSettingToggle component used to display the plugin's user settings in sidebar.
+ * @author Loïc Antignac.
+ */
+
+/**
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n'

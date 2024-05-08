@@ -1,10 +1,30 @@
 /**
+ * Summary: Data retrieval.
+ * 
+ * @description This file contains functions that retrieve data from database.
+ * @author Loïc Antignac.
+ */
+
+/**
  * WordPress dependencies
  */
 import { store as coreStore } from '@wordpress/core-data'
 import { select } from '@wordpress/data'
 
 const { getEntityRecord } = select( 'core' )
+
+/**
+ * Retrieves the global settings from the site entity.
+ * @returns {Object} The global settings object.
+ */
+export const getGlobalSettings = () => {
+	
+	const siteEntity = getEntityRecord( 'root', 'site' )
+	const globalSettings = siteEntity?.consistency_plugin_settings
+
+	return globalSettings
+
+}
 
 /**
  * Get current user settings from usermeta
