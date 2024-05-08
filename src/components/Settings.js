@@ -100,10 +100,34 @@ export const SidebarSettings = () => {
 								} }
 						/>
 						<ConsistencyGlobalSettingToggle
+							settingSlug='regularToGermanQuotes' 
+							settingName={ __( 'Regular quotes to german', 'consistency' ) }
+							settingDescription={ {
+								__html: __( 'Replaces regular quotes with german quotes:', 'consistency' )
+									+ `<span aria-hidden='true' style={ { display: 'block' } }><code>" "</code> <span style={ { fontSize: '20px' } }>→</span> <code>„ “</code></span>`
+								} }
+						/>
+						<ConsistencyGlobalSettingToggle
+							settingSlug='regularToGermanBookStyleQuotes' 
+							settingName={ __( 'Regular quotes to german book-style quotes', 'consistency' ) }
+							settingDescription={ {
+								__html: __( 'Replaces regular quotes with german book-style quotes:', 'consistency' )
+									+ `<span aria-hidden='true' style={ { display: 'block' } }><code>" "</code> <span style={ { fontSize: '20px' } }>→</span> <code>» «</code></span>`
+								} }
+						/>
+						<ConsistencyGlobalSettingToggle
 							settingSlug='regularToFrenchQuotes' 
 							settingName={ __( 'Regular quotes to french', 'consistency' ) }
 							settingDescription={ {
 								__html: __( 'Replaces regular quotes with french quotes:', 'consistency' )
+									+ `<span aria-hidden='true' style={ { display: 'block' } }><code>" "</code> <span style={ { fontSize: '20px' } }>→</span> <code>« »</code></span>`
+								} }
+						/>
+						<ConsistencyGlobalSettingToggle
+							settingSlug='regularToFrenchQuotesWithoutSpaces' 
+							settingName={ __( 'Regular quotes to french quotes without spaces', 'consistency' ) }
+							settingDescription={ {
+								__html: __( 'Replaces regular quotes with french quotes without spaces:', 'consistency' )
 									+ `<span aria-hidden='true' style={ { display: 'block' } }><code>" "</code> <span style={ { fontSize: '20px' } }>→</span> <code>« »</code></span>`
 								} }
 						/>

@@ -25,12 +25,12 @@ export const regs = [
 		locales: [ 'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB' ] // concerned locales
 	},
 	{
-		// Replaces three dots with ellipsis
+		// Replaces three dots with ellipsis (we don't add a space for german because it depends on the context and the space must have been added before the three dots)
 		name: 'ellipsis',
 		mask: /\.{3}/,
 		replace: '…',
 		nbMoved: -2,
-		locales: [ 'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB' ]
+		locales: [ 'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB', 'de_DE', 'de_AT', 'de_CH', 'ro_RO' ]
 	},
 	{
 		// Replaces two hyphens with em dash
@@ -38,7 +38,7 @@ export const regs = [
 		mask: /(?:\-)\-/,
 		replace: '—',
 		nbMoved: -1,
-		locales: [ 'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB' ]
+		locales: [ 'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB', 'de_DE', 'de_AT', 'de_CH', 'ro_RO' ]
 	},
 	{
 		// Adds HTML tag sup to ordinal number suffix
@@ -57,12 +57,36 @@ export const regs = [
 		locales: [ 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB' ]
 	},
 	{
+		// Replaces regular quotes with german quotes
+		name: 'regularToGermanQuotes',
+		mask: /"/, // specific mask with specific process
+		replace: '„$1“',
+		nbMoved: 0,
+		locales: [ 'de_DE', 'de_AT', 'ro_RO' ]
+	},
+	{
+		// Replaces regular quotes with german book-style quotes
+		name: 'regularToGermanBookStyleQuotes',
+		mask: /"/, // specific mask with specific process
+		replace: '»$1«',
+		nbMoved: 0,
+		locales: [ 'de_DE', 'de_AT' ]
+	},
+	{
 		// Replaces regular quotes with french quotes
 		name: 'regularToFrenchQuotes',
 		mask: /"/, // specific mask with specific process
 		replace: '« $1 »',
 		nbMoved: 1,
 		locales: [ 'fr_FR', 'fr_BE' ]
+	},
+	{
+		// Replaces regular quotes with french quotes
+		name: 'regularToFrenchQuotesWithoutSpaces',
+		mask: /"/, // specific mask with specific process
+		replace: '«$1»',
+		nbMoved: 0,
+		locales: [ 'de_CH' ]
 	},
 	{
 		// Replaces a breaking space followed by a character from this list [? ! : ; » € $ £ ¥ ₽ 元 %] with a non-breaking space
@@ -99,10 +123,10 @@ export const regs = [
 	{
 		// Capitalize the first letter of a sentence
 		name: 'capitalizeFirstSentenceLetter',
-		mask: /(^[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ])|(?<=[\.|\?|\!|\…] )[a-záàâäãåçéèêëíìîïñóòôöõúùûüýÿæœ]/,
+		mask: /(^[a-záàâäãåăçéèêëíìîïñóòôöõúùûüýÿæœșț])|(?<=[\.|\?|\!|\…] )[a-záàâäãåăçéèêëíìîïñóòôöõúùûüýÿæœșț]/,
 		replace: matched => matched.toUpperCase(),
 		nbMoved: 0,
-		locales: [ 'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB' ]
+		locales: [ 'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB', 'de_DE', 'de_AT', 'de_CH', 'ro_RO' ]
 	},
 	{
 		// Removes any space preceding a character from this list [? ! : ; %]
@@ -110,7 +134,7 @@ export const regs = [
 		mask: /([ | ])(?=[\?|\!|\:|\;|\%])/,
 		replace: '',
 		nbMoved: -1,
-		locales: [ 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB' ]
+		locales: [ 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB', 'de_DE', 'de_AT', 'de_CH', 'ro_RO' ]
 	}
 ]
 
@@ -118,5 +142,8 @@ export const regs = [
 export const regsWithPair = [
 	'regularToCurlyQuotes',
 	'regularToFrenchQuotes',
+	'regularToFrenchQuotesWithoutSpaces',
+	'regularToGermanQuotes',
+	'regularToGermanBookStyleQuotes',
 ]
 
