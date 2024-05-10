@@ -67,6 +67,9 @@ The locales supported by this plugin are:
 
 == Changelog ==
 
+= 1.5.2 =
+* Fix missing autoload vendor
+
 = 1.5.1 =
 * Fix for forgotten PHP locale rules update
 * Adds GitHub Action for deploy
