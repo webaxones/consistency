@@ -14,7 +14,9 @@ import { select } from '@wordpress/data'
  * External dependencies
  */
 import { getCurrentLocale } from './data'
-import { regs, regsWithPair, processedBlocks } from './config'
+import { rules } from '../config/rules'
+import { regsWithPair } from '../config/regsWithPair'
+import { processedBlocks } from '../config/processedBlocks'
 import { aMemoryLeakHasOccured } from './helpers'
 
 const { getBlockName, getBlockAttributes } = select( 'core/block-editor' )
@@ -29,7 +31,7 @@ const { getBlockName, getBlockAttributes } = select( 'core/block-editor' )
 export const isUsedByLocale = settingSlug => {
 
 	const currentLocale = getCurrentLocale()
-	const theRegex = regs?.find( x => x.name === settingSlug )
+	const theRegex = rules?.find( x => x.name === settingSlug )
 
 	if ( undefined !== theRegex && theRegex?.locales?.includes( currentLocale ) ) {
 		return true

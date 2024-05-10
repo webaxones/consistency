@@ -47,7 +47,7 @@ export const ConsistencyGlobalSettingToggle = props => {
 		if ( ! newSettings?.find( x => x.slug === settingSlug ) ) {
 			newSettings.push( { slug: settingSlug, value: value } )
 		}
-		
+
 		setSettings( newSettings )
 		saveEditedEntityRecord( 'root', 'site', undefined, newSettings )
 		

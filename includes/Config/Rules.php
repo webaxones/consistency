@@ -26,18 +26,21 @@ class Rules implements ValueInterface
 	 * @var array
 	 */
 	protected array $localizedRules = [
-		'quote'                         => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ],
-		'ellipsis'                      => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ],
-		'breakingSpace'                 => [ 'fr-FR', 'fr-BE' ],
-		'regularToCurlyQuotes'          => [ 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ],
-		'regularToFrenchQuotes'         => [ 'fr-FR', 'fr-BE' ],
-		'noSpaceBefore'                 => [ 'fr-FR', 'fr-BE' ],
-		'spaceBefore'                   => [ 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ],
-		'2hyphens'                      => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ],
-		'ordinalNumberSuffix'           => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ],
-		'noBreakingSpaceAfter'          => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ],
-		'noNonBreakingSpaceAfter'       => [ 'fr-FR', 'fr-BE' ],
-		'capitalizeFirstSentenceLetter' => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ],
+		'quote'                              => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ],
+		'ellipsis'                           => [ 'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB', 'de_DE', 'de_AT', 'de_CH', 'ro_RO' ],
+		'breakingSpace'                      => [ 'fr-FR', 'fr-BE' ],
+		'regularToCurlyQuotes'               => [ 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ],
+		'regularToGermanQuotes'              => [ 'de_DE', 'de_AT', 'ro_RO' ],
+		'regularToGermanBookStyleQuotes'     => [ 'de_DE', 'de_AT' ],
+		'regularToFrenchQuotes'              => [ 'fr-FR', 'fr-BE' ],
+		'regularToFrenchQuotesWithoutSpaces' => [ 'de_CH' ],
+		'noSpaceBefore'                      => [ 'fr-FR', 'fr-BE' ],
+		'spaceBefore'                        => [ 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB', 'de_DE', 'de_AT', 'de_CH', 'ro_RO' ],
+		'2hyphens'                           => [ 'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB', 'de_DE', 'de_AT', 'de_CH', 'ro_RO' ],
+		'ordinalNumberSuffix'                => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ],
+		'noBreakingSpaceAfter'               => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ],
+		'noNonBreakingSpaceAfter'            => [ 'fr-FR', 'fr-BE' ],
+		'capitalizeFirstSentenceLetter'      => [ 'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB', 'de_DE', 'de_AT', 'de_CH', 'ro_RO' ],
 	];
 
 	/**

@@ -1,21 +1,11 @@
 /**
- * Summary: Application settings.
- * 
- * @description This file contains different parameters such as blocks authorized to be corrected, correction rules.
+ * Summary: Correction rules.
+ *
+ * @description This file contains an array of all correction rules with each regular expression used.
  * @author Loïc Antignac.
  */
 
-// List of all processed blocks (obligation to filter them because not all of them have textual content)
-export const processedBlocks = [
-	'core/paragraph',
-	'core/heading',
-	'core/quote',
-	'core/list-item',
-	'core/read-more',
-]
-
-// List of all correction rules with each regular expression used
-export const regs = [
+export const rules = [
 	{
 		// Replaces straight quote with curly quote
 		name: 'quote', // slug of the setting and the related regex
@@ -136,14 +126,5 @@ export const regs = [
 		nbMoved: -1,
 		locales: [ 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB', 'de_DE', 'de_AT', 'de_CH', 'ro_RO' ]
 	}
-]
-
-// Regular expressions with pairs
-export const regsWithPair = [
-	'regularToCurlyQuotes',
-	'regularToFrenchQuotes',
-	'regularToFrenchQuotesWithoutSpaces',
-	'regularToGermanQuotes',
-	'regularToGermanBookStyleQuotes',
 ]
 
