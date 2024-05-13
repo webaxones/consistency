@@ -31,7 +31,7 @@ const { getBlockName, getBlockAttributes } = select( 'core/block-editor' )
 export const isUsedByLocale = settingSlug => {
 
 	const currentLocale = getCurrentLocale()
-	const theRegex = rules?.find( x => x.name === settingSlug )
+	const theRegex = rules?.find( x => x.slug === settingSlug )
 
 	if ( undefined !== theRegex && theRegex?.locales?.includes( currentLocale ) ) {
 		return true
@@ -81,7 +81,7 @@ export const blockCanTechnicallyBeChecked = currentBlockId => {
  */
 export const regDealWithPair = reg => {
 
-	if ( regsWithPair.includes( reg.name ) ) {
+	if ( regsWithPair.includes( reg.slug ) ) {
 		return true
 	}
 	return false
@@ -94,7 +94,7 @@ export const regDealWithPair = reg => {
  */
 export const checkIfAMemoryLeakHasOccuredAndStopProcessing = currentBlockId => {
 	
-	if ( global.consistencyLoop >= 150 ) {
+	if ( global.consistencyLoop >= 100 ) {
 		aMemoryLeakHasOccured( currentBlockId )
 	}
 

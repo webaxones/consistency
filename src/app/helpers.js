@@ -6,6 +6,14 @@
  */
 
 /**
+ * WordPress dependencies
+ */
+import { select, dispatch } from '@wordpress/data'
+
+const { getBlock } = select( 'core/block-editor' )
+const { updateBlock } = dispatch( 'core/block-editor' )
+
+/**
  * Get specific replacement string for pairing characters by checking if we are on opening one or closing one
  *
  * Character pairs have between 3 and 5 parts to be cut in the "replace" part:
