@@ -53,6 +53,7 @@ Currently, the AutoCorrects offered are as follows:
 - **No breaking space after**: Adds a breaking space after a character from this list (, … ) ]) when followed with another character
 - **Space before**: Remove any space preceding a character from this list (? ! : ; %)
 - **First sentence letter not capitalized**: Capitalize the first letter of a sentence
+- etc.
 
 ### French language corrections
 
@@ -66,6 +67,7 @@ Currently, the AutoCorrects offered are as follows:
 - **No breaking space after**: Adds a breaking space after a character from this list (, … ) ]) when followed with another character
 - **No non-breaking space after**: Adds a non-breaking space after open french quote having no space after
 - **First sentence letter not capitalized**: Capitalize the first letter of a sentence
+- etc.
 
 **Ctrl+Z** or **Cmd+Z** right after a correction disables the correction for the next keystroke. It is thus possible to force the non-correction of a character.
 

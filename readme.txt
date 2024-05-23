@@ -3,7 +3,7 @@ Contributors: webaxones
 Tags: block editor, typography, gutenberg
 Requires at least: 6.1
 Tested up to: 6.5.2
-Stable tag: 1.5.4
+Stable tag: 1.5.5
 Requires PHP: 7.4
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -31,6 +31,7 @@ For the English language
 - "No breaking space after": Adds a breaking space after a character from this list (, … ) ]) when followed with another character
 - "Space before": Remove any space preceding a character from this list (? ! : ; %)
 - "First sentence letter not capitalized": Capitalize the first letter of a sentence
+- etc.
 
 For the French language
 
@@ -44,6 +45,7 @@ For the French language
 - "No breaking space after": Adds a breaking space after a character from this list (, … ) ]) when followed with another character
 - "No non-breaking space after": Adds a non-breaking space after open french quote having no space after
 - "First sentence letter not capitalized": Capitalize the first letter of a sentence
+- etc.
 
 Ctrl+Z or Cmd+Z right after a correction disables the correction for the next keystroke
 
@@ -66,6 +68,9 @@ The locales supported by this plugin are:
 2. Configure the rules in the editor.
 
 == Changelog ==
+
+= 1.5.5 =
+* Add rule to replace curly quotes with french quotes for fr_FR & fr_BE because Google Doc transforms double quotes into curved quotes, but does not offer French quotes
 
 = 1.5.4 =
 * Sort settings by categories in sidebar

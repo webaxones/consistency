@@ -108,6 +108,18 @@ export const rules = [
 		category: 'punctuation'
 	},
 	{
+		// Replaces curly quotes with french quotes
+		slug: 'curlyToFrenchQuotes',
+		name: __( 'Curly quotes to french quotes', 'consistency' ),
+		description: __( 'Replaces curly quotes with french quotes:', 'consistency' )
+			+ `<span aria-hidden='true' style='display:block;'><code>“ ”</code> <span style='font-size:20px'>→</span> <code>« »</code></span>`,
+		mask: /“.*?”/, // specific mask with specific process
+		replace: matched => { return `« ${matched.substring( 1, matched.length - 1 )} »` },
+		nbMoved: 0,
+		locales: [ 'fr_FR', 'fr_BE' ],
+		category: 'punctuation'
+	},
+	{
 		// Replaces a breaking space followed by a character from this list [? ! : ; » € $ £ ¥ ₽ 元 %] with a non-breaking space
 		slug: 'breakingSpace',
 		name: __( 'Breaking space', 'consistency' ),
