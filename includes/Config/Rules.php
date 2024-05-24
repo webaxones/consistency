@@ -47,6 +47,7 @@ class Rules implements ValueInterface
 		'ellipsis'                           => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB', 'de-DE', 'de-AT', 'de-CH', 'ro-RO' ],
 		'symbolBasedOn1Character'            => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB', 'de-DE', 'de-AT', 'de-CH', 'ro-RO' ],
 		'symbolBasedOn2Characters'           => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB', 'de-DE', 'de-AT', 'de-CH', 'ro-RO' ],
+		'fractions'                          => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB', 'de-DE', 'de-AT', 'de-CH', 'ro-RO' ],
 	];
 
 	/**

@@ -284,5 +284,56 @@ export const rules = [
 		locales: [ 'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB', 'de_DE', 'de_AT', 'de_CH', 'ro_RO' ],
 		category: 'symbol'
 	},
+	{
+		// Replaces fractions with a fraction symbol
+		slug: 'fractions',
+		name: __( 'Fractions', 'consistency' ),
+		description: __( 'Replaces fractions with fraction symbols:', 'consistency' )
+			+ `<span aria-hidden='true' style='display:block;'><code>3/5</code> <span style='font-size:20px'>→</span> <code>⅗</code></span>`,
+		mask: /[1-9]\/[1-9]/,
+		replace: matched => {
+			switch ( matched ) {
+				case '1/4':
+					return '¼'
+				case '1/2':
+					return '½'
+				case '3/4':
+					return '¾'
+				case '1/3':
+					return '⅓'
+				case '2/3':
+					return '⅔'
+				case '1/5':
+					return '⅕'
+				case '2/5':
+					return '⅖'
+				case '3/5':
+					return '⅗'
+				case '4/5':
+					return '⅘'
+				case '1/6':
+					return '⅙'
+				case '5/6':
+					return '⅚'
+				case '1/8':
+					return '⅛'
+				case '3/8':
+					return '⅜'
+				case '5/8':
+					return '⅝'
+				case '7/8':
+					return '⅞'
+				case '1/7':
+					return '⅐'
+				case '1/9':
+					return '⅑'
+				default:
+					return ' '
+			}
+		},
+		nbMoved: -2,
+		locales: [ 'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB', 'de_DE', 'de_AT', 'de_CH', 'ro_RO' ],
+		category: 'symbol'
+	},
 ]
 
