@@ -149,8 +149,8 @@ export const rules = [
 		name: __( 'Space before', 'consistency' ),
 		description: __( 'Remove any space preceding a character from this list:', 'consistency' )
 			+ `<span style='display:block;'><code>? ! : ; %</code></span>`,
-		mask: /([ | ])(?=[\?|\!|\:|\;|\%])/,
-		replace: '',
+		mask: /([ | ])(?=[\?|\!|\:|\;|\%])(.)/,
+		replace: '$2',
 		nbMoved: -1,
 		locales: [ 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB', 'de_DE', 'de_AT', 'de_CH', 'ro_RO' ],
 		category: 'space'

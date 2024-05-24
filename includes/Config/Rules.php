@@ -34,6 +34,7 @@ class Rules implements ValueInterface
 		'regularToGermanBookStyleQuotes'     => [ 'de-DE', 'de-AT' ],
 		'regularToFrenchQuotes'              => [ 'fr-FR', 'fr-BE' ],
 		'regularToFrenchQuotesWithoutSpaces' => [ 'de-CH' ],
+		'curlyToFrenchQuotes'                => [ 'fr-FR', 'fr-BE' ],
 		'breakingSpace'                      => [ 'fr-FR', 'fr-BE' ],
 		'noSpaceBefore'                      => [ 'fr-FR', 'fr-BE' ],
 		'spaceBefore'                        => [ 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB', 'de-DE', 'de-AT', 'de-CH', 'ro-RO' ],

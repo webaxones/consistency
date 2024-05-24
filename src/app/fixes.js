@@ -92,12 +92,13 @@ export const fixIt = props => {
 
 			if( null === captureGroups || 0 === captureGroups.length ) return
 			const lengthToGoBack = captureGroups[0].length || 1
+
 			// Split the string to process only the part from the cursor position to the end
 			firstPart = blockContent.substring( 0, cursorPositionInsideHTML - lengthToGoBack )
 			lastPart = blockContent.substring( cursorPositionInsideHTML - lengthToGoBack, blockContent.length )
+
 			// If first part of the string matches but not the lastPart, it means that a character has been typed uncorrected voluntarily before, so it should not be taken into account
 			isConcerned = reg.mask.test( textContent ) && reg.mask.test( lastPart )
-
 		}
 		
 		// Stop correction if block content isn't concerned by the regex
