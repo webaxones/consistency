@@ -35,7 +35,8 @@ Remember to unfold the panel to see the rules.
 ## Description
 
 The purpose of this plugin is to provide a tool allowing administrators to define typographical rules in order to maintain typographical consistency in the text contents entered on the editor.  
-> [!IMPORTANT]The corrections are automatic and are made during the entry as well as on a copy paste.  
+> [!IMPORTANT]
+> The corrections are automatic and are made during the entry as well as on a copy paste.  
 
 Autocorrect rules can be enabled/disabled by any user.
 Autocorrect is available on pages, posts and custom post types (if their configuration allows Rest API usage)
