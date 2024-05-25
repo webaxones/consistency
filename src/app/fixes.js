@@ -96,13 +96,14 @@ export const fixIt = props => {
 			// Split the string to process only the part from the cursor position to the end
 			firstPart = blockContent.substring( 0, cursorPositionInsideHTML - lengthToGoBack )
 			lastPart = blockContent.substring( cursorPositionInsideHTML - lengthToGoBack, blockContent.length )
-
+	
 			// If first part of the string matches but not the lastPart, it means that a character has been typed uncorrected voluntarily before, so it should not be taken into account
 			isConcerned = reg.mask.test( textContent ) && reg.mask.test( lastPart )
 		}
 		
 		// Stop correction if block content isn't concerned by the regex
 		if ( ! isConcerned ) return
+		
 		// Pairing characters need specific process for the replacement
 		if ( regDealWithPair( reg ) ) {
 			replaceWithThis = getReplacementStringForPairs( reg, blockContent, replaceWithThis )
@@ -136,20 +137,23 @@ export const fixIt = props => {
 		// Cursor repositioning:
 		if ( 0 === cursorPosition || isPasting ) return
 
+		// Get the number of characters moved by the replacement: needed for cursor repositioning
+		// If the number depends on the replaced string length, we use a function to get it
+		const nbMoved = typeof reg.nbMoved === 'function' ? reg.nbMoved( lastPart ) : reg.nbMoved
+
 		// If the replaced string had more characters than the new string, the cursor has moved forward, so it must be moved back
 		// Eg: ... replaced with … removes 2 characters
-		if ( reg.nbMoved < 0 ) {
-			// selectionChange( currentBlockId, selectionStart.attributeKey, cursorPosition - 1, cursorPosition + reg.nbMoved )
-			selectionChange( currentBlockId, selectionStart.attributeKey, cursorPosition + reg.nbMoved, cursorPosition + reg.nbMoved )
+		if ( nbMoved < 0 ) {
+			selectionChange( currentBlockId, selectionStart.attributeKey, cursorPosition + nbMoved, cursorPosition + nbMoved )
 		}
 		
 		// If the replaced string had fewer characters than the new string, the cursor has moved backwards, so it must be moved forward
 		// Eg: "" replaced with «  » adds 2 characters
-		if ( reg.nbMoved > 0 ) {
-			selectionChange( currentBlockId, selectionStart.attributeKey, cursorPosition + 1 + reg.nbMoved, cursorPosition + reg.nbMoved )
+		if ( nbMoved > 0 ) {
+			selectionChange( currentBlockId, selectionStart.attributeKey, cursorPosition + 1 + nbMoved, cursorPosition + nbMoved )
 		}
 
-		if ( 0 === reg.nbMoved ) {
+		if ( 0 === nbMoved ) {
 			selectionChange( currentBlockId, selectionStart.attributeKey, cursorPosition, cursorPosition )
 		}
 

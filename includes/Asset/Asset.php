@@ -7,6 +7,7 @@ use Webaxones\Consistency\Utils\Contracts\ActionInterface;
 use Webaxones\Consistency\Plugin;
 use const Webaxones\Consistency\PLUGIN_PATH;
 use const Webaxones\Consistency\PLUGIN_URL;
+use Webaxones\Consistency\Config\LocalizedRules;
 
 /**
  * Consistency's Assets
@@ -40,6 +41,29 @@ class Asset implements ActionInterface
 			$info['version'],
 			true
 		);
+
+		// Convert dash style locales code to undescore style for JS
+		$locales = LocalizedRules::$list;
+		$locales = array_map(
+			function ( $value ) {
+				return array_map(
+					function ( $value ) {
+						return str_replace( '-', '_', $value );
+					},
+					$value
+				);
+			},
+			$locales
+		);
+
+		// Pass localized rules to the script
+		$localizedRules = 'const localesByRules = ' . json_encode( $locales );
+		wp_add_inline_script(
+			Plugin::PREFIX . '-editor-script',
+			$localizedRules,
+			'before'
+		);
+	
 		wp_set_script_translations( Plugin::PREFIX . '-editor-script', 'consistency' );
 	}
 }

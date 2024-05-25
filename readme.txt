@@ -3,7 +3,7 @@ Contributors: webaxones
 Tags: block editor, typography, gutenberg
 Requires at least: 6.1
 Tested up to: 6.5.2
-Stable tag: 1.5.8
+Stable tag: 1.5.9
 Requires PHP: 7.4
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -14,38 +14,14 @@ Corrects the input of text content in the Block Editor according to the configur
 
 Do you see the typographic corrector in your word processor that formats what you type in real time? Well, it's the same idea but with Gutenberg.
 
-The purpose of this plugin is to provide a tool allowing administrators to define typographical rules in order to maintain typographical consistency in the text contents entered on the editor.
-The corrections are automatic and are made during the entry as well as on a copy paste.
-Autocorrect rules can be enabled/disabled by any user.
-Autocorrect is available on pages, posts and custom post types (if their configuration allows Rest API usage)
+This WordPress plugin is designed to help administrators enforce consistent typography in text content entered in the editor.
+Corrections are applied automatically both during text entry and when pasting text.
+Users can enable or disable autocorrect rules as needed.
+Autocorrect is available for pages, posts, and custom post types (if they are configured to use the Rest API).
 
-Currently, the AutoCorrects offered are as follows:
+Automatic fixes are listed on [the plugin repository on github](https://github.com/webaxones/consistency/).
 
-For the English language
 
-- "Straight quote": Replaces straight quotes with curved quotes
-- "Ellipsis": Replaces 3 dots with ellipsis
-- "Two hyphens": Replaces 2 hyphens with em dash
-- "Ordinal number suffix": Add HTML tag sup to ordinal number suffix
-- "Regular quotes to curly": Replaces regular quotes with curly quotes
-- "No breaking space after": Adds a breaking space after a character from this list (, … ) ]) when followed with another character
-- "Space before": Remove any space preceding a character from this list (? ! : ; %)
-- "First sentence letter not capitalized": Capitalize the first letter of a sentence
-- etc.
-
-For the French language
-
-- "Straight quote": Replaces straight quotes with curved quotes
-- "Ellipsis": Replaces 3 dots with ellipsis
-- "Two hyphens": Replaces 2 hyphens with em dash
-- "Ordinal number suffix": Add HTML tag sup to ordinal number suffix
-- "Regular quotes to French": Replaces regular quotes with French quotes
-- "Breaking space": Replaces a breaking space followed by a character from this list (? ! : ; » € $ £ ¥ ₽ 元 %) with a non-breaking space
-- "No space before": Adds a non-breaking space before a character from this list (? ! : ; » € $ £ ¥ ₽ 元 %) having no space before
-- "No breaking space after": Adds a breaking space after a character from this list (, … ) ]) when followed with another character
-- "No non-breaking space after": Adds a non-breaking space after open french quote having no space after
-- "First sentence letter not capitalized": Capitalize the first letter of a sentence
-- etc.
 
 Ctrl+Z or Cmd+Z right after a correction disables the correction for the next keystroke
 
@@ -68,6 +44,11 @@ The locales supported by this plugin are:
 2. Configure the rules in the editor.
 
 == Changelog ==
+
+= 1.5.9 =
+* Add rule for percentages symbols
+* Refactor some code
+* Actualise Readme
 
 = 1.5.8 =
 * Add rule for fraction symbols

@@ -23,6 +23,7 @@ class ComposerStaticInit2f7e358677dd7dd5194d994145b49327
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Webaxones\\Consistency\\Asset\\Asset' => __DIR__ . '/../..' . '/includes/Asset/Asset.php',
+        'Webaxones\\Consistency\\Config\\LocalizedRules' => __DIR__ . '/../..' . '/includes/Config/LocalizedRules.php',
         'Webaxones\\Consistency\\Config\\RestSchema' => __DIR__ . '/../..' . '/includes/Config/RestSchema.php',
         'Webaxones\\Consistency\\Config\\Rules' => __DIR__ . '/../..' . '/includes/Config/Rules.php',
         'Webaxones\\Consistency\\Config\\UserSettings' => __DIR__ . '/../..' . '/includes/Config/UserSettings.php',
