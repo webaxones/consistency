@@ -45,7 +45,7 @@ Currently, the AutoCorrects offered are as follows:
 
 | Name | Description | Example | Locales |
 | --- | --- | :---: | --- |
-| *Straight quote* | Replaces straight quotes with curved quotes | `'` → `'` | `fr_FR` `fr_BE` `en_US` `en_AU` `en_CA` `en_NZ` `en_ZA` `en_GB` |
+| *Straight quote* | Replaces straight quotes with curved quotes | `'` → `’` | `fr_FR` `fr_BE` `en_US` `en_AU` `en_CA` `en_NZ` `en_ZA` `en_GB` |
 | *Two hyphens* | Replaces 2 hyphens with em dash | `--` → `—` | `fr_FR` `fr_BE` `en_US` `en_AU` `en_CA` `en_NZ` `en_ZA` `en_GB` `de_DE` `de_AT` `de_CH` `ro_RO` |
 | *Ordinal number suffix* | Add HTML tag sup to ordinal number suffix | `1st` → 1<sup>st</sup> | `fr_FR` `fr_BE` `en_US` `en_AU` `en_CA` `en_NZ` `en_ZA` `en_GB` |
 | *Curly quotes* | Replaces regular quotes with curly quotes | `" "` → `“ ”` | `en_US` `en_AU` `en_CA` `en_NZ` `en_ZA` `en_GB` |
