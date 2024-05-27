@@ -11,6 +11,10 @@ class ComposerStaticInit2f7e358677dd7dd5194d994145b49327
         array (
             'Webaxones\\Consistency\\' => 22,
         ),
+        'P' => 
+        array (
+            'PHPCSStandards\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 57,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -18,10 +22,15 @@ class ComposerStaticInit2f7e358677dd7dd5194d994145b49327
         array (
             0 => __DIR__ . '/../..' . '/includes',
         ),
+        'PHPCSStandards\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dealerdirect/phpcodesniffer-composer-installer/src',
+        ),
     );
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'PHPCSStandards\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin' => __DIR__ . '/..' . '/dealerdirect/phpcodesniffer-composer-installer/src/Plugin.php',
         'Webaxones\\Consistency\\Asset\\Asset' => __DIR__ . '/../..' . '/includes/Asset/Asset.php',
         'Webaxones\\Consistency\\Config\\LocalizedRules' => __DIR__ . '/../..' . '/includes/Config/LocalizedRules.php',
         'Webaxones\\Consistency\\Config\\RestSchema' => __DIR__ . '/../..' . '/includes/Config/RestSchema.php',

@@ -9,7 +9,6 @@ use Webaxones\Consistency\Utils\Contracts\DataValueInterface;
 use Webaxones\Consistency\Utils\Contracts\ObjectInterface;
 use Webaxones\Consistency\Utils\Concerns\ObjectArrayTrait;
 
-
 /**
  * This class manages MetaData
  */

@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
+    'PHPCSStandards\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin' => $vendorDir . '/dealerdirect/phpcodesniffer-composer-installer/src/Plugin.php',
     'Webaxones\\Consistency\\Asset\\Asset' => $baseDir . '/includes/Asset/Asset.php',
     'Webaxones\\Consistency\\Config\\LocalizedRules' => $baseDir . '/includes/Config/LocalizedRules.php',
     'Webaxones\\Consistency\\Config\\RestSchema' => $baseDir . '/includes/Config/RestSchema.php',
