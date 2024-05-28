@@ -3,7 +3,7 @@ namespace Webaxones\Consistency;
 
 defined( 'ABSPATH' ) || exit;
 
-use Webaxones\Consistency\Config\Rules;
+use Webaxones\Consistency\Config\Languages;
 use Webaxones\Consistency\Config\UserSettings;
 use Webaxones\Consistency\Config\RestSchema;
 use Webaxones\Consistency\Hook\Hook;
@@ -21,7 +21,7 @@ use Webaxones\Consistency\MetaData\MetaData;
  */
 class Plugin
 {
-	const PREFIX = 'consistency_plugin';
+	public const PREFIX = 'consistency_plugin';
 
 	/**
 	 * Set Global Consistency Constants
@@ -52,9 +52,9 @@ class Plugin
 		$assets = new Asset();
 		$hooks->register( $assets );
 
-		// Register default global settings in main option
-		$rules  = new Rules();
-		$option = new Option( MAIN_OPTION_NAME, $rules );
+		// Register default global settings in main option depending on language
+		$languages = new Languages();
+		$option    = new Option( MAIN_OPTION_NAME, $languages );
 		$hooks->register( $option );
 
 		// Declare REST Schema for global settings
