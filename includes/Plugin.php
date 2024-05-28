@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
 use Webaxones\Consistency\Config\Languages;
 use Webaxones\Consistency\Config\UserSettings;
 use Webaxones\Consistency\Config\RestSchema;
+use Webaxones\Consistency\Config\LocalizedRules;
 use Webaxones\Consistency\Hook\Hook;
 use Webaxones\Consistency\Asset\Asset;
 use Webaxones\Consistency\Option\Option;
@@ -53,7 +54,7 @@ class Plugin
 		$hooks->register( $assets );
 
 		// Register default global settings in main option depending on language
-		$languages = new Languages();
+		$languages = new Languages( LocalizedRules::$list );
 		$option    = new Option( MAIN_OPTION_NAME, $languages );
 		$hooks->register( $option );
 

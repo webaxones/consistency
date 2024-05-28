@@ -5,7 +5,6 @@ namespace Webaxones\Consistency\Config;
 defined( 'ABSPATH' ) || exit;
 
 use Webaxones\Consistency\Utils\Contracts\ValueInterface;
-use Webaxones\Consistency\Config\LocalizedRules;
 
 /**
  * Rules used in Consistency correction
@@ -27,6 +26,16 @@ class Languages implements ValueInterface
 	 * @var array
 	 */
 	protected array $rules;
+
+	protected array $localizedRules;
+
+	/**
+	 * Constructor
+	 */
+	public function __construct( array $localizedRules = [] )
+	{
+		$this->localizedRules = $localizedRules;
+	}
 
 	/**
 	 * Check if language used in content is part of all WordPress languages
@@ -64,7 +73,7 @@ class Languages implements ValueInterface
 	 */
 	protected function setRules(): array
 	{
-		foreach ( LocalizedRules::$list as $key => $value ) {
+		foreach ( $this->localizedRules as $key => $value ) {
 			$this->rules[] = [
 				'slug'  => $key,
 				'value' => in_array( $this->getLanguageUsedInContent(), $value, true ),
