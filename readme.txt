@@ -3,7 +3,7 @@ Contributors: webaxones
 Tags: block editor, typography, gutenberg
 Requires at least: 6.1
 Tested up to: 6.6
-Stable tag: 1.6.0
+Stable tag: 1.6.1
 Requires PHP: 7.4
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -44,6 +44,9 @@ The locales supported by this plugin are:
 2. Configure the rules in the editor.
 
 == Changelog ==
+
+= 1.6.1 =
+* Fix: Remove vendor subdirectories from git
 
 = 1.6.0 =
 * Fix: Refactor some code: Rename Rules class to Languages
