@@ -11,6 +11,13 @@ coverage
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
+# Vendor directory
+vendor/bin/*
+vendor/dealerdirect/*
+vendor/phpcompatibility/*
+vendor/squizlabs/*
+
+
 # Dependency directories
 node_modules/
 
