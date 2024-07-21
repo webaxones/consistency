@@ -31,5 +31,8 @@ node_modules/
 .vscode/*
 .wp-env.json
 
+# PHPCS configuration file
+phpcs.xml
+
 # Mac files
 .DS_Store

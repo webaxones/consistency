@@ -28,7 +28,7 @@ const UserSettingPanel = () => (
                     settingSlug='on_the_fly' 
                     settingName={ __( 'On-the-fly autocorrect', 'consistency' ) }
                     settingDescription={ {
-                        __html: __( 'Enable/disable on-the-fly autocorrect for my account', 'consistency' )
+                        __html: __( 'Enable/disable on-the-fly autocorrect', 'consistency' )
                         } }
                 />
             </PanelRow>
@@ -37,7 +37,7 @@ const UserSettingPanel = () => (
                     settingSlug='on_paste' 
                     settingName={ __( 'On paste autocorrect', 'consistency' ) }
                     settingDescription={ {
-                        __html: __( 'Enable/disable autocorrect on paste for my account', 'consistency' )
+                        __html: __( 'Enable/disable autocorrect on paste', 'consistency' )
                         } }
                 />
             </PanelRow>

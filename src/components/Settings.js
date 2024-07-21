@@ -26,7 +26,7 @@ export const SidebarSettings = () => {
 
     return(
         <>
-            <PluginSidebar
+			<PluginSidebar
                 name='consistency-custom-sidebar'
                 title={ __( 'Consistency', 'consistency' ) }
 				icon={ ConsistencyIcon }

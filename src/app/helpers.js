@@ -71,3 +71,67 @@ export const aMemoryLeakHasOccured = currentBlockId => {
 	console.log( 'Consistency - a memory leak has occured during the fix of the following block:', block )
 
 }
+
+/**
+ * Checks the editor location and updates the global accordingly.
+ */
+const updatePasteEventGlobalDependingOnEditorLocation = () => {
+	
+	// Recheck if the editor is in an iframe or not
+	const isEditorStillInIframe = document.querySelector( 'iframe[name="editor-canvas"]' ) !== null ? true : false
+
+	// If we have changed the editor location (in iframe or not), we need to reattach the paste event
+	if ( global.isEditorInIframe !== isEditorStillInIframe ) {
+		global.isEditorInIframe = isEditorStillInIframe
+		global.isPasteEventAttached = false
+	}
+
+}
+
+/**
+ * Attaches a 'paste' event listener to the editor or iframe document, depending on the editor location.
+ * Updates the global variables to track if the paste event has been attached and if content has been pasted.
+ */
+export const interceptPasteEventInEditor = () => {
+	
+	// Check if the editor location has changed and update the global accordingly
+	updatePasteEventGlobalDependingOnEditorLocation()
+
+	if ( global.isPasteEventAttached ) return
+
+	if ( global.isEditorInIframe ) {
+
+		// Select the iframe
+		const iframe = document.querySelector( 'iframe[name="editor-canvas"]' )
+
+		// Ensure the iframe is not null and has loaded
+		if ( iframe ) {
+			iframe.onload = () => {
+				// Access the iframe's document
+				const iframeDoc = iframe.contentDocument || iframe.contentWindow.document
+
+				// Attach the 'paste' event listener
+				iframeDoc.addEventListener('paste', e => {
+					global.contentPasted = true
+					global.isPasteEventAttached = true
+				} )
+			}
+	
+			// If the iframe is already loaded by the time this code runs, manually trigger the onload handler
+			if ( iframe.contentWindow.document.readyState === 'complete' ) {
+				iframe.onload()
+			}
+		}
+
+	} 
+	if ( ! global.isEditorInIframe ) {
+		
+		// Attach the paste event to the editor
+		document.querySelector( '#editor' )?.addEventListener( 'paste', e => {
+			global.contentPasted = true
+			global.isPasteEventAttached = true
+		} )
+
+	}
+
+}

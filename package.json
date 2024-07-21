@@ -1,6 +1,6 @@
 {
 	"name": "consistency",
-	"version": "1.5.9",
+	"version": "1.6.0",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
@@ -12,7 +12,17 @@
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
-		"@wordpress/compose": "6.34.0",
 		"@wordpress/scripts": "27.8.0"
+	},
+	"dependencies": {
+		"@wordpress/components": "^27.6.0",
+		"@wordpress/core-data": "^6.35.0",
+		"@wordpress/data": "^9.28.0",
+		"@wordpress/dom-ready": "^3.58.0",
+		"@wordpress/edit-post": "^7.35.0",
+		"@wordpress/i18n": "^4.58.0",
+		"@wordpress/notices": "^4.26.0",
+		"@wordpress/plugins": "^6.26.0",
+		"@wordpress/preferences": "^3.35.0"
 	}
 }

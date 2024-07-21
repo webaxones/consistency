@@ -20,18 +20,46 @@ export const rules = [
 		mask: /\'/, // mask
 		replace: '’', // replacement string
 		nbMoved: 0, // number of characters less or more during replacement
-		category: 'punctuation' // category of the setting
+		category: 'apostrophe' // category of the setting
 	},
 	{
-		// Replaces two hyphens with em dash
+		// Replaces two hyphens with En dash
 		slug: '2hyphens',
-		name: __( 'Two hyphens', 'consistency' ),
-		description: __( 'Replaces 2 hyphens with em dash:', 'consistency' )
-			+ `<span aria-hidden='true' style='display:block;'><code>--</code> <span style='font-size:20px'>→</span> <code>—</code></span>`,
+		name: __( 'En dash', 'consistency' ),
+		description: __( 'Replaces 2 hyphens with En dash:', 'consistency' )
+			+ `<span aria-hidden='true' style='display:block;'><code>--</code> <span style='font-size:20px'>→</span> <code style="font-family:sans-serif;">–</code></span>`,
 		mask: /(?:\-)\-/,
-		replace: '—',
+		replace: '–',
 		nbMoved: -1,
-		category: 'punctuation'
+		category: 'dash'
+	},
+	{
+		// Replaces three hyphens with Em dash
+		slug: '3hyphens',
+		name: __( 'Em dash', 'consistency' ),
+		description: __( 'Replaces 3 hyphens with Em dash:', 'consistency' )
+			+ `<span aria-hidden='true' style='display:block;'><code>---</code> <span style='font-size:20px'>→</span> <code style="font-family:sans-serif;">—</code></span>`,
+		mask: /(?:\–|\-\-)\-/,
+		replace: '—',
+		nbMoved: lastPart => {
+			// Since we replace the string with a symbol, we must move the cursor to the left by the length of the replaced string minus 1 (1 for the symbol itself)
+			return -( lastPart.length - 1 )
+		},
+		category: 'dash'
+	},
+	{
+		// Replaces four hyphens with Two-Em dash
+		slug: '4hyphens',
+		name: __( 'Two-Em dash', 'consistency' ),
+		description: __( 'Replaces 4 hyphens with Two-Em dash:', 'consistency' )
+			+ `<span aria-hidden='true' style='display:block;'><code>----</code> <span style='font-size:20px'>→</span> <code style="font-family:sans-serif;">⸺</code></span>`,
+		mask: /(?:\—|\–\-|\-\-\-)\-/,
+		replace: '⸺',
+		nbMoved: lastPart => {
+			// Since we replace the string with a symbol, we must move the cursor to the left by the length of the replaced string minus 1 (1 for the symbol itself)
+			return -( lastPart.length - 1 )
+		},
+		category: 'dash'
 	},
 	{
 		// Adds HTML tag sup to ordinal number suffix
@@ -42,7 +70,7 @@ export const rules = [
 		mask: /([10-9]{1,20})(th|nd|rd|e|er|res|d|ds|de|des)( | |\.|\,|\;)/,
 		replace: '$1<sup>$2<\/sup>$3',
 		nbMoved: 0,
-		category: 'punctuation'
+		category: 'suffixe'
 	},
 	{
 		// Replaces regular quotes with curly quotes
@@ -53,7 +81,7 @@ export const rules = [
 		mask: /"/, // specific mask with specific process
 		replace: '“$1”',
 		nbMoved: 0,
-		category: 'punctuation'
+		category: 'quotation'
 	},
 	{
 		// Replaces regular quotes with german quotes
@@ -64,7 +92,7 @@ export const rules = [
 		mask: /"/, // specific mask with specific process
 		replace: '„$1“',
 		nbMoved: 0,
-		category: 'punctuation'
+		category: 'quotation'
 	},
 	{
 		// Replaces regular quotes with german book-style quotes
@@ -75,7 +103,7 @@ export const rules = [
 		mask: /"/, // specific mask with specific process
 		replace: '»$1«',
 		nbMoved: 0,
-		category: 'punctuation'
+		category: 'quotation'
 	},
 	{
 		// Replaces regular quotes with french quotes
@@ -86,10 +114,10 @@ export const rules = [
 		mask: /"/, // specific mask with specific process
 		replace: '« $1 »',
 		nbMoved: 1,
-		category: 'punctuation'
+		category: 'quotation'
 	},
 	{
-		// Replaces regular quotes with french quotes
+		// Replaces regular quotes with french quotes without spaces
 		slug: 'regularToFrenchQuotesWithoutSpaces',
 		name: __( 'Regular quotes to french quotes without spaces', 'consistency' ),
 		description: __( 'Replaces regular quotes with french quotes without spaces:', 'consistency' )
@@ -97,7 +125,7 @@ export const rules = [
 		mask: /"/, // specific mask with specific process
 		replace: '«$1»',
 		nbMoved: 0,
-		category: 'punctuation'
+		category: 'quotation'
 	},
 	{
 		// Replaces curly quotes with french quotes
@@ -108,7 +136,7 @@ export const rules = [
 		mask: /“.*?”/, // specific mask with specific process
 		replace: matched => { return `« ${matched.substring( 1, matched.length - 1 )} »` },
 		nbMoved: 0,
-		category: 'punctuation'
+		category: 'quotation'
 	},
 	{
 		// Replaces a breaking space followed by a character from this list [? ! : ; » € $ £ ¥ ₽ 元 %] with a non-breaking space
@@ -335,18 +363,11 @@ export const rules = [
 			}
 		},
 		nbMoved: lastPart => {
+			// We remove the last character of the string because the regex check the character after the string to replace
 			const replacedString = lastPart.substring( 0, lastPart.length - 1 )
-			switch ( replacedString ) {
-				case '0/0':
-					return -2
-				case '0/00':
-					return -3
-				case '0/000':
-					return -4
-				default:
-					return 0
-			}
-		 },
+			// Since we replace the string with a symbol, we must move the cursor to the left by the length of the replaced string minus 1 (1 for the symbol itself)
+			return -( replacedString.length - 1 )
+		},
 		category: 'symbol'
 	},
 ]

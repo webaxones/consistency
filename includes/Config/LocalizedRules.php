@@ -16,6 +16,8 @@ class LocalizedRules
 	public static array $list = [
 		'quote'                                => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ],
 		'2hyphens'                             => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB', 'de-DE', 'de-AT', 'de-CH', 'ro-RO' ],
+		'3hyphens'                             => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB', 'de-DE', 'de-AT', 'de-CH', 'ro-RO' ],
+		'4hyphens'                             => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB', 'de-DE', 'de-AT', 'de-CH', 'ro-RO' ],
 		'ordinalNumberSuffix'                  => [ 'fr-FR', 'fr-BE', 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ],
 		'regularToCurlyQuotes'                 => [ 'en-US', 'en-AU', 'en-CA', 'en-NZ', 'en-ZA', 'en-GB' ],
 		'regularToGermanQuotes'                => [ 'de-DE', 'de-AT', 'ro-RO' ],

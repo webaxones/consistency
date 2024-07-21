@@ -70,26 +70,26 @@ export const fixIt = props => {
 		// Remove 'code' 'pre' and 'kbd' and other HTML tags from block content
 		let textContent = getOnlyTextFromBlockContent( blockContent )
 
-		// Check if block content is concerned by the regex
+		// Check if block content is concerned by the regex in the case of a pasted content 
+		// (isTyping is false but subscribe detected a paste event)
 		let isConcerned = false
 		if ( ! isTyping() ) {
 			isConcerned = reg.mask.test( textContent )
 		}
 
 		// Content splitting in case of typing on the fly to allow the user to undo a correction
-		// If isTyping is false, it is the processing of pasted innerBlocks
+		// If isTyping is false, it is the case of a pasted content, so we do not deal with possible undos of the user
 		if ( isTyping() ) {
 
-			// Get cursor position in textContent (without tags): needed for cursor repositioning
+			// Get cursor position in textContent (without tags): needed for further cursor repositioning
 			selectionStart = getSelectionStart( block.name )
 			cursorPosition = selectionStart?.offset || 0
 
-			// Get cursor position in HTML (with tags): needed to cut at the right position
+			// Get cursor position in HTML (with tags): needed to cut in 2 parts at the right position
 			const cursorPositionInsideHTML = getCursorPositionInInnerHTML( currentBlockId ) || cursorPosition
 
 			// If the rule depends on previous characters, we need to separate the string taking those characters into account
 			const captureGroups = textContent.match( reg.mask )
-
 			if( null === captureGroups || 0 === captureGroups.length ) return
 			const lengthToGoBack = captureGroups[0].length || 1
 
@@ -97,7 +97,9 @@ export const fixIt = props => {
 			firstPart = blockContent.substring( 0, cursorPositionInsideHTML - lengthToGoBack )
 			lastPart = blockContent.substring( cursorPositionInsideHTML - lengthToGoBack, blockContent.length )
 	
-			// If first part of the string matches but not the lastPart, it means that a character has been typed uncorrected voluntarily before, so it should not be taken into account
+			// If first part of the string matches but not the lastPart,
+			// it means that a character has been typed uncorrected voluntarily before with CTRL Z/CMD Z
+			// so it should not be taken into account
 			isConcerned = reg.mask.test( textContent ) && reg.mask.test( lastPart )
 		}
 		
@@ -137,7 +139,7 @@ export const fixIt = props => {
 		// Cursor repositioning:
 		if ( 0 === cursorPosition || isPasting ) return
 
-		// Get the number of characters moved by the replacement: needed for cursor repositioning
+		// Get the number of characters moved by the replacement: needed for cursor repositioning.
 		// If the number depends on the replaced string length, we use a function to get it
 		const nbMoved = typeof reg.nbMoved === 'function' ? reg.nbMoved( lastPart ) : reg.nbMoved
 

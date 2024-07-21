@@ -12,9 +12,24 @@ import { __ } from '@wordpress/i18n'
 
 export const categories = [
 	{
-		slug: 'punctuation',
-		label: __( 'Punctuation', 'consistency' ),
-		description: __( 'Fixes related to punctuation.', 'consistency' ),
+		slug: 'apostrophe',
+		label: __( 'Apostrophes', 'consistency' ),
+		description: __( 'Fixes related to apostrophes.', 'consistency' ),
+	},
+	{
+		slug: 'quotation',
+		label: __( 'Quotation marks', 'consistency' ),
+		description: __( 'Fixes related to quotation marks.', 'consistency' ),
+	},
+	{
+		slug: 'dash',
+		label: __( 'Dashes', 'consistency' ),
+		description: __( 'Fixes related to dashes.', 'consistency' ),
+	},
+	{
+		slug: 'suffixe',
+		label: __( 'Suffixes', 'consistency' ),
+		description: __( 'Fixes related to suffixes.', 'consistency' ),
 	},
 	{
 		slug: 'space',

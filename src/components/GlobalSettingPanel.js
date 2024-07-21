@@ -25,15 +25,15 @@ const GlobalSettingPanel = () => (
 	<Panel className='GlobalSettingPanel'>
 		<PanelHeader><strong>{ __( 'Global correction rules', 'consistency' ) }</strong></PanelHeader>
 		{
-			[...categories].map( ( cat, key ) => {
+			[ ...categories ].map( ( cat, key ) => {
 				return ( <PanelBody
                     key={ key }
                     title={ __( cat.label, 'consistency' ) }
                     initialOpen={ false }
                 >
 					{
-						[...rules]
-							.filter(rule => rule.category === cat.slug)
+						[ ...rules ]
+							.filter( rule => rule.category === cat.slug )
 							.map( ( rule, key )  => (
 								<GlobalSettingToggle 
 									key={ key }

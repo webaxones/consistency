@@ -17,11 +17,13 @@ import { subscribe, select } from '@wordpress/data'
 import domReady from '@wordpress/dom-ready'
 import { SidebarSettings } from './components/Settings'
 
+
 /**
  * External dependencies
  */
 import { fixIt, fixAll } from './app/fixes'
 import { getGlobalSettings, getCurrentUserSettings } from './app/data'
+import { interceptPasteEventInEditor } from './app/helpers'
 
 // Get the current selected block and its attributes
 const { getSelectedBlockClientId, isTyping, getBlockAttributes } = select( 'core/block-editor' )
@@ -45,22 +47,25 @@ domReady( () => {
 	global.previousFixCanceled = false
 	// This global is used to know if some content has been pasted in the editor
 	global.contentPasted = false
-
-	// Intercept clipboard paste to fix all new blocks
-	document.querySelector( '#editor' )?.addEventListener( 'paste', e => {
-		global.contentPasted = true
-	} )
+	// Since we attach the paste event in a subscribe, we need to check if it is already attached
+	global.isPasteEventAttached = false
+	// Check if custom fields are active because the editor content is within an iframe when custom fields are inactive
+	global.isEditorInIframe = document.querySelector( 'iframe[name="editor-canvas"]' ) !== null ? true : false
 
 	// Intercept CTRL Z to cancel next fix: when the user is undoing a fix, we don't want to fix it again.
 	document.querySelector( '#editor' )?.addEventListener( 'keydown', e => {
 		if ( 90 === e.keyCode && ( e.ctrlKey || e.metaKey ) ) {
 			global.previousFixCanceled = true
+			
 			e.preventDefault()
 		}
 	} )
 	
 	// Let’s listen for state changes
 	subscribe( () => {
+
+		// Intercept clipboard paste to fix all new blocks
+		interceptPasteEventInEditor()
 
 		// Get current user settings to check if we have to fix the content or to stop here
 		const { onTheFly, onPaste } = getCurrentUserSettings()
