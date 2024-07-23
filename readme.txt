@@ -35,8 +35,7 @@ The locales supported by this plugin are:
 
 == Screenshots ==
 
-1. Rules specific to the English language and correction of a copy-pasted text.
-1. Rules specific to the French language and correction on the fly.
+1. Settings
 
 == Installation ==
 
