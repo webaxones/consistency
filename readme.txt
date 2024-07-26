@@ -1,9 +1,9 @@
-=== Consistency – Typographic Corrector for Gutenberg ===
+=== Consistency – Typography Corrector for Gutenberg ===
 Contributors: webaxones
 Tags: block editor, typography, gutenberg
 Requires at least: 6.1
 Tested up to: 6.6
-Stable tag: 1.6.3
+Stable tag: 1.6.4
 Requires PHP: 7.4
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -35,7 +35,14 @@ The locales supported by this plugin are:
 
 == Screenshots ==
 
-1. Settings
+1. Apostrophes
+2. Quotation marks
+3. Dashes
+4. Suffixes
+5. Spaces
+6. Case
+7. Ellipsis
+8. Symbols
 
 == Installation ==
 
@@ -43,6 +50,9 @@ The locales supported by this plugin are:
 2. Configure the rules in the editor.
 
 == Changelog ==
+
+= 1.6.4 =
+* Fix: Fix name of plugin and add some screenshots
 
 = 1.6.3 =
 * Fix: Update plugin description, changelog, and stable tag
