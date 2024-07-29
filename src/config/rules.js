@@ -12,10 +12,10 @@ import { __ } from '@wordpress/i18n'
 
 export const rules = [
 	{
-		// Replaces straight quote with curly quote
+		// Replaces straight apostrophes with curly apostrophes
 		slug: 'quote', // slug of the setting and the related regex
-		name: __( 'Straight quote', 'consistency' ), // name of the setting
-		description: __( 'Replaces straight quotes with curved quotes:', 'consistency' )
+		name: __( 'Straight Apostrophe', 'consistency' ), // name of the setting
+		description: __( 'Replace straight apostrophes with curly apostrophes:', 'consistency' )
 			+ `<span aria-hidden='true' style='display:block;'><code>'</code> <span style='font-size:20px'>→</span> <code>’</code></span>`, // description of the setting
 		mask: /\'/, // mask
 		replace: '’', // replacement string
@@ -23,10 +23,10 @@ export const rules = [
 		category: 'apostrophe' // category of the setting
 	},
 	{
-		// Replaces two hyphens with En dash
+		// Replaces two hyphens with an En dash
 		slug: '2hyphens',
-		name: __( 'En dash', 'consistency' ),
-		description: __( 'Replaces 2 hyphens with En dash:', 'consistency' )
+		name: __( 'En Dash', 'consistency' ),
+		description: __( 'Replace two hyphens with an en dash:', 'consistency' )
 			+ `<span aria-hidden='true' style='display:block;'><code>--</code> <span style='font-size:20px'>→</span> <code style="font-family:sans-serif;">–</code></span>`,
 		mask: /(?:\-)\-/,
 		replace: '–',
@@ -36,8 +36,8 @@ export const rules = [
 	{
 		// Replaces three hyphens with Em dash
 		slug: '3hyphens',
-		name: __( 'Em dash', 'consistency' ),
-		description: __( 'Replaces 3 hyphens with Em dash:', 'consistency' )
+		name: __( 'Em Dash', 'consistency' ),
+		description: __( 'Replace three hyphens with an em dash:', 'consistency' )
 			+ `<span aria-hidden='true' style='display:block;'><code>---</code> <span style='font-size:20px'>→</span> <code style="font-family:sans-serif;">—</code></span>`,
 		mask: /(?:\–|\-\-)\-/,
 		replace: '—',
@@ -48,10 +48,10 @@ export const rules = [
 		category: 'dash'
 	},
 	{
-		// Replaces four hyphens with Two-Em dash
+		// Replaces four hyphens with two-em dash
 		slug: '4hyphens',
-		name: __( 'Two-Em dash', 'consistency' ),
-		description: __( 'Replaces 4 hyphens with Two-Em dash:', 'consistency' )
+		name: __( 'Two-Em Dash', 'consistency' ),
+		description: __( 'Replace four hyphens with two-em dash:', 'consistency' )
 			+ `<span aria-hidden='true' style='display:block;'><code>----</code> <span style='font-size:20px'>→</span> <code style="font-family:sans-serif;">⸺</code></span>`,
 		mask: /(?:\—|\–\-|\-\-\-)\-/,
 		replace: '⸺',
@@ -62,10 +62,10 @@ export const rules = [
 		category: 'dash'
 	},
 	{
-		// Adds HTML tag sup to ordinal number suffix
+		// Add the sup HTML tag to ordinal number suffixes
 		slug: 'ordinalNumberSuffix',
-		name: __( 'Ordinal number suffix', 'consistency' ),
-		description: __( 'Add HTML tag sup to ordinal number suffix', 'consistency' )
+		name: __( 'Ordinal Number Suffix', 'consistency' ),
+		description: __( 'Add the sup HTML tag to ordinal number suffixes', 'consistency' )
 		+ `<span aria-hidden='true' style='display:block;'><code>1st</code> <span style='font-size:20px'>→</span> <code>1<sup>st</sup></code></span>`,
 		mask: /([10-9]{1,20})(th|nd|rd|e|er|res|d|ds|de|des)( | |\.|\,|\;)/,
 		replace: '$1<sup>$2<\/sup>$3',
@@ -73,10 +73,10 @@ export const rules = [
 		category: 'suffixe'
 	},
 	{
-		// Replaces regular quotes with curly quotes
+		// Replaces straight quotes with curly quotes
 		slug: 'regularToCurlyQuotes',
-		name: __( 'Curly quotes', 'consistency' ),
-		description: __( 'Replaces regular quotes with curly quotes:', 'consistency' )
+		name: __( 'Curly Quotes', 'consistency' ),
+		description: __( 'Replace straight quotes with curly quotes:', 'consistency' )
 			+ `<span aria-hidden='true' style='display:block;'><code>" "</code> <span style='font-size:20px'>→</span> <code>“ ”</code></span>`,
 		mask: /"/, // specific mask with specific process
 		replace: '“$1”',
@@ -84,10 +84,10 @@ export const rules = [
 		category: 'quotation'
 	},
 	{
-		// Replaces regular quotes with german quotes
+		// Replaces straight quotes with german quotes
 		slug: 'regularToGermanQuotes',
-		name: __( 'Regular quotes to german', 'consistency' ),
-		description: __( 'Replaces regular quotes with german quotes:', 'consistency' )
+		name: __( 'German Quotes', 'consistency' ),
+		description: __( 'Replace straight quotes with german quotes:', 'consistency' )
 		+ `<span aria-hidden='true' style='display:block;'><code>" "</code> <span style='font-size:20px'>→</span> <code>„ “</code></span>`,
 		mask: /"/, // specific mask with specific process
 		replace: '„$1“',
@@ -95,10 +95,10 @@ export const rules = [
 		category: 'quotation'
 	},
 	{
-		// Replaces regular quotes with german book-style quotes
+		// Replaces straight quotes with german book-style quotes
 		slug: 'regularToGermanBookStyleQuotes',
-		name: __( 'Regular quotes to german book-style quotes', 'consistency' ),
-		description: __( 'Replaces regular quotes with german book-style quotes:', 'consistency' )
+		name: __( 'German Book-Style Quotes', 'consistency' ),
+		description: __( 'Replace straight quotes with german book-style quotes:', 'consistency' )
 			+ `<span aria-hidden='true' style='display:block;'><code>" "</code> <span style='font-size:20px'>→</span> <code>» «</code></span>`,
 		mask: /"/, // specific mask with specific process
 		replace: '»$1«',
@@ -106,10 +106,10 @@ export const rules = [
 		category: 'quotation'
 	},
 	{
-		// Replaces regular quotes with french quotes
+		// Replaces straight quotes with french quotes
 		slug: 'regularToFrenchQuotes',
-		name: __( 'Regular quotes to french', 'consistency' ),
-		description: __( 'Replaces regular quotes with french quotes:', 'consistency' )
+		name: __( 'French Quotes', 'consistency' ),
+		description: __( 'Replace straight quotes with french quotes with non-breaking spaces:', 'consistency' )
 			+ `<span aria-hidden='true' style='display:block;'><code>" "</code> <span style='font-size:20px'>→</span> <code>«   »</code></span>`,
 		mask: /"/, // specific mask with specific process
 		replace: '« $1 »',
@@ -119,8 +119,8 @@ export const rules = [
 	{
 		// Replaces regular quotes with french quotes without spaces
 		slug: 'regularToFrenchQuotesWithoutSpaces',
-		name: __( 'Regular quotes to french quotes without spaces', 'consistency' ),
-		description: __( 'Replaces regular quotes with french quotes without spaces:', 'consistency' )
+		name: __( 'French Quotes Without Spaces', 'consistency' ),
+		description: __( 'Replace straight quotes with french quotes without spaces:', 'consistency' )
 			+ `<span aria-hidden='true' style='display:block;'><code>" "</code> <span style='font-size:20px'>→</span> <code>« »</code></span>`,
 		mask: /"/, // specific mask with specific process
 		replace: '«$1»',
@@ -130,8 +130,8 @@ export const rules = [
 	{
 		// Replaces curly quotes with french quotes
 		slug: 'curlyToFrenchQuotes',
-		name: __( 'Curly quotes to french quotes', 'consistency' ),
-		description: __( 'Replaces curly quotes with french quotes:', 'consistency' )
+		name: __( 'Curly Quotes to French Quotes', 'consistency' ),
+		description: __( 'Replace curly quotes with french quotes with non-breaking spaces:', 'consistency' )
 			+ `<span aria-hidden='true' style='display:block;'><code>“ ”</code> <span style='font-size:20px'>→</span> <code>«   »</code></span>`,
 		mask: /“.*?”/, // specific mask with specific process
 		replace: matched => { return `« ${matched.substring( 1, matched.length - 1 )} »` },
@@ -141,8 +141,8 @@ export const rules = [
 	{
 		// Replaces a breaking space followed by a character from this list [? ! : ; » € $ £ ¥ ₽ 元 %] with a non-breaking space
 		slug: 'breakingSpace',
-		name: __( 'Breaking space', 'consistency' ),
-		description: sprintf( __( 'Replaces a breaking space followed by a character from this list:%1$s with a non-breaking space', 'consistency' )
+		name: __( 'Breaking Spaces', 'consistency' ),
+		description: sprintf( __( 'Replace a breaking space followed by a character from this list:%1$s with a non-breaking space', 'consistency' )
 			, `<br /><code>? ! : ; » € $ £ ¥ ₽ 元 %</code><br />` ),
 		mask: / ([\?|\!|\:|\;|\»|\€|\$|\£|\¥|\₽|\元|\%])/,
 		replace: ' $1',
@@ -152,8 +152,8 @@ export const rules = [
 	{
 		// Adds a non-breaking space before a character from this list [? ! : ; » € $ £ ¥ ₽ 元 %] having no space before
 		slug: 'noSpaceBefore',
-		name: __( 'No space before', 'consistency' ),
-		description: sprintf( __( 'Adds a non-breaking space before a character from this list:%1$s having no space before', 'consistency' )
+		name: __( 'No Space Before', 'consistency' ),
+		description: sprintf( __( 'Add a non-breaking space before a character from this list:%1$s having no space before', 'consistency' )
 			, `<br /><code>? ! : ; » € $ £ ¥ ₽ 元 %</code><br />` ),
 		mask: /(?<! | |&nbsp;)([\?|\!|\:|\»|\€|\$|\£|\¥|\₽|\元|\%])/,
 		replace: ' $1',
@@ -163,7 +163,7 @@ export const rules = [
 	{
 		// Removes any space preceding a character from this list [? ! : ; %]
 		slug: 'spaceBefore',
-		name: __( 'Space before', 'consistency' ),
+		name: __( 'Space Before', 'consistency' ),
 		description: __( 'Remove any space preceding a character from this list:', 'consistency' )
 			+ `<span style='display:block;'><code>? ! : ; %</code></span>`,
 		mask: /([ | ])(?=[\?|\!|\:|\;|\%])(.)/,
@@ -174,8 +174,8 @@ export const rules = [
 	{
 		// Adds a breaking space after a character from this list [, … ) ]] if this character is followed with another character except [, .] and a number
 		slug: 'noBreakingSpaceAfter',
-		name: __( 'No breaking space after', 'consistency' ),
-		description: sprintf( __( 'Adds a breaking space after a character from this list:%1$s when followed with another character', 'consistency' )
+		name: __( 'No Breaking Space After', 'consistency' ),
+		description: sprintf( __( 'Add a breaking space after a character from this list:%1$s when followed with another character', 'consistency' )
 			, `<br /><code>, … ) ]</code><br />` ),
 		mask: /([\,|\…|\)|\]])(?! | |\.|\,|\d|$)(.)/,
 		replace: '$1 $2',
@@ -185,8 +185,8 @@ export const rules = [
 	{
 		// Adds a non-breaking space after [«] having no space after
 		slug: 'noNonBreakingSpaceAfter',
-		name: __( 'No non breaking space after', 'consistency' ),
-		description: __( 'Adds a non-breaking space after open french quote having no space after', 'consistency' ),
+		name: __( 'No Non-Breaking Space After', 'consistency' ),
+		description: __( 'Add a non-breaking space after open french quote having no space after', 'consistency' ),
 		mask: /(«)(?! | |&nbsp;)/,
 		replace: '$1 ',
 		nbMoved: 0,
@@ -195,7 +195,7 @@ export const rules = [
 	{
 		// Capitalize the first letter of a sentence
 		slug: 'capitalizeFirstSentenceLetter',
-		name: __( 'First sentence letter not capitalized', 'consistency' ),
+		name: __( 'First Sentence Letter Not Capitalized', 'consistency' ),
 		description: __( 'Capitalize the first letter of a sentence', 'consistency' ),
 		mask: /(^[a-záàâäãåăçéèêëíìîïñóòôöõúùûüýÿæœșț])|(?<=[\.|\?|\!|\…] )[a-záàâäãåăçéèêëíìîïñóòôöõúùûüýÿæœșț]/,
 		replace: matched => matched.toUpperCase(),
@@ -205,8 +205,8 @@ export const rules = [
 	{
 		// Replaces etc... with etc.
 		slug: 'etcThreeDots',
-		name: __( '3 dots following "etc"', 'consistency' ),
-		description: __( 'Replaces 3 dots placed after the abbreviation "etc" with a point:', 'consistency' )
+		name: __( 'Three Dots Following "etc"', 'consistency' ),
+		description: __( 'Replace 3 dots placed after the abbreviation "etc" with a period:', 'consistency' )
 		+ `<span aria-hidden='true' style='display:block;'><code>etc...</code> <span style='font-size:20px'>→</span> <code>etc.</code></span>`,
 		mask: /etc(\.{3})/i,
 		replace: matched => { return matched.substring(0, 3) + '.' },
@@ -216,8 +216,8 @@ export const rules = [
 	{
 		// Replaces etc.. with etc.
 		slug: 'etcTwoDots',
-		name: __( '2 dots following "etc"', 'consistency' ),
-		description: __( 'Replaces 2 dots placed after the abbreviation "etc" with a point:', 'consistency' )
+		name: __( 'Two Dots Following "etc"', 'consistency' ),
+		description: __( 'Replace 2 dots placed after the abbreviation "etc" with a period:', 'consistency' )
 		+ `<span aria-hidden='true' style='display:block;'><code>etc..</code> <span style='font-size:20px'>→</span> <code>etc.</code></span>`,
 		mask: /etc(\.{2})/i,
 		replace: matched => { return matched.substring(0, 2) + '.' },
@@ -227,8 +227,8 @@ export const rules = [
 	{
 		// Replaces etc… with etc.
 		slug: 'etcEllipsis',
-		name: __( 'Ellipsis following "etc"', 'consistency' ),
-		description: __( 'Replaces ellipsis placed after the abbreviation "etc" with a point:', 'consistency' )
+		name: __( 'Ellipsis Following "etc"', 'consistency' ),
+		description: __( 'Replace the ellipsis placed after the abbreviation "etc" with a period:', 'consistency' )
 		+ `<span aria-hidden='true' style='display:block;'><code>etc…</code> <span style='font-size:20px'>→</span> <code>etc.</code></span>`,
 		mask: /etc(\.{3}|…)/i,
 		replace: matched => { return matched.substring(0, 3) + '.' },
@@ -249,7 +249,7 @@ export const rules = [
 	{
 		// Replaces a character from this list [c p r] when enclosed in parentheses with a symbol
 		slug: 'symbolInACircle',
-		name: __( 'Symbol in a circle', 'consistency' ),
+		name: __( 'Symbol in a Circle', 'consistency' ),
 		description: __( 'Replaces 1 character placed in parentheses with a symbol', 'consistency' )
 			+ `<span aria-hidden='true' style='display:block;'><code>(c) (p) (r)</code> <span style='font-size:20px'>→</span> <code>© ℗ ®</code></span>`,
 		mask: /(\([c|p|r])(\))/,
@@ -270,7 +270,7 @@ export const rules = [
 	{
 		// Replaces a character from this list [md tm mc sm] with a symbol in small caps and superscript style
 		slug: 'symbolInSmallCapsAndSuperscriptStyle',
-		name: __( 'Symbol in small caps and superscript style', 'consistency' ),
+		name: __( 'Symbol in Small Caps and Superscript Style', 'consistency' ),
 		description: __( 'Replaces 2-character abbreviations with a symbol in small caps and superscript style', 'consistency' )
 		+ `<span aria-hidden='true' style='display:block;'><code>tm sm md mc</code> <span style='font-size:20px'>→</span> <code>™ ℠ 🅫 🅪</code></span>`,
 		mask: /(?<= | |\(|\[|\{|:|^)(tm|sm|md|mc)(?= | |\.|\,|\;|\:|\)|\]|\}|$)/,
