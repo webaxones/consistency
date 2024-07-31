@@ -25,10 +25,6 @@ class UserSettings implements ValueInterface
 			'slug'  => 'on_paste',
 			'value' => true,
 		],
-		[
-			'slug'  => 'all_locales',
-			'value' => false,
-		],
 	];
 
 	/**
