@@ -86,11 +86,14 @@ class MetaData implements ActionInterface, DataValueInterface
 	}
 
 	/**
-	 * Set currentValue from database
+	 * Fetch and set the current value from the database.
+	 *
+	 * This method retrieves the current value from the database using the get() method
+	 * and assigns it to the currentValue property.
 	 *
 	 * @return void
 	 */
-	public function setCurrentValue(): void
+	public function fetchAndSetCurrentValue(): void
 	{
 		$this->currentValue = $this->get();
 	}
@@ -108,7 +111,7 @@ class MetaData implements ActionInterface, DataValueInterface
 	 */
 	public function add(): void
 	{
-		$this->setCurrentValue();
+		$this->fetchAndSetCurrentValue();
 
 		if ( ! empty( $this->currentValue ) ) {
 			$this->update();
