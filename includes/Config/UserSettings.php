@@ -26,7 +26,7 @@ class UserSettings implements ValueInterface
 			'value' => true,
 		],
 		[
-			'slug'  => 'on_selection',
+			'slug'  => 'all_locales',
 			'value' => false,
 		],
 	];
