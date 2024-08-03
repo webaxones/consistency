@@ -4,7 +4,7 @@
 
 Fixes typographic errors when typing in the WordPress editor.  
 
-Do you see the typographic corrector in your word processor that formats what you type in real time? Well, it's the same idea but with Gutenberg.
+Have you seen the typographic corrector in your word processor that formats what you type in real time? Well, it's the same idea but with Gutenberg.
   
 See [WordPress directory page](https://wordpress.org/plugins/consistency/).
 
@@ -34,7 +34,8 @@ Remember to unfold the panel to see the rules.
 
 ## Description
 
-The purpose of this plugin is to provide a tool allowing administrators to define typographical rules in order to maintain typographical consistency in the text contents entered on the editor.  
+This WordPress plugin ensures consistent typography on your site.
+ 
 > [!IMPORTANT]
 > The corrections are automatic and are made during the entry as well as on a copy paste.  
 
@@ -70,6 +71,15 @@ Currently, the AutoCorrects offered are as follows:
 | *Percentages* | Replaces percentages with percentages symbols | `0/0 0/00 0/000` → `% ‰ ‱` | `fr_FR` `fr_BE` `en_US` `en_AU` `en_CA` `en_NZ` `en_ZA` `en_GB` `de_DE` `de_AT` `de_CH` `ro_RO` |
 
     
+
+If your locale is not supported by Consistency but you still want to access all available rules, you can disable the localization of rules via a filter. Add this to your theme's functions.php file:
+
+```PHP
+add_filter( 'Consistency\only_show_locale_correction_rules', '__return_false' );
+```
+
+All correction rules will then appear, with automatic management of rule incompatibilities (if rule A is enabled and it is incompatible with rule B, rule B will be grayed out).
+
 > [!TIP]
 > **Ctrl+Z** or **Cmd+Z** right after a correction disables the correction for the next keystroke. It is thus possible to force the non-correction of a character.
 

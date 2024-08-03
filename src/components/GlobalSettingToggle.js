@@ -18,12 +18,15 @@ import { store as noticesStore } from '@wordpress/notices'
  * External dependencies
  */
 import { isUsedByLocale } from '../app/checks'
+import { getLocalizationManagementSetting } from '../app/data'
+import { checkRuleCompatibility } from '../app/checks'
 
 export const GlobalSettingToggle = props => {
 
 	const { settingSlug, settingName, settingDescription } = props
+	const { createNotice } = useDispatch( noticesStore )
 
-	if ( ! isUsedByLocale( settingSlug ) ) return ''
+	if ( getLocalizationManagementSetting() && ! isUsedByLocale( settingSlug ) ) return ''
 
 	const [ settings, setSettings ] = useEntityProp(
 		'root',
@@ -33,7 +36,6 @@ export const GlobalSettingToggle = props => {
 	)
 
 	const { saveEditedEntityRecord } = useDispatch( coreStore )
-	const { createNotice } = useDispatch( noticesStore )
 		
 	const onSettingChanged = value => {
 
@@ -43,10 +45,6 @@ export const GlobalSettingToggle = props => {
 			}
 			return obj
 		} )
-
-		if ( ! newSettings?.find( x => x.slug === settingSlug ) ) {
-			newSettings.push( { slug: settingSlug, value: value } )
-		}
 
 		setSettings( newSettings )
 		saveEditedEntityRecord( 'root', 'site', undefined, newSettings )
@@ -58,6 +56,7 @@ export const GlobalSettingToggle = props => {
 				: sprintf( __( '"%1$s" Correction is disabled', 'consistency' ), settingName ),
 			{ isDismissible: true, type: 'snackbar', speak: true }
 		)
+
 	}
 
     return(
@@ -66,6 +65,7 @@ export const GlobalSettingToggle = props => {
 				label={ settingName }
 				help={ ( <span dangerouslySetInnerHTML={ settingDescription } /> ) }
 				checked={ settings?.find( x => x.slug === settingSlug )?.value || false }
+				disabled={ checkRuleCompatibility( settingSlug ) }
 				onChange={ onSettingChanged }
 			/>
 		</PanelRow>

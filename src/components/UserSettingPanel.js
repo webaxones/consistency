@@ -21,7 +21,7 @@ import { UserSettingToggle } from './UserSettingToggle'
  */
 const UserSettingPanel = () => (
     <Panel className='UserSettingPanel'>
-		<PanelHeader><strong>{ __( 'Settings for my account', 'consistency' ) }</strong></PanelHeader>
+		<PanelHeader><strong>{ __( 'Settings for my account', 'consistency' ) }</strong><br/></PanelHeader>
         <div style={{ padding: 16 }}>
             <PanelRow>
                 <UserSettingToggle

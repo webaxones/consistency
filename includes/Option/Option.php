@@ -53,7 +53,7 @@ class Option implements ActionInterface
 	 */
 	public function get()
 	{
-		return get_option( $this->optionName );
+		return get_option( $this->optionName, null );
 	}
 
 	/**
@@ -61,11 +61,11 @@ class Option implements ActionInterface
 	 */
 	public function add(): void
 	{
-		if ( false !== $this->get() ) {
+		if ( null !== $this->get() ) {
 			$this->update( $this->optionName, $this->get(), $this->value );
 		}
 
-		if ( false === $this->get() ) {
+		if ( null === $this->get() ) {
 			add_option( $this->optionName, $this->value );
 		}
 	}

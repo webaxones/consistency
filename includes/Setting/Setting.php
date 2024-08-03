@@ -80,6 +80,7 @@ class Setting implements DataInterface, ActionInterface
 			'show_in_rest'      => $showInRestArgs,
 			'sanitize_callback' => [ $this, 'sanitizeCallback' ],
 		];
+
 		register_setting( $this->optionGroup, $this->optionName, $args );
 	}
 

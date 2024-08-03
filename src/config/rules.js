@@ -108,7 +108,7 @@ export const rules = [
 	{
 		// Replaces straight quotes with french quotes
 		slug: 'regularToFrenchQuotes',
-		name: __( 'French Quotes', 'consistency' ),
+		name: __( 'French Quotes with Spaces', 'consistency' ),
 		description: __( 'Replace straight quotes with french quotes with non-breaking spaces:', 'consistency' )
 			+ `<span aria-hidden='true' style='display:block;'><code>" "</code> <span style='font-size:20px'>→</span> <code>«   »</code></span>`,
 		mask: /"/, // specific mask with specific process
@@ -119,7 +119,7 @@ export const rules = [
 	{
 		// Replaces regular quotes with french quotes without spaces
 		slug: 'regularToFrenchQuotesWithoutSpaces',
-		name: __( 'French Quotes Without Spaces', 'consistency' ),
+		name: __( 'French Quotes', 'consistency' ),
 		description: __( 'Replace straight quotes with french quotes without spaces:', 'consistency' )
 			+ `<span aria-hidden='true' style='display:block;'><code>" "</code> <span style='font-size:20px'>→</span> <code>« »</code></span>`,
 		mask: /"/, // specific mask with specific process
@@ -195,7 +195,7 @@ export const rules = [
 	{
 		// Capitalize the first letter of a sentence
 		slug: 'capitalizeFirstSentenceLetter',
-		name: __( 'First Sentence Letter Not Capitalized', 'consistency' ),
+		name: __( 'First Sentence Letter', 'consistency' ),
 		description: __( 'Capitalize the first letter of a sentence', 'consistency' ),
 		mask: /(^[a-záàâäãåăçéèêëíìîïñóòôöõúùûüýÿæœșț])|(?<=[\.|\?|\!|\…] )[a-záàâäãåăçéèêëíìîïñóòôöõúùûüýÿæœșț]/,
 		replace: matched => matched.toUpperCase(),

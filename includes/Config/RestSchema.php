@@ -9,11 +9,11 @@ defined( 'ABSPATH' ) || exit;
 class RestSchema
 {
 	/**
-	 * Schema of Global settings in REST API
+	 * Schema of rules settings in REST API
 	 *
-	 * @var array $globalSetting Schema of Global settings in REST API used in register_settings
+	 * @var array $ruleSettingSchema Schema of the setting in the REST API used in register_setting, which will contain the correction rules.
 	 */
-	public static array $globalSetting = [
+	public static array $ruleSettingSchema = [
 		'items' => [
 			'type'       => 'object',
 			'properties' => [
@@ -30,9 +30,9 @@ class RestSchema
 	/**
 	 * Schema of User Meta Settings in REST API
 	 *
-	 * @var array $userMeta Schema of User Meta Settings in REST API used in register_meta
+	 * @var array $userMetaSchema Schema of the user meta in the REST API used in register_meta, which will contain the user choices for corrections (e.g., fix on paste, on the fly).
 	 */
-	public static array $userMeta = [
+	public static array $userMetaSchema = [
 		'items' => [
 			'type'       => 'object',
 			'properties' => [

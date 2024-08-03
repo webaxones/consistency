@@ -2,6 +2,11 @@
 
 This file contains only old changelog. See readme.txt for newer versions.
 
+= 1.5.9 =
+* Add rule for percentages symbols
+* Refactor some code
+* Actualise Readme
+
 = 1.5.8 =
 * Add rule for fraction symbols
 

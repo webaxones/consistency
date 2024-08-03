@@ -9,11 +9,12 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n'
-import { Panel, PanelHeader, PanelBody, PanelRow } from '@wordpress/components'
+import { Panel, PanelHeader, PanelBody } from '@wordpress/components'
 
 /**
  * External dependencies
  */
+import { LocaleLabel } from './LocaleLabel'
 import { GlobalSettingToggle } from './GlobalSettingToggle'
 import { rules } from '../config/rules'
 import { categories } from '../config/categories'
@@ -23,7 +24,9 @@ import { categories } from '../config/categories'
  */
 const GlobalSettingPanel = () => (
 	<Panel className='GlobalSettingPanel'>
-		<PanelHeader><strong>{ __( 'Global correction rules', 'consistency' ) }</strong></PanelHeader>
+		<PanelHeader>
+			<strong>{ __( 'Global correction rules', 'consistency' ) }<LocaleLabel /></strong>
+		</PanelHeader>
 		{
 			[ ...categories ].map( ( cat, key ) => {
 				return ( <PanelBody

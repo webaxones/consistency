@@ -27,6 +27,19 @@ export const getGlobalSettings = () => {
 }
 
 /**
+ * Retrieves the localization management setting from the site entity.
+ * @returns {any} The localization management setting.
+ */
+export const getLocalizationManagementSetting = () => {
+	
+	const siteEntity = getEntityRecord( 'root', 'site' )
+	const localizationManagementSetting = siteEntity?.consistency_plugin_localization_management
+
+	return localizationManagementSetting
+
+}
+
+/**
  * Get current user settings from usermeta
  *
  * @return {object} userSettings Current user settings: userSettings.onTheFly, userSettings.onPaste

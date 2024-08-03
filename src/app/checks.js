@@ -17,6 +17,8 @@ import { getCurrentLocale } from './data'
 import { regsWithPair } from '../config/regsWithPair'
 import { processedBlocks } from '../config/processedBlocks'
 import { aMemoryLeakHasOccured } from './helpers'
+import { ruleIncompatibilities } from '../config/ruleIncompatibilities'
+import { getGlobalSettings } from './data'
 
 const { getBlockName, getBlockAttributes } = select( 'core/block-editor' )
 
@@ -93,5 +95,25 @@ export const checkIfAMemoryLeakHasOccuredAndStopProcessing = currentBlockId => {
 	if ( global.consistencyLoop >= 100 ) {
 		aMemoryLeakHasOccured( currentBlockId )
 	}
+
+}
+
+/**
+ * Checks if at least one incompatible rule of the current rule is enabled.
+ * 
+ * @param {string} currentRule - The current rule to check.
+ * @returns {boolean} - Returns true if at least one incompatible rule is enabled, otherwise false.
+ */
+export const checkRuleCompatibility = currentRule => {
+
+	// Get the current rule from the ruleIncompatibilities array
+	const rule = ruleIncompatibilities.find( rule => rule.slug === currentRule )
+	if ( ! rule ) return false
+
+	// Check if at least one incompatible rule is enabled
+	return rule.incompatibleWith.some( incompatibleRule => {
+		// Return the state of the incompatible rule
+		return getGlobalSettings()?.find( setting => setting.slug === incompatibleRule )?.value
+	} )
 
 }

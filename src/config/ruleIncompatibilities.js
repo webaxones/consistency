@@ -66,7 +66,9 @@ export const ruleIncompatibilities = [
 	},
 	{
 		slug: 'curlyToFrenchQuotes',
-		incompatibleWith: []
+		incompatibleWith: [
+			'regularToCurlyQuotes',
+		]
 	},
 	{
 		slug: 'breakingSpace',
