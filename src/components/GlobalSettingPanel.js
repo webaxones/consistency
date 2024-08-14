@@ -30,10 +30,10 @@ const GlobalSettingPanel = () => (
 		{
 			[ ...categories ].map( ( cat, key ) => {
 				return ( <PanelBody
-                    key={ key }
-                    title={ __( cat.label, 'consistency' ) }
-                    initialOpen={ false }
-                >
+					key={ key }
+					title={ __( cat.label, 'consistency' ) }
+					initialOpen={ false }
+				>
 					{
 						[ ...rules ]
 							.filter( rule => rule.category === cat.slug )
@@ -53,5 +53,4 @@ const GlobalSettingPanel = () => (
 		}
 	</Panel>
 )
-
 export default GlobalSettingPanel

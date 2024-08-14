@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       Consistency
  * Plugin URI:        https://www.webaxones.com
- * Description:       Fixes typographical consistency
- * Version:           1.7.0
+ * Description:       Fixes typographic and punctuation consistency
+ * Version:           1.7.1
  * Requires at least: 6.1
  * Requires PHP:      7.4
  * Author:            Loïc Antignac

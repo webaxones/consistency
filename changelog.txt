@@ -2,6 +2,27 @@
 
 This file contains only old changelog. See readme.txt for newer versions.
 
+= 1.6.5 =
+* Fix: Fix version number in main PHP file
+
+= 1.6.4 =
+* Fix: Fix name of plugin and add some screenshots
+
+= 1.6.3 =
+* Fix: Update plugin description, changelog, and stable tag
+
+= 1.6.2 =
+* Add: Update readme
+
+= 1.6.1 =
+* Fix: Remove vendor subdirectories from git
+
+= 1.6.0 =
+* Fix: Refactor some code: Rename Rules class to Languages
+* Fix: Decouple Languages and rules
+* Fix: Fix Paste event interception since Editor location depends on custom fields status (if they are not activated, Editor is loaded in an iframe)
+* Fix: Separate old changelog and new logs in 2 files
+
 = 1.5.9 =
 * Add rule for percentages symbols
 * Refactor some code

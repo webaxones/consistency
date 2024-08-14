@@ -2,7 +2,7 @@
 
 [![release](https://badgen.net/github/tag/webaxones/consistency)](https://wordpress.org/plugins/consistency/) [![wordpress](https://badgen.net/badge/wordpress/6.6+/green)](https://wordpress.org/plugins/consistency/) [![php](https://badgen.net/badge/php/7.4+/green)](https://wordpress.org/plugins/consistency/)
 
-Fixes typographic errors when typing in the WordPress editor.  
+Fixes typos and punctuation errors when typing in the WordPress editor.  
 
 Have you seen the typographic corrector in your word processor that formats what you type in real time? Well, it's the same idea but with Gutenberg.
   
@@ -47,7 +47,9 @@ Currently, the AutoCorrects offered are as follows:
 | Name | Description | Example | Locales |
 | --- | --- | :---: | --- |
 | *Straight quote* | Replaces straight quotes with curved quotes | `'` → `’` | `fr_FR` `fr_BE` `en_US` `en_AU` `en_CA` `en_NZ` `en_ZA` `en_GB` |
-| *Two hyphens* | Replaces 2 hyphens with em dash | `--` → `—` | `fr_FR` `fr_BE` `en_US` `en_AU` `en_CA` `en_NZ` `en_ZA` `en_GB` `de_DE` `de_AT` `de_CH` `ro_RO` |
+| *Two hyphens* | Replaces 2 hyphens with em dash | `--` → `–` | `fr_FR` `fr_BE` `en_US` `en_AU` `en_CA` `en_NZ` `en_ZA` `en_GB` `de_DE` `de_AT` `de_CH` `ro_RO` |
+| *Three hyphens* | Replaces 3 hyphens with em dash | `--` → `—` | `fr_FR` `fr_BE` `en_US` `en_AU` `en_CA` `en_NZ` `en_ZA` `en_GB` `de_DE` `de_AT` `de_CH` `ro_RO` |
+| *Four hyphens* | Replaces 4 hyphens with two-em dash | `--` → `⸺` | `fr_FR` `fr_BE` `en_US` `en_AU` `en_CA` `en_NZ` `en_ZA` `en_GB` `de_DE` `de_AT` `de_CH` `ro_RO` |
 | *Ordinal number suffix* | Add HTML tag sup to ordinal number suffix | `1st` → 1<sup>st</sup> | `fr_FR` `fr_BE` `en_US` `en_AU` `en_CA` `en_NZ` `en_ZA` `en_GB` |
 | *Curly quotes* | Replaces regular quotes with curly quotes | `" "` → `“ ”` | `en_US` `en_AU` `en_CA` `en_NZ` `en_ZA` `en_GB` |
 | *Regular quotes to german* | Replaces regular quotes with german quotes | `" "` → `„ “` | `de_DE` `de_AT` `ro_RO` |

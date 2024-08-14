@@ -13,14 +13,14 @@ import { __ } from '@wordpress/i18n'
 /**
  * External dependencies
  */
-import { getCurrentLocale, getLocalizationManagementSetting } from '../app/data'
+import { getCurrentLocale, isLocalizationEnabled } from '../app/data'
 
 
 export const LocaleLabel = () => {
 
 	const currentLocale = getCurrentLocale()
 
-	const areRulesLocalized = getLocalizationManagementSetting()
+	const areRulesLocalized = isLocalizationEnabled()
 
 	const localizationManagementLabel = areRulesLocalized
 		? __( ` (${ currentLocale } locale)`, 'consistency' )

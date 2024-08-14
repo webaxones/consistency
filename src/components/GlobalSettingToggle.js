@@ -18,7 +18,7 @@ import { store as noticesStore } from '@wordpress/notices'
  * External dependencies
  */
 import { isUsedByLocale } from '../app/checks'
-import { getLocalizationManagementSetting } from '../app/data'
+import { isLocalizationEnabled } from '../app/data'
 import { checkRuleCompatibility } from '../app/checks'
 
 export const GlobalSettingToggle = props => {
@@ -26,7 +26,8 @@ export const GlobalSettingToggle = props => {
 	const { settingSlug, settingName, settingDescription } = props
 	const { createNotice } = useDispatch( noticesStore )
 
-	if ( getLocalizationManagementSetting() && ! isUsedByLocale( settingSlug ) ) return ''
+	// Do not display the setting if it is not used by the current locale and localization is enabled
+	if ( isLocalizationEnabled() && ! isUsedByLocale( settingSlug ) ) return ''
 
 	const [ settings, setSettings ] = useEntityProp(
 		'root',
@@ -39,6 +40,7 @@ export const GlobalSettingToggle = props => {
 		
 	const onSettingChanged = value => {
 
+		// Set the new settings
 		let newSettings = settings.map( obj => {
 			if ( settingSlug === obj.slug ) {
 			  return { ...obj, value: value }
@@ -49,6 +51,7 @@ export const GlobalSettingToggle = props => {
 		setSettings( newSettings )
 		saveEditedEntityRecord( 'root', 'site', undefined, newSettings )
 		
+		// Display a notice to confirm the setting change	
 		createNotice(
 			__( 'info', 'consistency' ), // Can be one of: success, info, warning, error.
 			value

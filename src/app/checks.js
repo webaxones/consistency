@@ -18,7 +18,7 @@ import { regsWithPair } from '../config/regsWithPair'
 import { processedBlocks } from '../config/processedBlocks'
 import { aMemoryLeakHasOccured } from './helpers'
 import { ruleIncompatibilities } from '../config/ruleIncompatibilities'
-import { getGlobalSettings } from './data'
+import { getAuthorizedRuleSettings } from './data'
 
 const { getBlockName, getBlockAttributes } = select( 'core/block-editor' )
 
@@ -113,7 +113,7 @@ export const checkRuleCompatibility = currentRule => {
 	// Check if at least one incompatible rule is enabled
 	return rule.incompatibleWith.some( incompatibleRule => {
 		// Return the state of the incompatible rule
-		return getGlobalSettings()?.find( setting => setting.slug === incompatibleRule )?.value
+		return getAuthorizedRuleSettings()?.find( setting => setting.slug === incompatibleRule )?.value
 	} )
 
 }

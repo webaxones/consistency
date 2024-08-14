@@ -22,7 +22,7 @@ import { SidebarSettings } from './components/Settings'
  * External dependencies
  */
 import { fixIt, fixAll } from './app/fixes'
-import { getGlobalSettings, getCurrentUserSettings } from './app/data'
+import { getAuthorizedRuleSettings, getCurrentUserSettings } from './app/data'
 import { interceptPasteEventInEditor } from './app/helpers'
 
 // Get the current selected block and its attributes
@@ -72,12 +72,12 @@ domReady( () => {
 		if ( ! onTheFly && ! onPaste ) return
 
 		// Get fixing rules from site entity global settings 
-		const settings = getGlobalSettings()
-		if ( undefined === settings ) return
+		const authorizedRuleSettings = getAuthorizedRuleSettings()
+		if ( undefined === authorizedRuleSettings ) return
 
 		// If content has been copied/pasted generating blocks, and if onPaste is enabled, we fix all blocks then stop here
 		if ( global.contentPasted && onPaste ) {
-			fixAll( { settings } )
+			fixAll( { authorizedRuleSettings } )
 			return
 		}
 
@@ -98,7 +98,7 @@ domReady( () => {
 
 		// Fixes the typography of current selected block
 		const isPasting = false
-		isTyping() && fixIt( { currentBlockId, isPasting, settings } )
+		isTyping() && fixIt( { currentBlockId, isPasting, authorizedRuleSettings } )
 	
 	} )
 } )

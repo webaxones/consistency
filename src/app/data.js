@@ -14,28 +14,50 @@ import { select } from '@wordpress/data'
 const { getEntityRecord } = select( 'core' )
 
 /**
- * Retrieves the global settings from the site entity.
- * @returns {Object} The global settings object.
+ * External dependencies
  */
-export const getGlobalSettings = () => {
+import { isUsedByLocale } from './checks'
+
+/**
+ * Retrieves the localization management setting.
+ * 
+ * @returns {boolean} The localization management setting.
+ */
+export const isLocalizationEnabled = () => {
 	
 	const siteEntity = getEntityRecord( 'root', 'site' )
-	const globalSettings = siteEntity?.consistency_plugin_settings
+	const localizationManagementSetting = siteEntity?.consistency_plugin_localization_management || true
 
-	return globalSettings
+	return localizationManagementSetting
 
 }
 
 /**
- * Retrieves the localization management setting from the site entity.
- * @returns {any} The localization management setting.
+ * Retrieves the rules settings from the site entity.
+ * @returns {Object} The rules settings object.
  */
-export const getLocalizationManagementSetting = () => {
+export const getRuleSettings = () => {
 	
 	const siteEntity = getEntityRecord( 'root', 'site' )
-	const localizationManagementSetting = siteEntity?.consistency_plugin_localization_management
+	const ruleSetting = siteEntity?.consistency_plugin_settings || []
 
-	return localizationManagementSetting
+	return ruleSetting
+
+}
+
+/**
+ * Retrieves the authorized rules settings.
+ * 
+ * @returns {Array} The authorized rules settings.
+ */
+export const getAuthorizedRuleSettings = () => {
+	
+	const ruleSetting = getRuleSettings()
+
+	const authorizedRuleSettings = isLocalizationEnabled() 
+		? ruleSetting.filter( setting => isUsedByLocale( setting.slug ) ) : ruleSetting
+
+	return authorizedRuleSettings
 
 }
 

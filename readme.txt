@@ -1,20 +1,20 @@
 === Consistency – Typography Corrector for Gutenberg ===
 Contributors: webaxones
-Tags: block editor, typography, gutenberg
+Tags: punctuation, typography, block editor, gutenberg
 Requires at least: 6.1
 Tested up to: 6.6
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 Requires PHP: 7.4
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Corrects the input of text content in the Block Editor according to the configured typographical rules.
+Corrects the input of text content in the Block Editor according to the configured typographic and punctuation rules.
 
 == Description ==
 
 Have you seen the typographic corrector in your word processor that formats what you type in real time? Well, it's the same idea but with Gutenberg.
 
-This WordPress plugin ensures consistent typography on your site.
+This WordPress plugin ensures consistent typography and punctuation on your site.
 Corrections are applied automatically both during text entry and when pasting text.
 
 All users can choose to enable or disable corrections, but only administrators can configure the correction rules.
@@ -23,7 +23,7 @@ The available automatic corrections are listed on [the plugin repository on gith
 
 Pressing Ctrl+Z or Cmd+Z immediately after a correction disables the correction for the next keystroke.
 
-== Technical Information ==
+== Technical Informations ==
 
 **Data Storage**: Rules are saved in the wp_options table, while active/inactive states are saved as user meta data.
 This data is deleted when the plugin is uninstalled.
@@ -31,10 +31,12 @@ This data is deleted when the plugin is uninstalled.
 **Settings Location**: Settings are directly in a plugin sidebar under the Block Editor: no more searching for an options page, always available and discreet.
 
 **Supported Locales**: The locales supported by this plugin are:
-'fr_FR', 'fr_BE', 'en_US', 'en_AU', 'en_CA', 'en_NZ', 'en_ZA', 'en_GB', 'de_DE', 'de_AT', 'de_CH', 'ro_RO'
+fr_FR, fr_BE, en_US, en_AU, en_CA, en_NZ, en_ZA, en_GB, de_DE, de_AT, de_CH, ro_RO
 
 If your locale is not supported by Consistency but you still want to access all available rules, you can disable the localization of rules via a filter. Add this to your theme's functions.php file:
-`add_filter( 'Consistency\only_show_locale_correction_rules', '__return_false' );`
+`
+add_filter( 'Consistency\only_show_locale_correction_rules', '__return_false' );
+`
 All correction rules will then appear, with automatic management of rule incompatibilities (if rule A is enabled and it is incompatible with rule B, rule B will be grayed out).
 
 == Screenshots ==
@@ -67,30 +69,12 @@ Absolutely not, since nothing is done on the front end. The processing only occu
 
 == Changelog ==
 
+= 1.7.1 =
+* Fix: Ensures in all cases to only use rules authorized by local parameters
+
 = 1.7.0 =
 * Add: Add the ability to display all correction rules regardless of the current locale with a filter (Consistency\only_show_locale_correction_rules)
 * Add: Prevents incompatible fixes from being enabled when locale limiting has been disabled by the filter
 * Add: Update readme
-
-= 1.6.5 =
-* Fix: Fix version number in main PHP file
-
-= 1.6.4 =
-* Fix: Fix name of plugin and add some screenshots
-
-= 1.6.3 =
-* Fix: Update plugin description, changelog, and stable tag
-
-= 1.6.2 =
-* Add: Update readme
-
-= 1.6.1 =
-* Fix: Remove vendor subdirectories from git
-
-= 1.6.0 =
-* Fix: Refactor some code: Rename Rules class to Languages
-* Fix: Decouple Languages and rules
-* Fix: Fix Paste event interception since Editor location depends on custom fields status (if they are not activated, Editor is loaded in an iframe)
-* Fix: Separate old changelog and new logs in 2 files
 
 See [changelog.txt](https://plugins.svn.wordpress.org/consistency/trunk/changelog.txt) for older changelog
