@@ -1,4 +1,14 @@
-export const ruleIncompatibilities = [
+/**
+ * @summary: Rule incompatibilities.
+ *
+ * This file contains an array of all rule incompatibilities.
+ * Rule incompatibilities are rules that cannot be applied together
+ * because they are mutually exclusive.
+ * 
+ * @author Loïc Antignac.
+ */
+
+export const incompatibilities = [
 	{
 		slug: 'quote', // slug of the setting
 		incompatibleWith: [] // List of slugs of the settings that are incompatible with the current setting

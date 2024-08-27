@@ -1,7 +1,7 @@
 /**
- * Summary: UserSettingPanel component.
+ * @summary: UserSettingPanel component.
  * 
- * @description This file contains the UserSettingPanel component used to display the plugin's user settings in sidebar.
+ * This file contains the UserSettingPanel component used to display the plugin's user settings in sidebar.
  * @author Loïc Antignac.
  */
 

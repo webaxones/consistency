@@ -1,7 +1,7 @@
 /**
- * Summary: GlobalSettingToggle component.
+ * @summary: GlobalSettingToggle component.
  * 
- * @description This file contains the GlobalSettingToggle component used to display the plugin's global settings in sidebar.
+ * This file contains the GlobalSettingToggle component used to display the plugin's global settings in sidebar.
  * @author Loïc Antignac.
  */
 
@@ -13,12 +13,12 @@ import { __ } from '@wordpress/i18n'
 /**
  * External dependencies
  */
-import { getCurrentLocale, isLocalizationEnabled } from '../app/data'
+import { fetchCurrentLocale, isLocalizationEnabled } from '../app/data'
 
 
 export const LocaleLabel = () => {
 
-	const currentLocale = getCurrentLocale()
+	const currentLocale = fetchCurrentLocale()
 
 	const areRulesLocalized = isLocalizationEnabled()
 

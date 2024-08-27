@@ -1,7 +1,7 @@
 /**
- * Summary: Rules categories.
+ * @summary: Rules categories.
  *
- * @description This file contains an array of all correction rules categories.
+ * This file contains an array of all correction rules categories.
  * @author Loïc Antignac.
  */
 

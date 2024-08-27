@@ -1,7 +1,7 @@
 /**
- * Summary: Consistency Logo.
+ * @summary: Consistency Logo.
  * 
- * @description This file contains the Consistency Logo component used to display the plugin's settings sidebar in editor.
+ * This file contains the Consistency Logo component used to display the plugin's settings sidebar in editor.
  * @author Loïc Antignac.
  */
 

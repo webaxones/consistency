@@ -1,7 +1,7 @@
 /**
- * Summary: UserSettingToggle component.
+ * @summary: UserSettingToggle component.
  * 
- * @description This file contains the UserSettingToggle component used to display the plugin's user settings in sidebar.
+ * This file contains the UserSettingToggle component used to display the plugin's user settings in sidebar.
  * @author Loïc Antignac.
  */
 

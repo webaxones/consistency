@@ -1,9 +1,11 @@
 /**
- * Summary: Generic utility functions.
+ * @summary: Generic utility functions.
  * 
- * @description This file contains generic utility functions that are not tied to any specific part of the application.
+ * This file contains generic utility functions that are not tied to any specific part of the application.
  * @author Loïc Antignac.
  */
+
+import { RichTextData } from '@wordpress/rich-text'
 
 /**
  * Get all innerBlocks from an array of parents
@@ -50,12 +52,16 @@ export const getCursorPositionInInnerHTML = currentBlockId => {
 	const currentActiveBlock = document.querySelector( `#block-${ currentBlockId }` )
 	if ( null === currentActiveBlock ) return undefined
 
+	// Get the inner content editable element (like <p> or <code>)
+	// Sometimes the contenteditable is not the direct child of the block
+	const editableContent = currentActiveBlock.querySelector('[contenteditable="true"]') || currentActiveBlock;
+	
 	// Get current selection
 	const selection = document.getSelection()
 	const _range = selection?.getRangeAt( 0 )
 
 	// Return if user is selecting text instead of typing
-	if ( ! _range.collapsed ) return
+	if ( ! _range || ! _range.collapsed ) return
 
 	// Clone range to work on
 	const range = _range.cloneRange()
@@ -66,18 +72,37 @@ export const getCursorPositionInInnerHTML = currentBlockId => {
 	// Insert temporary node as target into cloned range
 	range.insertNode( tempNode )
 
-	// Get position of target inside active block HTML
-	let cursorPositionInsideHTML = currentActiveBlock?.innerHTML?.indexOf( '\0' )
-
+	// Get position of target inside the contenteditable element
+	const textContent = editableContent.textContent || ''
+	let cursorPositionInsideText = textContent.indexOf( '\0' )
+	
 	// Remove temporary node and normalize cut node - important!
 	tempNode.parentNode.removeChild( tempNode )
-	currentActiveBlock.normalize()
+	editableContent.normalize()
 
 	// Remove non-breaking spaces in &nbsp; format from the count
-	const nbNbsp = (currentActiveBlock?.innerHTML.match(/&nbsp;/g) || []).length
+	const nbNbsp = (editableContent?.innerHTML.match(/&nbsp;/g) || []).length
 	if ( nbNbsp > 0 ) {
-		cursorPositionInsideHTML = cursorPositionInsideHTML - ( nbNbsp * 6 ) + nbNbsp
+		const textContentWithoutNbsp = textContent.replace(/&nbsp;/g, ' ');
+		cursorPositionInsideText = textContentWithoutNbsp.indexOf('\0');
+		cursorPositionInsideText = cursorPositionInsideText - ( nbNbsp * 6 ) + nbNbsp;
 	}
 
-	return cursorPositionInsideHTML
+	return cursorPositionInsideText
 }
+
+/**
+ * Checks if a value is a string.
+ *
+ * @param {*} value - The value to check.
+ * @returns {boolean} - Returns true if the value is a string, false otherwise.
+ */
+export const isString = value => typeof value === 'string' || value instanceof String
+
+/**
+ * Checks if the given value is an instance of RichTextData.
+ *
+ * @param {*} value - The value to check.
+ * @returns {boolean} - Returns true if the value is an instance of RichTextData, otherwise returns false.
+ */
+export const isRichTextData = value => typeof value === 'object' && value instanceof RichTextData

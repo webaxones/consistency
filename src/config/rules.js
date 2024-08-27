@@ -1,7 +1,8 @@
 /**
- * Summary: Correction rules.
+ * @summary: Correction rules.
  *
- * @description This file contains an array of all correction rules with each regular expression used.
+ * This file contains an array of all correction rules with each regular expression used.
+ * 
  * @author Loïc Antignac.
  */
 

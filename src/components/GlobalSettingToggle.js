@@ -1,7 +1,7 @@
 /**
- * Summary: GlobalSettingToggle component.
+ * @summary: GlobalSettingToggle component.
  * 
- * @description This file contains the GlobalSettingToggle component used to display the plugin's global settings in sidebar.
+ * This file contains the GlobalSettingToggle component used to display the plugin's global settings in sidebar.
  * @author Loïc Antignac.
  */
 

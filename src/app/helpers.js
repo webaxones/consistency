@@ -1,17 +1,16 @@
 /**
- * Summary: Specific functions varied and correlated to the application.
+ * @summary: Specific functions varied and correlated to the application.
  * 
- * @description This file contains specific functions that depends on other parts of the application.
+ * This file contains specific functions that depends on other parts of the application.
  * @author Loïc Antignac.
  */
 
 /**
- * WordPress dependencies
+ * External dependencies
  */
-import { select, dispatch } from '@wordpress/data'
-
-const { getBlock } = select( 'core/block-editor' )
-const { updateBlock } = dispatch( 'core/block-editor' )
+import { isUsedByLocale } from './checks'
+import { fetchRuleSettings, isLocalizationEnabled } from './data'
+import { rules } from '../config/rules'
 
 /**
  * Get specific replacement string for pairing characters by checking if we are on opening one or closing one
@@ -53,85 +52,31 @@ export const getReplacementStringForPairs = ( reg, fullBlockContent, replaceWith
 }
 
 /**
- * Stop the process in the regex loop if a code error generates an infinite loop
- * by removing last 2 characters and adding a message in the console
- *
- * @param {string} currentBlockId currentBlockId current active block ID
+ * Retrieves the localized rules settings.
+ * 
+ * @returns {Array} The localized rules settings.
  */
-export const aMemoryLeakHasOccured = currentBlockId => {
+export const getLocalizedRuleSettings = () => {
+	
+	const ruleSettings = fetchRuleSettings()
 
-	const block = getBlock( currentBlockId )
+	const localizedRuleSettings = isLocalizationEnabled() 
+		? ruleSettings.filter( setting => isUsedByLocale( setting.slug ) ) 
+		: ruleSettings
 
-	updateBlock( currentBlockId, {
-		...block,
-		attributes: { ...block.attributes, content: block.attributes.content.slice( -2 ) }
-	} )
-
-	global.consistency_loop = 0
-	console.log( 'Consistency - a memory leak has occured during the fix of the following block:', block )
+	return localizedRuleSettings
 
 }
 
-/**
- * Checks the editor location and updates the global accordingly.
- */
-const updatePasteEventGlobalDependingOnEditorLocation = () => {
-	
-	// Recheck if the editor is in an iframe or not
-	const isEditorStillInIframe = document.querySelector( 'iframe[name="editor-canvas"]' ) !== null ? true : false
-
-	// If we have changed the editor location (in iframe or not), we need to reattach the paste event
-	if ( global.isEditorInIframe !== isEditorStillInIframe ) {
-		global.isEditorInIframe = isEditorStillInIframe
-		global.isPasteEventAttached = false
-	}
-
-}
 
 /**
- * Attaches a 'paste' event listener to the editor or iframe document, depending on the editor location.
- * Updates the global variables to track if the paste event has been attached and if content has been pasted.
+ * Retrieves localized rules based on the current rule settings.
+ * @returns {Array} An array of localized rules.
  */
-export const interceptPasteEventInEditor = () => {
-	
-	// Check if the editor location has changed and update the global accordingly
-	updatePasteEventGlobalDependingOnEditorLocation()
+export const getLocalizedRules = () => {
 
-	if ( global.isPasteEventAttached ) return
+	const localizedRules = rules.filter( reg => true === getLocalizedRuleSettings()?.find( s => s.slug === reg.slug )?.value )
 
-	if ( global.isEditorInIframe ) {
-
-		// Select the iframe
-		const iframe = document.querySelector( 'iframe[name="editor-canvas"]' )
-
-		// Ensure the iframe is not null and has loaded
-		if ( iframe ) {
-			iframe.onload = () => {
-				// Access the iframe's document
-				const iframeDoc = iframe.contentDocument || iframe.contentWindow.document
-
-				// Attach the 'paste' event listener
-				iframeDoc.addEventListener('paste', e => {
-					global.contentPasted = true
-					global.isPasteEventAttached = true
-				} )
-			}
-	
-			// If the iframe is already loaded by the time this code runs, manually trigger the onload handler
-			if ( iframe.contentWindow.document.readyState === 'complete' ) {
-				iframe.onload()
-			}
-		}
-
-	} 
-	if ( ! global.isEditorInIframe ) {
-		
-		// Attach the paste event to the editor
-		document.querySelector( '#editor' )?.addEventListener( 'paste', e => {
-			global.contentPasted = true
-			global.isPasteEventAttached = true
-		} )
-
-	}
+	return localizedRules
 
 }

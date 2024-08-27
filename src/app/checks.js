@@ -1,7 +1,7 @@
 /**
- * Summary: Various checks functions.
+ * @summary: Various checks functions.
  * 
- * @description This file contains functions for various checks.
+ * This file contains functions for various checks.
  * @author Loïc Antignac.
  */
 
@@ -13,15 +13,13 @@ import { select } from '@wordpress/data'
 /**
  * External dependencies
  */
-import { getCurrentLocale } from './data'
-import { regsWithPair } from '../config/regsWithPair'
-import { processedBlocks } from '../config/processedBlocks'
-import { aMemoryLeakHasOccured } from './helpers'
-import { ruleIncompatibilities } from '../config/ruleIncompatibilities'
-import { getAuthorizedRuleSettings } from './data'
+import { fetchCurrentLocale } from './data'
+import { pairedCharacterSlugs } from '../config/pairedCharacterSlugs'
+import { incompatibilities } from '../config/incompatibilities'
+import { getLocalizedRuleSettings } from './helpers'
+import { isString, isRichTextData } from './utils'
 
 const { getBlockName, getBlockAttributes } = select( 'core/block-editor' )
-
 
 /**
  * Check if setting is used by current active locale
@@ -31,7 +29,7 @@ const { getBlockName, getBlockAttributes } = select( 'core/block-editor' )
  */
 export const isUsedByLocale = settingSlug => {
 
-	const currentLocale = getCurrentLocale()
+	const currentLocale = fetchCurrentLocale()
 	if ( localesByRules !== undefined && localesByRules.hasOwnProperty( settingSlug ) ) {
 		return localesByRules[settingSlug].includes( currentLocale )
 	}
@@ -40,15 +38,20 @@ export const isUsedByLocale = settingSlug => {
 }
 
 /**
- * Checks if the current block is one of those to be checked or not
+ * Checks if the current block is one of those to be processed or not
  *
- * @param {string} currentBlockId currentBlockId current active block ID
- * @return {boolean} Should the block be checked?
+ * @param {Object} props - The props object containing the necessary data.
+ * @param {string} props.currentBlockId - The ID of the current block.
+ * @param {Array} props.blocksToBeProcessed - The blocks to be processed.
+ * @return {boolean} Should the block be processed?
  */
-export const blockShouldBeChecked = currentBlockId => {
+export const shouldProcessBlock = props => {
+
+	const { currentBlockId, blocksToBeProcessed } = props
 
 	const blockName = getBlockName( currentBlockId )
-	if ( processedBlocks.includes( blockName ) ) {
+	
+	if ( blocksToBeProcessed.includes( blockName ) ) {
 		return true
 	}
 	return false
@@ -56,17 +59,21 @@ export const blockShouldBeChecked = currentBlockId => {
 }
 
 /**
- * Checks if the current block can technically be verified or not
+ * Checks if the current block can technically be processed or not
  *
  * @param {string} currentBlockId currentBlockId current active block ID
- * @return {boolean} Can the block be checked?
+ * @return {boolean} Can the block be processed?
  */
-export const blockCanTechnicallyBeChecked = currentBlockId => {
+export const canProcessBlock = currentBlockId => {
 
 	const blockAttributes = getBlockAttributes( currentBlockId )
-	if ( blockAttributes && blockAttributes.hasOwnProperty( 'content' ) && '' !== blockAttributes.content ) {
+
+	if ( ! blockAttributes || ! blockAttributes.hasOwnProperty( 'content' ) ) return false
+
+	if ( isString( blockAttributes.content ) || isRichTextData( blockAttributes.content ) ) {
 		return true
 	}
+	
 	return false
 
 }
@@ -79,22 +86,10 @@ export const blockCanTechnicallyBeChecked = currentBlockId => {
  */
 export const regDealWithPair = reg => {
 
-	if ( regsWithPair.includes( reg.slug ) ) {
+	if ( pairedCharacterSlugs.includes( reg.slug ) ) {
 		return true
 	}
 	return false
-
-}
-
-/**
- * Checks if a memory leak has occurred during the fix of one block if the consistency loop count exceeds 150 and stops processing.
- * @param {string} currentBlockId - The ID of the current block.
- */
-export const checkIfAMemoryLeakHasOccuredAndStopProcessing = currentBlockId => {
-	
-	if ( global.consistencyLoop >= 100 ) {
-		aMemoryLeakHasOccured( currentBlockId )
-	}
 
 }
 
@@ -106,14 +101,14 @@ export const checkIfAMemoryLeakHasOccuredAndStopProcessing = currentBlockId => {
  */
 export const checkRuleCompatibility = currentRule => {
 
-	// Get the current rule from the ruleIncompatibilities array
-	const rule = ruleIncompatibilities.find( rule => rule.slug === currentRule )
+	// Get the current rule from the incompatibilities array
+	const rule = incompatibilities.find( rule => rule.slug === currentRule )
 	if ( ! rule ) return false
 
 	// Check if at least one incompatible rule is enabled
 	return rule.incompatibleWith.some( incompatibleRule => {
 		// Return the state of the incompatible rule
-		return getAuthorizedRuleSettings()?.find( setting => setting.slug === incompatibleRule )?.value
+		return getLocalizedRuleSettings()?.find( setting => setting.slug === incompatibleRule )?.value
 	} )
 
 }

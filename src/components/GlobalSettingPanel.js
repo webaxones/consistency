@@ -1,7 +1,7 @@
 /**
- * Summary: GlobalSettingPanel component.
+ * @summary: GlobalSettingPanel component.
  * 
- * @description This file contains the GlobalSettingPanel component used to display the plugin's global settings which contains the global correction rules in sidebar for administrators.
+ * This file contains the GlobalSettingPanel component used to display the plugin's global settings which contains the global correction rules in sidebar for administrators.
  * @author Loïc Antignac.
  */
 
@@ -41,7 +41,7 @@ const GlobalSettingPanel = () => (
 								<GlobalSettingToggle 
 									key={ key }
 									settingSlug={ rule.slug }
-									settingName={ rule.name }
+									name={ rule.name }
 									settingDescription={ {
 										__html: rule.description
 									} }
@@ -51,6 +51,8 @@ const GlobalSettingPanel = () => (
 				</PanelBody> )
 			} )
 		}
+
 	</Panel>
 )
+
 export default GlobalSettingPanel
