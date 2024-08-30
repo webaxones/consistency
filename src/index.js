@@ -21,11 +21,11 @@ import { GlobalProvider } from './contexts/GlobalContext'
 import ConsistencyPlugin from './components/ConsistencyPlugin'
 
 const PluginWrapper = () => (
-    <GlobalProvider>
-        <ConsistencyPlugin />
-    </GlobalProvider>
+	<GlobalProvider>
+		<ConsistencyPlugin />
+	</GlobalProvider>
 )
 
 domReady( () => {
-    registerPlugin( 'consistency-custom-sidebar', { render: PluginWrapper } )
+	registerPlugin( 'consistency-custom-sidebar', { render: PluginWrapper } )
 } )

@@ -26,5 +26,5 @@ export const LocaleLabel = () => {
 		? __( ` (${ currentLocale } locale)`, 'consistency' )
 		: __( ' (all locales)', 'consistency' )
 
-    return(	<span style={{ fontWeight: "normal", fontStyle: "italic", fontSize: "smaller" }}>{ localizationManagementLabel }</span> )
+	return(	<span style={{ fontWeight: "normal", fontStyle: "italic", fontSize: "smaller" }}>{ localizationManagementLabel }</span> )
 }

@@ -29,45 +29,45 @@ const useEditorEffects = () => {
 	/**
 	 * Global variables in global context
 	 */
-    const { 
+	const { 
 		isPreviousFixCanceled,
-        setPreviousFixCanceled,
+		setPreviousFixCanceled,
 		previousFixCanceledContent,
-        setPreviousFixCanceledContent,
+		setPreviousFixCanceledContent,
 		blocksToBeProcessed,
 		isContentPastedRef
-    } = useContext( GlobalContext )
+	} = useContext( GlobalContext )
 
 	// Initialize the isContentPastedRef variable if it is undefined
 	if ( isContentPastedRef.current === undefined ) {
 		isContentPastedRef.current = false
 	}
 
-    useEffect( () => {
+	useEffect( () => {
 
 		// Let’s listen for state changes
 		const unsubscribe = subscribe( () => {
 
-            // Get current user settings to check if we have to fix the content or to stop here
+			// Get current user settings to check if we have to fix the content or to stop here
 			const { onTheFly, onPaste } = fetchCurrentUserSettings()
-            if ( ! onTheFly && ! onPaste ) return
+			if ( ! onTheFly && ! onPaste ) return
 
-            // Get fixing rules from site entity global settings
+			// Get fixing rules from site entity global settings
 			const localizedRuleSettings = getLocalizedRuleSettings()
-            if ( localizedRuleSettings === undefined ) return
+			if ( localizedRuleSettings === undefined ) return
 
-            // If onPaste setting is enabled and if content has been copied/pasted generating blocks, we fix all blocks then stop here
+			// If onPaste setting is enabled and if content has been copied/pasted generating blocks, we fix all blocks then stop here
 			if ( onPaste && isContentPastedRef.current === true ) {
 				isContentPastedRef.current = false
-                fixAll( { isPreviousFixCanceled, setPreviousFixCanceled, localizedRuleSettings, blocksToBeProcessed } )
+				fixAll( { isPreviousFixCanceled, setPreviousFixCanceled, localizedRuleSettings, blocksToBeProcessed } )
 				return
-            }
+			}
 
 			// Get current selected block
-            const currentBlockId = getSelectedBlockClientId()
+			const currentBlockId = getSelectedBlockClientId()
 
 			// Stop here if no block is selected or if fixing on the fly is disabled
-            if ( currentBlockId === null || ! onTheFly ) return
+			if ( currentBlockId === null || ! onTheFly ) return
 
 			// Don't try to fix block content if nothing has changed
 			const blockAttributes = getBlockAttributes( currentBlockId )
@@ -78,16 +78,16 @@ const useEditorEffects = () => {
 			}
 
 			// Store the block content to avoid fixing it twice at the next state change
-            setPreviousFixCanceledContent( blockAttributes.content )
+			setPreviousFixCanceledContent( blockAttributes.content )
 
 			// Fix the current selected block
-            isTyping() && fixIt( { currentBlockId, isPasting: false, isPreviousFixCanceled, setPreviousFixCanceled, blocksToBeProcessed } )
-        } )
+			isTyping() && fixIt( { currentBlockId, isPasting: false, isPreviousFixCanceled, setPreviousFixCanceled, blocksToBeProcessed } )
+		} )
 
 		// Unsubscribe when the component is unmounted
-        return () => unsubscribe()
+		return () => unsubscribe()
 
-    }, [ isPreviousFixCanceled, setPreviousFixCanceled, previousFixCanceledContent, setPreviousFixCanceledContent, blocksToBeProcessed, isContentPastedRef ] )
+	}, [ isPreviousFixCanceled, setPreviousFixCanceled, previousFixCanceledContent, setPreviousFixCanceledContent, blocksToBeProcessed, isContentPastedRef ] )
 }
 
 export default useEditorEffects

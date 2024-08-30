@@ -26,7 +26,7 @@ const usePasteEventHandler = () => {
 	// Create a ref to track if the paste event has been attached
 	const isPasteEventAttached = useRef( false )
 
-    useEffect( () => {
+	useEffect( () => {
 
 		// If the paste event has already been attached, return
 		if ( isPasteEventAttached.current ) return
@@ -48,27 +48,27 @@ const usePasteEventHandler = () => {
 		}
 
 		// Get the target element depending on whether the editor is in an iframe or not
-        const targetElement = isEditorInIframe
+		const targetElement = isEditorInIframe
 			? document.querySelector( 'iframe[name="editor-canvas"]' ) 
 			: document.querySelector( '#editor' )
 
-        if ( ! targetElement ) return
+		if ( ! targetElement ) return
 
-        // Attach the paste event listener and get the cleanup function
-        const cleanup = attachPasteEventListener( targetElement )
+		// Attach the paste event listener and get the cleanup function
+		const cleanup = attachPasteEventListener( targetElement )
 
-        // If the iframe is already loaded, manually trigger the event listener attachment
-        if ( isEditorInIframe && targetElement.contentWindow.document.readyState === 'complete' ) {
-            attachPasteEventListener( targetElement )
-        }
+		// If the iframe is already loaded, manually trigger the event listener attachment
+		if ( isEditorInIframe && targetElement.contentWindow.document.readyState === 'complete' ) {
+			attachPasteEventListener( targetElement )
+		}
 
 		// Update the ref to track if the paste event has been attached
 		isPasteEventAttached.current = true
 
-        // Return the cleanup function to be called when the component unmounts or before the effect re-runs
-        return cleanup
+		// Return the cleanup function to be called when the component unmounts or before the effect re-runs
+		return cleanup
 
-    }, [ isEditorInIframe ] )
+	}, [ isEditorInIframe ] )
 }
 
 export default usePasteEventHandler

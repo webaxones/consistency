@@ -58,12 +58,12 @@ export const UserSettingToggle = props => {
 		)
 	}
 
-    return(
-        <ToggleControl
-            label={ settingName }
+	return(
+		<ToggleControl
+			label={ settingName }
 			help={ ( <span dangerouslySetInnerHTML={ settingDescription } /> ) }
-            checked={ settings?.consistency_plugin_user_settings?.find( x => x.slug === settingSlug )?.value || false }
-            onChange={ onSettingChanged }
-        />
-    )
+			checked={ settings?.consistency_plugin_user_settings?.find( x => x.slug === settingSlug )?.value || false }
+			onChange={ onSettingChanged }
+		/>
+	)
 }

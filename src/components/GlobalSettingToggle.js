@@ -62,7 +62,7 @@ export const GlobalSettingToggle = props => {
 
 	}
 
-    return(
+	return(
 		<PanelRow>
 			<ToggleControl
 				label={ settingName }
@@ -72,5 +72,5 @@ export const GlobalSettingToggle = props => {
 				onChange={ onSettingChanged }
 			/>
 		</PanelRow>
-    )
+	)
 }

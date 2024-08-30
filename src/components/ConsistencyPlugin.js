@@ -38,9 +38,9 @@ const ConsistencyPlugin = () => {
 	useEditorEffects()
 
 	// Render the settings sidebar
-    return (
-        <SidebarSettings />
-    )
+	return (
+		<SidebarSettings />
+	)
 }
 
 export default ConsistencyPlugin

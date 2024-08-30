@@ -25,19 +25,19 @@ const { canUser } = select( 'core' )
 export const SidebarSettings = () => {
 	const isAdmin = canUser( 'create', 'users' )
 
-    return(
-        <>
+	return(
+		<>
 			<PluginSidebar
-                name='consistency-custom-sidebar'
-                title={ __( 'Consistency', 'consistency' ) }
+				name='consistency-custom-sidebar'
+				title={ __( 'Consistency', 'consistency' ) }
 				icon={ ConsistencyIcon }
-            >
+			>
 				<UserSettingPanel />
 				{ isAdmin && <GlobalSettingPanel/> }
-            </PluginSidebar>
-            <PluginSidebarMoreMenuItem target='consistency-custom-sidebar'>
+			</PluginSidebar>
+			<PluginSidebarMoreMenuItem target='consistency-custom-sidebar'>
 				{ __( 'Consistency Settings', 'consistency' ) }
 			</PluginSidebarMoreMenuItem>
-        </>
-    )
+		</>
+	)
 }

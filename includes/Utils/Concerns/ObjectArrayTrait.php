@@ -22,7 +22,7 @@ trait ObjectArrayTrait
 		return array_udiff(
 			$array1,
 			$array2,
-			function( $a, $b ) {
+			function ( $a, $b ) {
 				return strcmp( $a['slug'], $b['slug'] );
 			}
 		);

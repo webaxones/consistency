@@ -39,20 +39,20 @@ export const GlobalProvider = ( { children } ) => {
 	const isContentPastedRef = useRef( false )
 
 	// Return the global provider
-    return (
-        <GlobalContext.Provider value={ {
-            isEditorInIframe,
-            isPreviousFixCanceled,
-            setPreviousFixCanceled,
+	return (
+		<GlobalContext.Provider value={ {
+			isEditorInIframe,
+			isPreviousFixCanceled,
+			setPreviousFixCanceled,
 			previousFixCanceledContent,
-            setPreviousFixCanceledContent,
+			setPreviousFixCanceledContent,
 			blocksToBeProcessed,
 			setBlocksToBeProcessed,
 			isContentPastedRef
-        } }>
-            { children }
-        </GlobalContext.Provider>
-    )
+		} }>
+			{ children }
+		</GlobalContext.Provider>
+	)
 }
 
 export default GlobalContext
