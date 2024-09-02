@@ -41,7 +41,7 @@ const GlobalSettingPanel = () => (
 								<GlobalSettingToggle 
 									key={ key }
 									settingSlug={ rule.slug }
-									name={ rule.name }
+									settingName={ rule.name }
 									settingDescription={ {
 										__html: rule.description
 									} }

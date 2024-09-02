@@ -5,6 +5,10 @@
  * @author Loïc Antignac.
  */
 
+import { select, dispatch } from '@wordpress/data'
+const { getBlock, getBlocks, getBlockAttributes, getSelectionStart, isTyping } = select( 'core/block-editor' )
+const { selectionChange, updateBlockAttributes } = dispatch( 'core/block-editor' )
+
 /**
  * External dependencies
  */
@@ -78,5 +82,56 @@ export const getLocalizedRules = () => {
 	const localizedRules = rules.filter( reg => true === getLocalizedRuleSettings()?.find( s => s.slug === reg.slug )?.value )
 
 	return localizedRules
+
+}
+
+/**
+ * Moves the cursor to right position after fixing the content.
+ * We use window.getSelection() and not the editor's selectionChange() to avoid to trigger a new state change.
+ * 
+ * @returns {void}
+ */
+export const moveCursorToNewPosition = cursorOffset => {
+
+	const selection = window.getSelection()
+	
+	// Stop here if no selection or if the selection anchor node is null
+	if ( ! selection ) return
+
+	// Get current cursor position
+	let cursorPosition
+
+	// Element node case: we need to get the first text node from the element node
+	if ( selection?.anchorNode?.nodeType === 1 ) {
+		cursorPosition = selection.anchorNode?.firstChild?.length || 0
+	}
+
+	// Text node case
+	if ( selection?.anchorNode?.nodeType === 3 ) {
+		cursorPosition = selection.anchorOffset || 0
+	}
+
+	// If the cursorOffset is positive, newPosition equals cursorPosition + cursorOffset, else newPosition equals cursorPosition
+	const newPosition = cursorOffset >= 0 ? cursorPosition + cursorOffset : cursorPosition
+
+	// Element node
+	if ( selection?.anchorNode?.nodeType === 1 ) {
+	
+		// If the anchor node is an element node, we have to get the first text node from it
+		const textNode = selection.anchorNode?.firstChild || selection.anchorNode?.childNodes[ 0 ]
+		selection.collapse( textNode, newPosition )
+		return
+		
+	}
+
+	// Text node
+	if ( selection?.anchorNode?.nodeType === 3 ) {
+	
+		// If the anchor node is a text node, we have to get the parent element node
+		const textNode = selection.anchorNode
+		selection.collapse( textNode, newPosition )
+		return
+		
+	}
 
 }

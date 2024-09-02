@@ -67,7 +67,7 @@ export const shouldProcessBlock = props => {
 export const canProcessBlock = currentBlockId => {
 
 	const blockAttributes = getBlockAttributes( currentBlockId )
-
+	
 	if ( ! blockAttributes || ! blockAttributes.hasOwnProperty( 'content' ) ) return false
 
 	if ( isString( blockAttributes.content ) || isRichTextData( blockAttributes.content ) ) {

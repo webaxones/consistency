@@ -20,7 +20,7 @@ import { subscribe, select } from '@wordpress/data'
 import GlobalContext from '../contexts/GlobalContext'
 import { fixIt, fixAll } from '../app/fixes'
 import { fetchCurrentUserSettings } from '../app/data'
-import { getLocalizedRuleSettings } from '../app/helpers'
+import { moveCursorToNewPosition, getLocalizedRuleSettings } from '../app/helpers'
 
 // Get the current selected block and its attributes
 const { getSelectedBlockClientId, isTyping, getBlockAttributes } = select( 'core/block-editor' )
@@ -35,13 +35,15 @@ const useEditorEffects = () => {
 		previousFixCanceledContent,
 		setPreviousFixCanceledContent,
 		blocksToBeProcessed,
+		cursorOffsetRef,
 		isContentPastedRef
 	} = useContext( GlobalContext )
 
+	// Initialize the cursorOffset variable if it is undefined
+	cursorOffsetRef.current = cursorOffsetRef.current || 0
+
 	// Initialize the isContentPastedRef variable if it is undefined
-	if ( isContentPastedRef.current === undefined ) {
-		isContentPastedRef.current = false
-	}
+	isContentPastedRef.current = isContentPastedRef.current || false
 
 	useEffect( () => {
 
@@ -59,7 +61,7 @@ const useEditorEffects = () => {
 			// If onPaste setting is enabled and if content has been copied/pasted generating blocks, we fix all blocks then stop here
 			if ( onPaste && isContentPastedRef.current === true ) {
 				isContentPastedRef.current = false
-				fixAll( { isPreviousFixCanceled, setPreviousFixCanceled, localizedRuleSettings, blocksToBeProcessed } )
+				fixAll( { isPreviousFixCanceled, setPreviousFixCanceled, blocksToBeProcessed, cursorOffsetRef } )
 				return
 			}
 
@@ -81,13 +83,22 @@ const useEditorEffects = () => {
 			setPreviousFixCanceledContent( blockAttributes.content )
 
 			// Fix the current selected block
-			isTyping() && fixIt( { currentBlockId, isPasting: false, isPreviousFixCanceled, setPreviousFixCanceled, blocksToBeProcessed } )
+			isTyping() && fixIt( { currentBlockId, isPreviousFixCanceled, setPreviousFixCanceled, blocksToBeProcessed, cursorOffsetRef } )
+
 		} )
 
 		// Unsubscribe when the component is unmounted
-		return () => unsubscribe()
+		return () => { 
+			unsubscribe()
+			
+			// Move cursor to the new position
+			moveCursorToNewPosition( cursorOffsetRef.current )
 
-	}, [ isPreviousFixCanceled, setPreviousFixCanceled, previousFixCanceledContent, setPreviousFixCanceledContent, blocksToBeProcessed, isContentPastedRef ] )
+			// Reset cursorOffsetRef
+			cursorOffsetRef.current = 0
+		}
+
+	}, [ isPreviousFixCanceled, setPreviousFixCanceled, previousFixCanceledContent, setPreviousFixCanceledContent, blocksToBeProcessed, cursorOffsetRef, isContentPastedRef ] )
 }
 
 export default useEditorEffects
