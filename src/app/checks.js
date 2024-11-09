@@ -81,12 +81,12 @@ export const canProcessBlock = currentBlockId => {
 /**
  * Checks if the regex processes a pair
  *
- * @param {string} reg regex
+ * @param {string} rule regex
  * @return {boolean} Does the regex process a pair?
  */
-export const regDealWithPair = reg => {
+export const regDealWithPair = rule => {
 
-	if ( pairedCharacterSlugs.includes( reg.slug ) ) {
+	if ( pairedCharacterSlugs.includes( rule.slug ) ) {
 		return true
 	}
 	return false

@@ -6,8 +6,8 @@
  */
 
 import { select, dispatch } from '@wordpress/data'
-const { getBlock, getBlocks, getBlockAttributes, getSelectionStart, isTyping } = select( 'core/block-editor' )
-const { selectionChange, updateBlockAttributes } = dispatch( 'core/block-editor' )
+const { getSelectionStart } = select( 'core/block-editor' )
+const { selectionChange } = dispatch( 'core/block-editor' )
 
 /**
  * External dependencies
@@ -24,24 +24,24 @@ import { rules } from '../config/rules'
  * french quotes eg: « +   + $1 +   + »
  * left and right separators are optionals
  * 
- * @param {object} reg Replacement parameters
+ * @param {object} rule Replacement parameters
  * @param {string} fullBlockContent Full block string
  * @param {string} replaceWithThis Replacement string
  * @return {string} replaceWithThis Replacement string
  */
-export const getReplacementStringForPairs = ( reg, fullBlockContent, replaceWithThis ) => {
+export const getReplacementStringForPairs = ( rule, fullBlockContent, replaceWithThis ) => {
 
 	// Get the opening and closing characters of the pair
-	const openPairChar = reg.replace.charAt( 0 )
-	const closPairChar = reg.replace.charAt( reg.replace.length - 1 )
+	const openPairChar = rule.replace.charAt( 0 )
+	const closPairChar = rule.replace.charAt( rule.replace.length - 1 )
 
 	// Get left separator and right separators
-	const leftSep = reg.replace.substring( 1, reg.replace.indexOf( '$' ) ) || ''
+	const leftSep = rule.replace.substring( 1, rule.replace.indexOf( '$' ) ) || ''
 
 	let rightSep = ''
-	if ( 0 !== [ ...reg.replace.matchAll( /[0-9]/g ) ].length ) {
+	if ( 0 !== [ ...rule.replace.matchAll( /[0-9]/g ) ].length ) {
 		// Right separator begins after last number from last capturing group
-		rightSep = reg.replace.substring( [ ...reg.replace.matchAll( /[0-9]/g ) ].pop()['index'] + 1, reg.replace.length -1 )
+		rightSep = rule.replace.substring( [ ...rule.replace.matchAll( /[0-9]/g ) ].pop()['index'] + 1, rule.replace.length -1 )
 	}
 
 	// Check if the character should be opening or closing by testing the odd or even number
@@ -79,7 +79,7 @@ export const getLocalizedRuleSettings = () => {
  */
 export const getLocalizedRules = () => {
 
-	const localizedRules = rules.filter( reg => true === getLocalizedRuleSettings()?.find( s => s.slug === reg.slug )?.value )
+	const localizedRules = rules.filter( rule => true === getLocalizedRuleSettings()?.find( s => s.slug === rule.slug )?.value )
 
 	return localizedRules
 
@@ -94,12 +94,26 @@ export const getLocalizedRules = () => {
 export const moveCursorToNewPosition = cursorOffset => {
 
 	const selection = window.getSelection()
+
+	const selectionStart = getSelectionStart()
 	
 	// Stop here if no selection or if the selection anchor node is null
 	if ( ! selection ) return
 
 	// Get current cursor position
 	let cursorPosition
+
+	// window getSelection doesn't have what we need. Probably RichText case
+	if ( selection.anchorNode === null ) {
+		
+		if ( selectionStart === null || selectionStart?.clientId === null ) {
+			return
+		}
+
+		cursorPosition = selectionStart?.offset || 0
+		selectionChange( selectionStart.clientId, selectionStart.attributeKey, cursorPosition + cursorOffset, cursorPosition + cursorOffset )
+		return
+	}
 
 	// Element node case: we need to get the first text node from the element node
 	if ( selection?.anchorNode?.nodeType === 1 ) {
@@ -113,7 +127,7 @@ export const moveCursorToNewPosition = cursorOffset => {
 
 	// If the cursorOffset is positive, newPosition equals cursorPosition + cursorOffset, else newPosition equals cursorPosition
 	const newPosition = cursorOffset >= 0 ? cursorPosition + cursorOffset : cursorPosition
-
+	
 	// Element node
 	if ( selection?.anchorNode?.nodeType === 1 ) {
 	

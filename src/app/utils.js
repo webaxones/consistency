@@ -28,7 +28,7 @@ export const getAllInnersFromParents = arr => arr.flatMap( ( { innerBlocks, ...r
  * @param {string} blockContent - The block content to extract text from.
  * @returns {string} The extracted text content.
  */
-export const getOnlyTextFromBlockContent = blockContent => {
+export const removeHTMLTagsFromBlockContent = blockContent => {
 
 	// Remove 'code' 'pre' and 'kbd' tags from block content
 	let textContentWithoutCode = blockContent.replace(/<\b(code|pre|kbd)\b>.*?<\/\b(code|pre|kbd)\b>/gi, '')

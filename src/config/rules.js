@@ -20,6 +20,7 @@ export const rules = [
 			+ `<span aria-hidden='true' style='display:block;'><code>'</code> <span style='font-size:20px'>→</span> <code>’</code></span>`, // description of the setting
 		mask: /\'/, // mask
 		replace: '’', // replacement string
+		format: '', // format to apply
 		nbMoved: 0, // number of characters less or more during replacement
 		category: 'apostrophe' // category of the setting
 	},
@@ -31,6 +32,7 @@ export const rules = [
 			+ `<span aria-hidden='true' style='display:block;'><code>--</code> <span style='font-size:20px'>→</span> <code style="font-family:sans-serif;">–</code></span>`,
 		mask: /(?:\-)\-/,
 		replace: '–',
+		format: '',
 		nbMoved: -1,
 		category: 'dash'
 	},
@@ -42,6 +44,7 @@ export const rules = [
 			+ `<span aria-hidden='true' style='display:block;'><code>---</code> <span style='font-size:20px'>→</span> <code style="font-family:sans-serif;">—</code></span>`,
 		mask: /(?:\–|\-\-)\-/,
 		replace: '—',
+		format: '',
 		nbMoved: lastPart => {
 			// Since we replace the string with a symbol, we must move the cursor to the left by the length of the replaced string minus 1 (1 for the symbol itself)
 			return -( lastPart.length - 1 )
@@ -56,6 +59,7 @@ export const rules = [
 			+ `<span aria-hidden='true' style='display:block;'><code>----</code> <span style='font-size:20px'>→</span> <code style="font-family:sans-serif;">⸺</code></span>`,
 		mask: /(?:\—|\–\-|\-\-\-)\-/,
 		replace: '⸺',
+		format: '',
 		nbMoved: lastPart => {
 			// Since we replace the string with a symbol, we must move the cursor to the left by the length of the replaced string minus 1 (1 for the symbol itself)
 			return -( lastPart.length - 1 )
@@ -69,7 +73,8 @@ export const rules = [
 		description: __( 'Add the sup HTML tag to ordinal number suffixes', 'consistency' )
 		+ `<span aria-hidden='true' style='display:block;'><code>1st</code> <span style='font-size:20px'>→</span> <code>1<sup>st</sup></code></span>`,
 		mask: /([10-9]{1,20})(th|nd|rd|e|er|res|d|ds|de|des)( | |\.|\,|\;)/,
-		replace: '$1<sup>$2<\/sup>$3',
+		replace: '$1$2$3',
+		format: 'superscript',
 		nbMoved: 0,
 		category: 'suffixe'
 	},
@@ -81,6 +86,7 @@ export const rules = [
 			+ `<span aria-hidden='true' style='display:block;'><code>" "</code> <span style='font-size:20px'>→</span> <code>“ ”</code></span>`,
 		mask: /"/, // specific mask with specific process
 		replace: '“$1”',
+		format: '',
 		nbMoved: 0,
 		category: 'quotation'
 	},
@@ -92,6 +98,7 @@ export const rules = [
 		+ `<span aria-hidden='true' style='display:block;'><code>" "</code> <span style='font-size:20px'>→</span> <code>„ “</code></span>`,
 		mask: /"/, // specific mask with specific process
 		replace: '„$1“',
+		format: '',
 		nbMoved: 0,
 		category: 'quotation'
 	},
@@ -103,6 +110,7 @@ export const rules = [
 			+ `<span aria-hidden='true' style='display:block;'><code>" "</code> <span style='font-size:20px'>→</span> <code>» «</code></span>`,
 		mask: /"/, // specific mask with specific process
 		replace: '»$1«',
+		format: '',
 		nbMoved: 0,
 		category: 'quotation'
 	},
@@ -114,6 +122,7 @@ export const rules = [
 			+ `<span aria-hidden='true' style='display:block;'><code>" "</code> <span style='font-size:20px'>→</span> <code>«   »</code></span>`,
 		mask: /"/, // specific mask with specific process
 		replace: '« $1 »',
+		format: '',
 		nbMoved: 1,
 		category: 'quotation'
 	},
@@ -125,6 +134,7 @@ export const rules = [
 			+ `<span aria-hidden='true' style='display:block;'><code>" "</code> <span style='font-size:20px'>→</span> <code>« »</code></span>`,
 		mask: /"/, // specific mask with specific process
 		replace: '«$1»',
+		format: '',
 		nbMoved: 0,
 		category: 'quotation'
 	},
@@ -136,6 +146,7 @@ export const rules = [
 			+ `<span aria-hidden='true' style='display:block;'><code>“ ”</code> <span style='font-size:20px'>→</span> <code>«   »</code></span>`,
 		mask: /“.*?”/, // specific mask with specific process
 		replace: matched => { return `« ${matched.substring( 1, matched.length - 1 )} »` },
+		format: '',
 		nbMoved: 0,
 		category: 'quotation'
 	},
@@ -147,6 +158,7 @@ export const rules = [
 			, `<br /><code>? ! : ; » € $ £ ¥ ₽ 元 %</code><br />` ),
 		mask: / ([\?|\!|\:|\;|\»|\€|\$|\£|\¥|\₽|\元|\%])/,
 		replace: ' $1',
+		format: '',
 		nbMoved: 0,
 		category: 'space'
 	},
@@ -158,6 +170,7 @@ export const rules = [
 			, `<br /><code>? ! : ; » € $ £ ¥ ₽ 元 %</code><br />` ),
 		mask: /(?<! | |&nbsp;)([\?|\!|\:|\»|\€|\$|\£|\¥|\₽|\元|\%])/,
 		replace: ' $1',
+		format: '',
 		nbMoved: 1,
 		category: 'space'
 	},
@@ -169,6 +182,7 @@ export const rules = [
 			+ `<span style='display:block;'><code>? ! : ; %</code></span>`,
 		mask: /([ | ])(?=[\?|\!|\:|\;|\%])(.)/,
 		replace: '$2',
+		format: '',
 		nbMoved: -1,
 		category: 'space'
 	},
@@ -180,6 +194,7 @@ export const rules = [
 			, `<br /><code>, … ) ]</code><br />` ),
 		mask: /([\,|\…|\)|\]])(?! | |\.|\,|\d|$)(.)/,
 		replace: '$1 $2',
+		format: '',
 		nbMoved: 1,
 		category: 'space'
 	},
@@ -190,6 +205,7 @@ export const rules = [
 		description: __( 'Add a non-breaking space after open french quote having no space after', 'consistency' ),
 		mask: /(«)(?! | |&nbsp;)/,
 		replace: '$1 ',
+		format: '',
 		nbMoved: 0,
 		category: 'space'
 	},
@@ -200,6 +216,7 @@ export const rules = [
 		description: __( 'Capitalize the first letter of a sentence', 'consistency' ),
 		mask: /(^[a-záàâäãåăçéèêëíìîïñóòôöõúùûüýÿæœșț])|(?<=[\.|\?|\!|\…] )[a-záàâäãåăçéèêëíìîïñóòôöõúùûüýÿæœșț]/,
 		replace: matched => matched.toUpperCase(),
+		format: '',
 		nbMoved: 0,
 		category: 'case'
 	},
@@ -211,6 +228,7 @@ export const rules = [
 		+ `<span aria-hidden='true' style='display:block;'><code>etc...</code> <span style='font-size:20px'>→</span> <code>etc.</code></span>`,
 		mask: /etc(\.{3})/i,
 		replace: matched => { return matched.substring(0, 3) + '.' },
+		format: '',
 		nbMoved: -2,
 		category: 'ellipsis'
 	},
@@ -222,6 +240,7 @@ export const rules = [
 		+ `<span aria-hidden='true' style='display:block;'><code>etc..</code> <span style='font-size:20px'>→</span> <code>etc.</code></span>`,
 		mask: /etc(\.{2})/i,
 		replace: matched => { return matched.substring(0, 2) + '.' },
+		format: '',
 		nbMoved: -1,
 		category: 'ellipsis'
 	},
@@ -233,6 +252,7 @@ export const rules = [
 		+ `<span aria-hidden='true' style='display:block;'><code>etc…</code> <span style='font-size:20px'>→</span> <code>etc.</code></span>`,
 		mask: /etc(\.{3}|…)/i,
 		replace: matched => { return matched.substring(0, 3) + '.' },
+		format: '',
 		nbMoved: 0,
 		category: 'ellipsis'
 	},
@@ -244,6 +264,7 @@ export const rules = [
 			+ `<span aria-hidden='true' style='display:block;'><code>...</code> <span style='font-size:20px'>→</span> <code>…</code></span>`,
 		mask: /\.{3}/,
 		replace: '…',
+		format: '',
 		nbMoved: -2,
 		category: 'ellipsis'
 	},
@@ -265,6 +286,7 @@ export const rules = [
 			}
 			return ' '
 		},
+		format: '',
 		nbMoved: -2,
 		category: 'symbol'
 	},
@@ -289,6 +311,7 @@ export const rules = [
 					return ' '
 			}
 		},
+		format: '',
 		nbMoved: -1,
 		category: 'symbol'
 	},
@@ -339,6 +362,7 @@ export const rules = [
 					return ' '
 			}
 		},
+		format: '',
 		nbMoved: -2,
 		category: 'symbol'
 	},
@@ -363,6 +387,7 @@ export const rules = [
 					return ' ' + matchedLastPart
 			}
 		},
+		format: '',
 		nbMoved: lastPart => {
 			// We remove the last character of the string because the regex check the character after the string to replace
 			const replacedString = lastPart.substring( 0, lastPart.length - 1 )

@@ -2,8 +2,8 @@
 Contributors: webaxones
 Tags: punctuation, typography, block editor, gutenberg
 Requires at least: 6.1
-Tested up to: 6.6
-Stable tag: 1.8.1
+Tested up to: 6.7
+Stable tag: 1.8.2
 Requires PHP: 7.4
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -68,6 +68,11 @@ Absolutely not, since nothing is done on the front end. The processing only occu
 
 
 == Changelog ==
+
+= 1.8.2 =
+* Fix: Fix cursor repositionning which was buggy since wp6.6
+* Fix: Disable number suffix correction while waiting to recode it using formats
+* Add: Indicate compatibility with WordPress 6.7
 
 = 1.8.1 =
 * Fix: Resolves incompatibilities with block plugins such as Kadence, GeneratePress, etc.

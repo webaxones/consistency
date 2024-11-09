@@ -32,7 +32,7 @@ class Plugin
 	 */
 	protected static function setConstants(): void
 	{
-		defined( __NAMESPACE__ . '\VERSION' ) || define( __NAMESPACE__ . '\VERSION', '1.8.1' );
+		defined( __NAMESPACE__ . '\VERSION' ) || define( __NAMESPACE__ . '\VERSION', '1.8.2' );
 		defined( __NAMESPACE__ . '\PLUGIN_URL' ) || define( __NAMESPACE__ . '\PLUGIN_URL', plugin_dir_url( __DIR__ ) );
 		defined( __NAMESPACE__ . '\PLUGIN_PATH' ) || define( __NAMESPACE__ . '\PLUGIN_PATH', plugin_dir_path( __DIR__ ) );
 		defined( __NAMESPACE__ . '\OPTION_GROUP' ) || define( __NAMESPACE__ . '\OPTION_GROUP', 'consistency_plugin' );

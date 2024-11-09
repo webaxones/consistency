@@ -9,18 +9,19 @@
  * WordPress dependencies
  */
 import { select, dispatch } from '@wordpress/data'
+import { applyFormat } from '@wordpress/rich-text'
 
 /**
  * External dependencies
  */
-import { getAllInnersFromParents, getOnlyTextFromBlockContent, getCursorPositionInInnerHTML } from './utils'
+import { getAllInnersFromParents, removeHTMLTagsFromBlockContent, getCursorPositionInInnerHTML } from './utils'
 import { getReplacementStringForPairs, getLocalizedRules } from './helpers'
 import { updateBlockTextContent } from './data'
 import { pairedCharacterSlugs } from '../config/pairedCharacterSlugs'
 import { shouldProcessBlock, canProcessBlock, regDealWithPair } from './checks'
 
 const { getBlock, getBlocks, getBlockAttributes, getSelectionStart, isTyping } = select( 'core/block-editor' )
-const { updateBlockAttributes } = dispatch( 'core/block-editor' )
+const { updateBlockAttributes, updateBlock } = dispatch( 'core/block-editor' )
 
 
 /**
@@ -53,28 +54,32 @@ export const fixIt = props => {
 	let contentUpdated = false
 
 	// Loop on localized rules to check if the block content matches one regex
-	Object.entries( localizedRules ).forEach( ( [ _, reg ] ) => {
+	Object.entries( localizedRules ).forEach( ( [ _, rule ] ) => {
 
 		// Stop correction if block content has already been updated
 		if ( contentUpdated ) return
 
-		let replaceWithThis = reg.replace
+		if ( rule.format !== '' ) return
+
+		const isRichTextValueObject = ( typeof blockAttributes.content === 'object' )
+
+		let replaceWithThis = rule.replace
 		let firstPart = ''
 		let lastPart = ''
 		let cursorPosition = 0
 		let cursorPositionInsideHTML = 0
 		let selectionStart
-
+		let richTextValueObject = ( typeof blockAttributes.content === 'object' ) ? blockAttributes.content : {}
 		let blockContent = ( typeof blockAttributes.content === 'object' ) ? blockAttributes.content.text : blockAttributes.content
-		
+
 		// Remove 'code' 'pre' and 'kbd' and other HTML tags from block content
-		let textContent = getOnlyTextFromBlockContent( blockContent )
+		let textContent = removeHTMLTagsFromBlockContent( blockContent )
 		
 		// Check if the block's text content matches the regex in the case of pasted content 
 		// (isTyping is false but the subscription detected a paste event)
 		let isConcerned = false
 		if ( ! isTyping() ) {
-			isConcerned = reg.mask.test( textContent )
+			isConcerned = rule.mask.test( textContent )
 		}
 		
 		// Splitting content during real-time typing to allow the user to undo a correction
@@ -83,14 +88,13 @@ export const fixIt = props => {
 			
 			// Get cursor position in textContent (without tags): needed for further cursor repositioning
 			selectionStart = getSelectionStart()
-			
 			cursorPosition = selectionStart?.offset || document.getSelection()?.anchorOffset || 0
 
 			// Get cursor position in HTML (with tags): needed to cut in 2 parts at the right position
 			cursorPositionInsideHTML = getCursorPositionInInnerHTML( currentBlockId ) || cursorPosition
 			
 			// If the rule depends on previous characters, we need to separate the string taking those characters into account
-			const captureGroups = textContent.match( reg.mask )
+			const captureGroups = textContent.match( rule.mask )
 			
 			if( null === captureGroups || 0 === captureGroups.length ) return
 			
@@ -103,25 +107,25 @@ export const fixIt = props => {
 			// If first part of the string matches but not the lastPart,
 			// it means that a character has been typed uncorrected voluntarily before with CTRL Z/CMD Z
 			// so it should not be taken into account
-			isConcerned = reg.mask.test( textContent ) && reg.mask.test( lastPart )
+			isConcerned = rule.mask.test( textContent ) && rule.mask.test( lastPart )
 		}
 		
 		// Stop correction if block content isn't concerned by the regex
 		if ( ! isConcerned ) return
-		
+			
 		// Pairing characters need specific process for the replacement
-		if ( regDealWithPair( reg ) ) {
-			replaceWithThis = getReplacementStringForPairs( reg, blockContent, replaceWithThis )
+		if ( regDealWithPair( rule ) ) {
+			replaceWithThis = getReplacementStringForPairs( rule, blockContent, replaceWithThis )
 		}
 		
 		// Concat strings
 		if ( 0 !== cursorPositionInsideHTML ) {
-			blockContent = firstPart + lastPart.replace( reg.mask, replaceWithThis )
+			blockContent = firstPart + lastPart.replace( rule.mask, replaceWithThis )
 		}
 
 		// Pasted content innerBlocks case: no selection, no cursor position so the whole block is fixed 
 		if ( 0 === cursorPositionInsideHTML ) {
-			blockContent = blockContent.replace( reg.mask, reg.replace )
+			blockContent = blockContent.replace( rule.mask, rule.replace )
 		}
 		
 		// If CTRL Z was used just before, skip the correction this time
@@ -129,15 +133,38 @@ export const fixIt = props => {
 			setPreviousFixCanceled( false )
 			return
 		}
-			
+
 		// Update block text content if previous fix was not canceled
-		if ( ! isPreviousFixCanceled ) {
+		if ( ! isPreviousFixCanceled && rule.format === '' ) {
 			contentUpdated = updateBlockTextContent( { block, currentBlockId, blockAttributes, blockContent } )
 		}
 
+		// Apply superscript Format to the replaced string for specific rules
+		// if ( ['ordinalNumberSuffix'].includes( rule.slug ) ) {
+		// 	contentUpdated = true
+
+		// 	const startPos = cursorPosition - 3
+		// 	const endPos = cursorPosition - 1
+		// 	const newFormat = applyFormat(
+		// 		richTextValueObject,
+		// 		{ type: 'superscript' },
+		// 		startPos,
+		// 		endPos
+		// 	)
+		// 	const newAttributes = {
+		// 		...blockAttributes,
+		// 		...newFormat,
+		// 	}
+
+		// 	// updateBlock( currentBlockId, {
+		// 	// 	...block,
+		// 	// 	attributes: { ...blockAttributes, newAttributes }
+		// 	// } )
+		// }
+
 		// Get the number of characters moved by the replacement: needed for cursor repositioning.
 		// If the number depends on the replaced string length, we use a function to get it
-		const nbMoved = typeof reg.nbMoved === 'function' ? reg.nbMoved( lastPart ) : reg.nbMoved || 0
+		const nbMoved = typeof rule.nbMoved === 'function' ? rule.nbMoved( lastPart ) : rule.nbMoved || 0
 		
 		// Set the cursor offset
 		if ( contentUpdated ) {
@@ -181,20 +208,20 @@ export const fixAll = props => {
 			return acc
 		}
 	
-		Object.entries( localizedRules ).forEach( ( [ _, reg ] ) => {
+		Object.entries( localizedRules ).forEach( ( [ _, rule ] ) => {
 
 			// If the rule is a pair rule, we use a specific regex
-			if ( pairedCharacterSlugs.includes( reg.slug ) ) {
-				const singleCharacterOfPair = reg.mask.toString().match( /(?<=\/).+?(?=\/)/g )[0]
+			if ( pairedCharacterSlugs.includes( rule.slug ) ) {
+				const singleCharacterOfPair = rule.mask.toString().match( /(?<=\/).+?(?=\/)/g )[0]
 				const realReg = new RegExp( `(?<!\=)${singleCharacterOfPair}(?!>)([^${singleCharacterOfPair}]*)(?<!\=)${singleCharacterOfPair}(?!>)`, 'g' )
-				newContent = newContent.replaceAll( realReg, reg.replace )
+				newContent = newContent.replaceAll( realReg, rule.replace )
 			}
 
 			// If the rule is not a pair rule, we use the regex as it is
-			if ( ! pairedCharacterSlugs.includes( reg.slug ) ) {
-				const stringRegex = reg.mask.toString()
+			if ( ! pairedCharacterSlugs.includes( rule.slug ) ) {
+				const stringRegex = rule.mask.toString()
 				const regWithGlobalFlag = new RegExp( stringRegex.substring( 1, stringRegex.length - 1 ), 'g' )
-				newContent = newContent.replaceAll( regWithGlobalFlag, reg.replace )
+				newContent = newContent.replaceAll( regWithGlobalFlag, rule.replace )
 			}
 			
 		} )
