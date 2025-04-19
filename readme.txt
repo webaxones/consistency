@@ -2,8 +2,8 @@
 Contributors: webaxones
 Tags: punctuation, typography, block editor, gutenberg
 Requires at least: 6.1
-Tested up to: 6.7
-Stable tag: 1.8.2
+Tested up to: 6.8
+Stable tag: 1.8.3
 Requires PHP: 7.4
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -69,6 +69,9 @@ Absolutely not, since nothing is done on the front end. The processing only occu
 
 == Changelog ==
 
+= 1.8.3 =
+* Add: Indicate compatibility with WordPress 6.8
+
 = 1.8.2 =
 * Fix: Fix cursor repositionning which was buggy since wp6.6
 * Fix: Disable number suffix correction while waiting to recode it using formats
@@ -80,13 +83,5 @@ Absolutely not, since nothing is done on the front end. The processing only occu
 
 = 1.8.0 =
 * Update: code refactoring (replace global variables with global context, some functions with custom hooks, and allow to process more blocks)
-
-= 1.7.1 =
-* Fix: Ensures in all cases to only use rules authorized by local parameters
-
-= 1.7.0 =
-* Add: Add the ability to display all correction rules regardless of the current locale with a filter (Consistency\only_show_locale_correction_rules)
-* Add: Prevents incompatible fixes from being enabled when locale limiting has been disabled by the filter
-* Add: Update readme
 
 See [changelog.txt](https://plugins.svn.wordpress.org/consistency/trunk/changelog.txt) for older changelog

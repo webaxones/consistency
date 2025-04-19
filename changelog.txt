@@ -2,6 +2,14 @@
 
 This file contains only old changelog. See readme.txt for newer versions.
 
+= 1.7.1 =
+* Fix: Ensures in all cases to only use rules authorized by local parameters
+
+= 1.7.0 =
+* Add: Add the ability to display all correction rules regardless of the current locale with a filter (Consistency\only_show_locale_correction_rules)
+* Add: Prevents incompatible fixes from being enabled when locale limiting has been disabled by the filter
+* Add: Update readme
+
 = 1.6.5 =
 * Fix: Fix version number in main PHP file
 

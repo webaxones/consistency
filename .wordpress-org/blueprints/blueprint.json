@@ -1,7 +1,7 @@
 {
 	"landingPage": "/wp-admin/post.php?post=1&action=edit",
 	"preferredVersions": {
-		"php": "8.0",
+		"php": "8.1",
 		"wp": "latest"
 	},
 	"features": {
