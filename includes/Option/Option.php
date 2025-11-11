@@ -61,13 +61,14 @@ class Option implements ActionInterface
 	 */
 	public function add(): void
 	{
-		if ( null !== $this->get() ) {
-			$this->update( $this->optionName, $this->get(), $this->value );
+		$currentValue = $this->get();
+
+		if ( null === $currentValue ) {
+			add_option( $this->optionName, $this->value );
+			return;
 		}
 
-		if ( null === $this->get() ) {
-			add_option( $this->optionName, $this->value );
-		}
+		$this->update();
 	}
 
 	/**
@@ -88,12 +89,23 @@ class Option implements ActionInterface
 			return;
 		}
 
-		$difference = $this->getDifferenceBetweenTwoObjectArray( (array) $this->get(), (array) $this->value );
+		$currentValue = $this->get();
 
-		if ( empty( $difference ) ) {
+		if ( ! is_array( $currentValue ) ) {
+			update_option( $this->optionName, $this->value );
 			return;
 		}
 
-		update_option( $this->optionName, $difference );
+		// Keep user overrides while aligning with the latest schema.
+		$normalizedValues = $this->synchronizeObjectArraysBySlug(
+			(array) $currentValue,
+			(array) $this->value
+		);
+
+		if ( $normalizedValues === $currentValue ) {
+			return;
+		}
+
+		update_option( $this->optionName, $normalizedValues );
 	}
 }

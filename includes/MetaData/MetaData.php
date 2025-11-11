@@ -135,12 +135,30 @@ class MetaData implements ActionInterface, DataValueInterface
 	 */
 	public function update(): void
 	{
-		$difference = $this->getDifferenceBetweenTwoObjectArray( (array) $this->currentValue, (array) $this->value );
-
-		if ( empty( $difference ) ) {
+		if ( ! is_array( $this->value ) ) {
+			update_metadata( $this->object->getType(), $this->object->getId(), $this->metaKey, $this->value, '' );
 			return;
 		}
 
-		update_metadata( $this->object->getType(), $this->object->getId(), $this->metaKey, $difference, '' );
+		if ( null === $this->currentValue ) {
+			$this->fetchAndSetCurrentValue();
+		}
+
+		if ( ! is_array( $this->currentValue ) ) {
+			update_metadata( $this->object->getType(), $this->object->getId(), $this->metaKey, $this->value, '' );
+			return;
+		}
+
+		// Keep user overrides while aligning with the latest schema.
+		$normalizedValues = $this->synchronizeObjectArraysBySlug(
+			(array) $this->currentValue,
+			(array) $this->value
+		);
+
+		if ( $normalizedValues === $this->currentValue ) {
+			return;
+		}
+
+		update_metadata( $this->object->getType(), $this->object->getId(), $this->metaKey, $normalizedValues, '' );
 	}
 }

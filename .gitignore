@@ -43,3 +43,9 @@ phpcs.xml
 
 # Mac files
 .DS_Store
+
+# GitHub assistant assets
+.github/chat-modes/
+.github/instructions/
+.github/prompts/
+.github/copilot-instructions.md

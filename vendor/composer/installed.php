@@ -3,7 +3,7 @@
         'name' => 'webaxones/consistency',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'e595262819000eef15c4a7d1d98f998f376acf4f',
+        'reference' => '67486ad7060c7aa3f7a3d3f928413842f601bbb5',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -33,7 +33,7 @@
             'version' => 'dev-latest',
             'reference' => '0ec6bad5f4523eda2514e89d5ea48cde6ebe7f99',
             'type' => 'metapackage',
-            'install_path' => NULL,
+            'install_path' => null,
             'aliases' => array(
                 0 => '9999999-dev',
             ),
@@ -51,7 +51,7 @@
         'webaxones/consistency' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'e595262819000eef15c4a7d1d98f998f376acf4f',
+            'reference' => '67486ad7060c7aa3f7a3d3f928413842f601bbb5',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

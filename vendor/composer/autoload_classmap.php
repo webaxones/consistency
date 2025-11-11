@@ -10,6 +10,7 @@ return array(
     'PHPCSStandards\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin' => $vendorDir . '/dealerdirect/phpcodesniffer-composer-installer/src/Plugin.php',
     'Webaxones\\Consistency\\Asset\\Asset' => $baseDir . '/includes/Asset/Asset.php',
     'Webaxones\\Consistency\\Config\\Languages' => $baseDir . '/includes/Config/Languages.php',
+    'Webaxones\\Consistency\\Config\\LocalizationManagement' => $baseDir . '/includes/Config/LocalizationManagement.php',
     'Webaxones\\Consistency\\Config\\LocalizedRules' => $baseDir . '/includes/Config/LocalizedRules.php',
     'Webaxones\\Consistency\\Config\\RestSchema' => $baseDir . '/includes/Config/RestSchema.php',
     'Webaxones\\Consistency\\Config\\UserSettings' => $baseDir . '/includes/Config/UserSettings.php',
