@@ -1,6 +1,6 @@
 /**
  * @summary: UserSettingToggle component.
- * 
+ *
  * This file contains the UserSettingToggle component used to display the plugin's user settings in sidebar.
  * @author Loïc Antignac.
  */
@@ -8,7 +8,7 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n'
+import { __, sprintf } from '@wordpress/i18n'
 import { useDispatch, useSelect } from '@wordpress/data'
 import { ToggleControl } from '@wordpress/components'
 import { store as coreStore, useEntityProp } from '@wordpress/core-data'

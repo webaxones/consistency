@@ -9,7 +9,7 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n'
+import { __, sprintf } from '@wordpress/i18n'
 
 export const rules = [
 	{
@@ -397,4 +397,3 @@ export const rules = [
 		category: 'symbol'
 	},
 ]
-

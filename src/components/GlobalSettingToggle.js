@@ -1,6 +1,6 @@
 /**
  * @summary: GlobalSettingToggle component.
- * 
+ *
  * This file contains the GlobalSettingToggle component used to display the plugin's global settings in sidebar.
  * @author Loïc Antignac.
  */
@@ -8,7 +8,7 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n'
+import { __, sprintf } from '@wordpress/i18n'
 import { useDispatch } from '@wordpress/data'
 import { PanelRow, ToggleControl } from '@wordpress/components'
 import { store as coreStore, useEntityProp } from '@wordpress/core-data'

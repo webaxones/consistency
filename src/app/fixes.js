@@ -120,7 +120,18 @@ export const fixIt = props => {
 		
 		// Concat strings
 		if ( 0 !== cursorPositionInsideHTML ) {
-			blockContent = firstPart + lastPart.replace( rule.mask, replaceWithThis )
+			const typedReplacement = getTypedReplacementResult( {
+				firstPart,
+				lastPart,
+				mask: rule.mask,
+				replaceValue: replaceWithThis
+			} )
+
+			if ( typedReplacement === null ) {
+				return
+			}
+
+			blockContent = typedReplacement
 		}
 
 		// Pasted content innerBlocks case: no selection, no cursor position so the whole block is fixed 
@@ -247,4 +258,40 @@ export const fixAll = props => {
 
 	} )
 
+}
+
+/**
+ * Compute updated text content when applying a replacement at the cursor position.
+ *
+ * @param  {Object} props Replacement context.
+ * @param  {string} props.firstPart Text preceding the replaced fragment.
+ * @param  {string} props.lastPart Text starting at the fragment to replace.
+ * @param  {RegExp} props.mask Regular expression used for the replacement.
+ * @param  {string|Function} props.replaceValue Replacement value or callback.
+ * @return {string|null}
+ */
+const getTypedReplacementResult = ( { firstPart, lastPart, mask, replaceValue } ) => {
+	if ( typeof lastPart !== 'string' ) {
+		return null
+	}
+
+	let hasReplacement = false
+
+	const replacementResult = lastPart.replace( mask, ( ...args ) => {
+		hasReplacement = true
+		const match = args[0]
+
+		if ( typeof replaceValue === 'function' ) {
+			return replaceValue( ...args )
+		}
+
+		const localMask = new RegExp( mask.source, mask.flags )
+		return match.replace( localMask, replaceValue )
+	} )
+
+	if ( ! hasReplacement ) {
+		return null
+	}
+
+	return firstPart + replacementResult
 }
