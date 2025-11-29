@@ -2,8 +2,8 @@
 Contributors: webaxones
 Tags: punctuation, typography, block editor, gutenberg
 Requires at least: 6.1
-Tested up to: 6.8
-Stable tag: 1.8.3
+Tested up to: 6.9
+Stable tag: 1.8.4
 Requires PHP: 7.4
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -68,6 +68,10 @@ Absolutely not, since nothing is done on the front end. The processing only occu
 
 
 == Changelog ==
+
+= 1.8.4 =
+* Correctif : enregistrement des réglages fiabilisé.
+* Correctif : ajustement de sprintf pour garantir la compatibilité avec WordPress 6.9.
 
 = 1.8.3 =
 * Add: Indicate compatibility with WordPress 6.8

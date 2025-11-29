@@ -147,4 +147,3 @@ This file contains only old changelog. See readme.txt for newer versions.
 = 1.0.0 =
 
 * Plugin initial commit. Let's write =^.^=
-
