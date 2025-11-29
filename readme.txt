@@ -70,8 +70,8 @@ Absolutely not, since nothing is done on the front end. The processing only occu
 == Changelog ==
 
 = 1.8.4 =
-* Correctif : enregistrement des réglages fiabilisé.
-* Correctif : ajustement de sprintf pour garantir la compatibilité avec WordPress 6.9.
+* Fix: settings saving reliability.
+* Fix: sprintf compatibility for WordPress 6.9.
 
 = 1.8.3 =
 * Add: Indicate compatibility with WordPress 6.8
