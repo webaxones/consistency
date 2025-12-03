@@ -56,10 +56,10 @@ class Setup implements ActionInterface
 	 *
 	 * @return void
 	 */
-	public static function onUnstallation(): void
+	public static function onUninstallation(): void
 	{
 		delete_option( 'consistency_plugin_settings' );
-	 	delete_metadata( 'user', 0, 'consistency_plugin_setting_state', '', true );
+		delete_metadata( 'user', 0, 'consistency_plugin_setting_state', '', true );
 		delete_metadata( 'user', 0, 'consistency_plugin_user_settings', '', true );
 	}
 }
