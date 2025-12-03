@@ -42,9 +42,9 @@ class Hook
 		$actions = $object->getActions();
 
 		foreach ( $actions as $actionName => $actionSettings ) {
-			$method   = $actionSettings[0] ?? '';
-			$priority = $actionSettings[1] ?? 10;
-			$args     = $actionSettings[2] ?? 1;
+			$method   = $actionSettings[ 0 ] ?? '';
+			$priority = $actionSettings[ 1 ] ?? 10;
+			$args     = $actionSettings[ 2 ] ?? 1;
 			add_action( $actionName, [ $object, $method ], $priority, $args );
 		}
 	}
@@ -60,10 +60,10 @@ class Hook
 	{
 		$filters = $object->getFilters();
 
-		foreach ($filters as $filterName => $filterSettings) {
-			$method   = $filterSettings[0] ?? '';
-			$priority = $filterSettings[1] ?? 10;
-			$args     = $filterSettings[2] ?? 1;
+		foreach ( $filters as $filterName => $filterSettings ) {
+			$method   = $filterSettings[ 0 ] ?? '';
+			$priority = $filterSettings[ 1 ] ?? 10;
+			$args     = $filterSettings[ 2 ] ?? 1;
 
 			add_filter( $filterName, [ $object, $method ], $priority, $args );
 		}
