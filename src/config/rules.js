@@ -11,6 +11,8 @@
  */
 import { __, sprintf } from '@wordpress/i18n'
 
+const percentagesMask = /(0\/0|0\/00|0\/000)(?= | |\.|\,|\;|\:|\)|\]|\})(.)/
+
 export const rules = [
 	{
 		// Replaces straight apostrophes with curly apostrophes
@@ -372,7 +374,7 @@ export const rules = [
 		name: __( 'Percentages', 'consistency' ),
 		description: __( 'Replaces percentages with percentages symbols:', 'consistency' )
 			+ `<span aria-hidden='true' style='display:block;'><code>0/0 0/00 0/000</code> <span style='font-size:20px'>→</span> <code>% ‰ ‱</code></span>`,
-		mask: /(0\/0|0\/00|0\/000)(?= | |\.|\,|\;|\:|\)|\]|\})(.)/,
+		mask: percentagesMask,
 		replace: matched => {
 			const matchedFirstPart = matched.substring( 0, matched.length - 1 )
 			const matchedLastPart = matched.substring( matched.length - 1, matched.length )
@@ -389,8 +391,11 @@ export const rules = [
 		},
 		format: '',
 		nbMoved: lastPart => {
-			// We remove the last character of the string because the regex check the character after the string to replace
-			const replacedString = lastPart.substring( 0, lastPart.length - 1 )
+			const matchResult = lastPart.match( percentagesMask )
+			if ( ! matchResult ) return 0
+
+			// We remove the last character of the matched string because the regex consumes the following delimiter
+			const replacedString = matchResult[ 0 ].substring( 0, matchResult[ 0 ].length - 1 )
 			// Since we replace the string with a symbol, we must move the cursor to the left by the length of the replaced string minus 1 (1 for the symbol itself)
 			return -( replacedString.length - 1 )
 		},
