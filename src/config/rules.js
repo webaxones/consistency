@@ -239,7 +239,7 @@ export const rules = [
 		description: __( 'Replace 2 dots placed after the abbreviation "etc" with a period:', 'consistency' )
 		+ `<span aria-hidden='true' style='display:block;'><code>etc..</code> <span style='font-size:20px'>→</span> <code>etc.</code></span>`,
 		mask: /etc(\.{2})/i,
-		replace: matched => { return matched.substring(0, 2) + '.' },
+		replace: matched => { return matched.substring( 0, 3 ) + '.' },
 		format: '',
 		nbMoved: -1,
 		category: 'ellipsis'
